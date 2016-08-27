@@ -8,6 +8,8 @@ import pydot
 
 from sklearn.cross_validation import train_test_split
 from sklearn.base import BaseEstimator, TransformerMixin
+
+
 from sklearn.preprocessing import *
 from sklearn.feature_extraction import *
 from sklearn.feature_extraction.text import *
@@ -39,20 +41,45 @@ class MissingStringValueSubstituter(BaseEstimator, TransformerMixin):
 
     def transform(self, X):
     	for x in self.cols:
-    		X[x].astype(str)
+    		X[x]=X[x].astype(str)
     		X[x]=X[x].replace('nan','')
         return X
 
     def fit(self, X, y=None):
         return self
 
+class MissingValueImputer(BaseEstimator,TransformerMixin):
+    
+    def __init__(self,col=None):
+        self.mean=0;
+        self.col=col
+    
+    def transform(self,X):
+        X[self.col]=X[self.col].fillna(self.mean)
+        return X
+    
+    def fit(self,X,y=None):
+        # self.mean = X[self.col].mean()
+        return self
+
+
 ##########################################Main function start#####################
 
-ticket_list=pd.read_csv('data/ticket.csv',header=0);
-ticket_list=ticket_list.set_index(pd.Series(range(0,ticket_list.shape[0])));
+#data import
 
+ticket_list=pd.read_csv('data/ticket.csv',header=0);
+total_time_spend=pd.read_csv('data/totalTimeSpent.csv',header=2);
+
+#ticket list sanitizer
+ticket_list=ticket_list.set_index(pd.Series(range(0,ticket_list.shape[0])));
 RemoveUnwantedCols([u'Unnamed: 1']).fit_transform(ticket_list)
 MissingStringValueSubstituter([u'Assigned To',u'L3 Ticket']).fit_transform(ticket_list)
 
-print ticket_list.head()
-# print pd.Series(range(0,ticket_list.shape[0]))
+#total time spent sanitizer
+tts_columns = pd.Series(total_time_spend.columns)
+tts_columns[0] = "Resource"
+total_time_spend.columns = tts_columns
+total_time_spend = MissingStringValueSubstituter([u'Remarks']).fit_transform(total_time_spend)
+total_time_spend = MissingValueImputer('Non-work days (Leaves/ trainings)').fit_transform(total_time_spend)
+total_time_spend = MissingValueImputer('Net work days/ employee').fit_transform(total_time_spend)
+
