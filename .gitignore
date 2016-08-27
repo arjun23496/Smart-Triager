@@ -87,3 +87,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+
+# database test files
+triager/data/
