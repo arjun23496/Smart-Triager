@@ -134,8 +134,8 @@ def trainer():
 
     #Classifier Architecture
 
-    learner = LinearSVC()
-    # learner = GaussianNB()
+    # learner = LinearSVC()
+    learner = GaussianNB()
 
     comments_extractor = Pipeline([
                             ('selector', ColumnSelector('comments')),
@@ -154,7 +154,7 @@ def trainer():
 
     clf_pipeline = Pipeline([
                             ('feature_extractor_pre', all_feature_extractor),
-                            # ('sparse_to_dense', ConvertSparseToDense()),
+                            ('sparse_to_dense', ConvertSparseToDense()),
                             ('learner', learner)
                         ])
 
@@ -177,7 +177,8 @@ def trainer():
     print 'model training started'
     print dataf_train.shape
     print actual_Y['train'].shape
-    learned_model = clf_pipeline.fit_transform(dataf_train_X,actual_Y['train'])
+    learned_model = clf_pipeline.fit(dataf_train_X,actual_Y['train'])
+    # learned_model = learner.fit(learned_model, actual_Y['train'])
     print 'model training complete'
 
     pred_prob_Y = {}
