@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from scipy.sparse import csr_matrix, find
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.feature_extraction.text import *
+from sklearn.feature_selection import *
 from sklearn.pipeline import FeatureUnion,Pipeline
 from sklearn import metrics
 
@@ -57,6 +58,19 @@ class ConvertSparseToDense(BaseEstimator, TransformerMixin):
         return self
 
 #Classification metrics
+def multiclass_classification_metrics_report(actual_Y,pred_prob_Y, modes, cutoff):
+    for i in modes:
+        print "Case: ",i
+        labels =actual_Y[i]
+        preds =pred_prob_Y[i]
+        print preds.shape
+        preds_cutoff = preds
+        print "Classification Metrics"
+        print  metrics.classification_report(labels, preds_cutoff)
+        print "Confusion Matrix"
+        print metrics.confusion_matrix(labels, preds_cutoff)    
+        print "Accuracy is", 100*metrics.accuracy_score(labels,preds_cutoff), "\n"
+
 def classification_metrics_report(actual_Y,pred_prob_Y, modes, cutoff):
     for i in modes:
         print "Case: ",i
@@ -103,7 +117,7 @@ def plot_auc_curves(actual_Y,pred_prob_Y,modes):
 
 ##########################################Main function start#####################
 
-def trainer():
+def trainer(predict_field='category'):
 
     couchi = CouchInterface()
     dataf = pd.DataFrame(couchi.get_all_documents('triager_tickets'))
@@ -112,19 +126,21 @@ def trainer():
     dataf_test = []
     
     #Test-train-split
-    categories = pd.unique(dataf['category'])
+    categories = pd.unique(dataf[predict_field])
+
+    print categories
 
     min = None
     for x in categories:
-        i = len(dataf[dataf['category'] == x])
+        i = len(dataf[dataf[predict_field] == x])
         if i < min or min == None:
             min = i
 
     split = int(math.floor(0.6*min))
 
     for x in categories:
-        dataf_train.append(dataf[dataf['category'] == x][0:split])
-        dataf_test.append(dataf[dataf['category'] == x][split:])
+        dataf_train.append(dataf[dataf[predict_field] == x][0:split])
+        dataf_test.append(dataf[dataf[predict_field] == x][split:])
 
     dataf_train = pd.concat(dataf_train)
     dataf_test = pd.concat(dataf_test)
@@ -132,10 +148,13 @@ def trainer():
     vectorizer = TfidfVectorizer(analyzer='word',lowercase=True, max_df=0.90, min_df=1, stop_words='english', decode_error='ignore')
     terms_tfidf = vectorizer.fit_transform(dataf_train['comments'])
 
-    #Classifier Architecture
+    #################################################Classifier Architecture
 
     learner = LinearSVC()
     # learner = GaussianNB()
+
+    # Feature selection transformer
+    feature_selector = SelectKBest(score_func=chi2,k=50)
 
     comments_extractor = Pipeline([
                             ('selector', ColumnSelector('comments')),
@@ -155,19 +174,22 @@ def trainer():
     clf_pipeline = Pipeline([
                             ('feature_extractor_pre', all_feature_extractor),
                             # ('sparse_to_dense', ConvertSparseToDense()),
+                            ('feature_selector', feature_selector),
                             ('learner', learner)
                         ])
 
     target_transformer = Pipeline([
-                            ('label_converter', ConvertCategoricalToInteger('category')),
+                            ('label_converter', ConvertCategoricalToInteger(predict_field)),
                             ('df_to_vector', ConvertDFToVector())
                         ])
+
+    ###################################################Classifier Architecture End
 
     actual_Y = {}
     dataf_train_X = dataf_train[['detail','comments']]
     dataf_test_X = dataf_test[['detail','comments']]
-    dataf_train_Y = dataf_train[['category']]
-    dataf_test_Y = dataf_test[['category']]
+    dataf_train_Y = dataf_train[[predict_field]]
+    dataf_test_Y = dataf_test[[predict_field]]
 
     actual_Y['train'] = target_transformer.fit_transform(dataf_train_Y)
     actual_Y['test'] = target_transformer.fit_transform(dataf_test_Y)
@@ -184,11 +206,17 @@ def trainer():
     pred_prob_Y['train'] = clf_pipeline.predict(dataf_train)
     pred_prob_Y['test'] = clf_pipeline.predict(dataf_test)
 
+    print "train prediction"
     print pred_prob_Y['train']
+    print "train actual"
     print actual_Y['train']
+    print "test prediction"
     print pred_prob_Y['test']
+    print "train actual"
     print actual_Y['test']
 
-    classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
+    # classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
+    multiclass_classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
 
-trainer()
+# trainer()
+trainer('severity')

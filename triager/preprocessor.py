@@ -94,5 +94,5 @@ class Tickets:
 	# def predict_category() #Predict the category field of unknown category tickets
 		
 
-# tkt = Tickets()
-# tkt.upload_tickets()
+tkt = Tickets()
+tkt.upload_tickets()
