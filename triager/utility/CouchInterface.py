@@ -1,7 +1,10 @@
 import couchdb
 import json
 import progressbar
+import sys  
 
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
 class CouchInterface:
 

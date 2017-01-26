@@ -8,7 +8,7 @@ class Ticket(Document):
 	service_offering = TextField()
 	action = TextField()
 	action_past_tense = TextField()
-	action_date = DateTimeField(default=datetime.now)
+	action_date = DateTimeField()
 	status = TextField()
 	assigned_to_csr = TextField()
 	performed_by_csr = TextField()
