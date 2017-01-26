@@ -180,7 +180,7 @@ def trainer(predict_field='category', split_factor=0.9, restricted_categories=[]
     clf_pipeline = Pipeline([
                             ('feature_extractor_pre', all_feature_extractor),
                             ('sparse_to_dense', ConvertSparseToDense()),#nb-change
-                            ('feature_selector', feature_selector),
+                            # ('feature_selector', feature_selector),
                             # ('learner', learner)
                         ])
 

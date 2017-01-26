@@ -135,7 +135,7 @@ def trainer(predict_field='category', split_factor=0.9, restricted_categories=[]
     #Test-train-split
     categories = pd.unique(dataf[predict_field])
 
-    dataf = dataf.sample(frac=1)
+    # dataf = dataf.sample(frac=1)
 
     mini = dataf.shape[0]
 
