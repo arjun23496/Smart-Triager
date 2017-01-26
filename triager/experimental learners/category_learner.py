@@ -14,23 +14,22 @@ from sklearn import metrics
 #learners
 from sklearn.svm import LinearSVC
 from sklearn.naive_bayes import GaussianNB
-from sklearn.naive_bayes import BernoulliNB
 
 from utility.CouchInterface import CouchInterface
 
 ########################################## Transformers ##########################
 
 class ConvertCategoricalToInteger(BaseEstimator, TransformerMixin):
-    def __init__(self, categories, col=None):
+    def __init__(self, col=None):
         self.col = col
-        self.categories = categories
+        self.categories = []
 
     def transform(self, X):
         X[self.col] = pd.Categorical.from_array(X[self.col],categories=self.categories).codes
         return X
 
     def fit(self, X, y=None):
-        # self.categories = pd.unique(X[self.col])
+        self.categories = pd.unique(X[self.col])
         return self
 
 
@@ -118,46 +117,57 @@ def plot_auc_curves(actual_Y,pred_prob_Y,modes):
 
 ##########################################Main function start#####################
 
-def trainer(predict_field='category', split_factor=0.9, restricted_categories=[], restrict_prediction=False):
+def trainer(predict_field='category', split_factor=0.6, restrict_prediction=False, restricted_categories=[]):
 
     couchi = CouchInterface()
     dataf = pd.DataFrame(couchi.get_all_documents('triager_tickets'))
 
-    if restrict_prediction:
-        dataf = dataf[dataf[predict_field].isin(restricted_categories)]
-
     dataf_train = []
     dataf_test = []
-
-    if not restrict_prediction:
-        restricted_categories = pd.unique(dataf[predict_field])
     
     #Test-train-split
     categories = pd.unique(dataf[predict_field])
 
-    dataf = dataf.sample(frac=1)
+    mini = None
+    purge_index = []
+    index = -1
+    for x in categories:
+        index = index + 1
 
-    mini = dataf.shape[0]
+        if restrict_prediction and (x not in restricted_categories):
+            continue
+
+        i = len(dataf[dataf[predict_field] == x])
+
+        if mini == None or i < mini:
+            mini = i
+    
+    # categories = np.delete(categories, purge_index)
+    # print categories
 
     split = int(math.floor(split_factor*mini))
     print "Split of train-test : ", split
 
-    # dataf_train = pd.concat(dataf_train)
-    # dataf_test = pd.concat(dataf_test)
+    for x in categories:
+        if not restrict_prediction:
+            dataf_train.append(dataf[dataf[predict_field] == x][0:split])
+            dataf_test.append(dataf[dataf[predict_field] == x][split:])
+        else:
+            if x in restricted_categories:
+                dataf_train.append(dataf[dataf[predict_field] == x][0:split])
+                dataf_test.append(dataf[dataf[predict_field] == x][split:])
 
+    dataf_train = pd.concat(dataf_train)
+    dataf_test = pd.concat(dataf_test)
     # dataf_test = dataf_test[0:int(split*(1-split_factor))]
-
-    dataf_train = dataf.copy()[1:split]
-    dataf_test = dataf.copy()[split:]
 
     vectorizer = TfidfVectorizer(analyzer='word',lowercase=True, max_df=0.90, min_df=1, stop_words='english', decode_error='ignore')
     terms_tfidf = vectorizer.fit_transform(dataf_train['comments'])
 
     #################################################Classifier Architecture
 
-    # learner = LinearSVC()
+    learner = LinearSVC()
     # learner = GaussianNB()
-    learner = BernoulliNB()
 
     # Feature selection transformer
     feature_selector = SelectKBest(score_func=chi2,k=50)
@@ -181,11 +191,11 @@ def trainer(predict_field='category', split_factor=0.9, restricted_categories=[]
                             ('feature_extractor_pre', all_feature_extractor),
                             ('sparse_to_dense', ConvertSparseToDense()),#nb-change
                             ('feature_selector', feature_selector),
-                            # ('learner', learner)
+                            ('learner', learner)
                         ])
 
     target_transformer = Pipeline([
-                            ('label_converter', ConvertCategoricalToInteger(col=predict_field, categories=restricted_categories)),
+                            ('label_converter', ConvertCategoricalToInteger(predict_field)),
                             ('df_to_vector', ConvertDFToVector())
                         ])
 
@@ -205,17 +215,13 @@ def trainer(predict_field='category', split_factor=0.9, restricted_categories=[]
     print 'model training started'
     print dataf_train.shape
     print actual_Y['train'].shape
-    # learned_model = clf_pipeline.fit(dataf_train_X,actual_Y['train'])
-    learned_model = clf_pipeline.fit_transform(dataf_train_X,actual_Y['train']) #nb-change
-    learned_model = learner.fit(learned_model,actual_Y['train'])
-    # clf_pipeline = learner
+    learned_model = clf_pipeline.fit_transform(dataf_train_X,actual_Y['train'])
+    # learned_model = clf_pipeline.fit(dataf_train_X,actual_Y['train']) #nb-change
     print 'model training complete'
 
     pred_prob_Y = {}
-    temp = clf_pipeline.transform(dataf_train)
-    pred_prob_Y['train'] = learner.predict(temp)
-    temp = clf_pipeline.transform(dataf_test)
-    pred_prob_Y['test'] = learner.predict(temp)
+    pred_prob_Y['train'] = clf_pipeline.predict(dataf_train)
+    pred_prob_Y['test'] = clf_pipeline.predict(dataf_test)
 
     print "train prediction"
     print "train size: ", len(pred_prob_Y['train'])
@@ -225,13 +231,11 @@ def trainer(predict_field='category', split_factor=0.9, restricted_categories=[]
     print "test prediction"
     print "test size: ", len(pred_prob_Y['test'])
     print pred_prob_Y['test']
-    print "test actual"
+    print "train actual"
     print actual_Y['test']
 
     # classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
     multiclass_classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
-    for x in range(0, len(restricted_categories)):
-        print x," : ",restricted_categories[x]
 
 # trainer()
 # trainer('severity')
