@@ -1,16 +1,25 @@
 from utility.MLStripper import MLStripper
 from utility.CouchInterface import CouchInterface 
 from mappings.Ticket import Ticket
+
+import pandas as pd
+
 import datetime
+import mappings.Ticket as mapping
 
 class Tickets:
-
 	def strip_tags(self, html): #helper function to sanitize html tags in comments
 	    s = MLStripper()
 	    s.feed(html)
 	    return s.get_data()
 
-	def upload_tickets(self, file_path="data/Ticket_list.xlsx", worksheet="Tickets in Queue with History", upload=True):
+	def upload_tickets_csv(self, file_path="data/Ticket_list.csv", upload=True):
+		df = pd.read_csv(file_path)
+		print df.describe()
+		print df.columns
+		print mapping.csv_mapping
+
+	def upload_tickets_xlsx(self, file_path="data/Ticket_list.xlsx", worksheet="Tickets in Queue with History", upload=True):
 		from openpyxl import load_workbook
 		
 		wb = load_workbook(file_path, read_only=True)
@@ -92,7 +101,3 @@ class Tickets:
 		return document_ord
 	###Use these functions only if data is available in the database
 	# def predict_category() #Predict the category field of unknown category tickets
-		
-
-tkt = Tickets()
-tkt.upload_tickets()

@@ -21,3 +21,25 @@ class Ticket(Document):
 	alert_indicator = TextField()
 	alert_comments = TextField()
 	detail = TextField()
+
+csv_mapping = {
+	"Ticket Number": "ticket_number",
+	"Alert Indicator": "alert_indicator",
+	"Alert Comments": "alert_comments",
+    "Assigned To (CSR)": "assigned_to_csr",
+    "Performed By (CSR)": "performed_by_csr",
+    "Account Name": "account_name",
+    "Status": "status",
+    "Severity": "severity",
+    "Service Offering": "service_offering",
+    "New Queue": "new_queue",
+    "Action": "action",
+    "Action Past Tense": "action_past_tense",
+    "Action Date": "action_date",
+    "Details": "detail",
+    "Category": "category",
+    "Summary": "summary",
+    "Additional Info 1": "additional_info_1",
+    "Additional Info 2": "additional_info_2",
+    "Comments": "comments"
+}

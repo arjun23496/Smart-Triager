@@ -219,4 +219,4 @@ def trainer(predict_field='category'):
     multiclass_classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
 
 # trainer()
-trainer('severity')
+# trainer('severity')
