@@ -233,5 +233,9 @@ def trainer(predict_field='category', split_factor=0.9, restricted_categories=[]
     for x in range(0, len(restricted_categories)):
         print x," : ",restricted_categories[x]
 
+    predictors = [ clf_pipeline, learner ]
+
+    return predictors
+
 # trainer()
 # trainer('severity')

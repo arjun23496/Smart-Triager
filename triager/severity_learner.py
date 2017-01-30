@@ -20,19 +20,19 @@ from utility.CouchInterface import CouchInterface
 
 ########################################## Transformers ##########################
 
-class ConvertCategoricalToInteger(BaseEstimator, TransformerMixin):
+class ConvertCategoricalToBinary(BaseEstimator, TransformerMixin):
     def __init__(self, categories, col=None):
         self.col = col
         self.categories = categories
 
     def transform(self, X):
-        X[self.col] = pd.Categorical.from_array(X[self.col],categories=self.categories).codes
+        # X[self.col] = pd.Categorical.from_array(X[self.col],categories=self.categories).codes
+        X[self.col] = X[self.col].apply(lambda x: 1 if x in self.categories else 0)
         return X
 
     def fit(self, X, y=None):
         # self.categories = pd.unique(X[self.col])
         return self
-
 
 class ColumnSelector(BaseEstimator,TransformerMixin):
     def __init__(self, col):
@@ -83,9 +83,11 @@ def classification_metrics_report(actual_Y,pred_prob_Y, modes, cutoff):
         print  metrics.classification_report(labels,preds_cutoff)    
         print "Accuracy at cutoff =",cutoff,"is", 100*metrics.accuracy_score(labels,preds_cutoff)
         print "Area under ROC curve =", metrics.roc_auc_score(labels,preds) 
+        print "Confusion Matrix"
+        print metrics.confusion_matrix(labels, preds_cutoff)    
+        print "Accuracy is", 100*metrics.accuracy_score(labels,preds_cutoff), "\n"
     plot_pr_curves(actual_Y,pred_prob_Y,modes)    
     plot_auc_curves(actual_Y,pred_prob_Y,modes)
-
 
 def plot_pr_curves(actual_Y,pred_prob_Y,modes):
     plt.figure()
@@ -180,12 +182,12 @@ def trainer(predict_field='category', split_factor=0.9, restricted_categories=[]
     clf_pipeline = Pipeline([
                             ('feature_extractor_pre', all_feature_extractor),
                             ('sparse_to_dense', ConvertSparseToDense()),#nb-change
-                            ('feature_selector', feature_selector),
+                            # ('feature_selector', feature_selector),
                             # ('learner', learner)
                         ])
 
     target_transformer = Pipeline([
-                            ('label_converter', ConvertCategoricalToInteger(col=predict_field, categories=restricted_categories)),
+                            ('label_converter', ConvertCategoricalToBinary(col=predict_field, categories=['Sev 2','Sev 1'])),
                             ('df_to_vector', ConvertDFToVector())
                         ])
 
@@ -228,10 +230,13 @@ def trainer(predict_field='category', split_factor=0.9, restricted_categories=[]
     print "test actual"
     print actual_Y['test']
 
-    # classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
-    multiclass_classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
-    for x in range(0, len(restricted_categories)):
-        print x," : ",restricted_categories[x]
+    classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
+    # multiclass_classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
+    # for x in range(0, len(restricted_categories)):
+    #     print x," : ",restricted_categories[x]
+
+    predictors = [ clf_pipeline, learner ]
+    return predictors
 
 # trainer()
 # trainer('severity')

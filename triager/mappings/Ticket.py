@@ -1,5 +1,5 @@
 from datetime import datetime
-from couchdb.mapping import Document, TextField, IntegerField, DateTimeField
+from couchdb.mapping import Document, TextField, IntegerField, DateTimeField, BooleanField
 
 class Ticket(Document):
 	ticket_number = TextField()
@@ -21,6 +21,7 @@ class Ticket(Document):
 	alert_indicator = TextField()
 	alert_comments = TextField()
 	detail = TextField()
+	assigned = BooleanField(default=False)
 
 csv_mapping = {
 	"Ticket Number": "ticket_number",

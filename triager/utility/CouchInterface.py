@@ -67,6 +67,41 @@ class CouchInterface:
 		return return_value
 
 
+	def document_by_assigned(self, key=False, dbname="triager_tickets"):
+		# try:
+		db = self.handle[dbname]
+		# except Exception:
+		# 	print "!!!!!! Database "+dbname+" not detected !!!!!!"
+		# 	return
+
+		if key:
+			map_fun = '''function (doc){
+				if(doc.assigned)
+					emit(doc.action_date,doc);
+			}'''
+		else:
+			map_fun = '''function (doc){
+				if(!doc.assigned)
+					emit(doc.action_date,doc);
+			}'''
+
+		return_value = []
+
+		db_return = db.query(map_fun)
+		ctr=0
+		print "Retrieving documents from db..."
+		bar = progressbar.ProgressBar(maxval=len(db_return), widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
+		bar.start()
+
+		for row in db_return:
+			return_value.append(row.value)
+			ctr = ctr+1
+			bar.update(ctr)
+		
+		bar.finish()
+		return return_value
+
+
 	def get_all_documents(self, dbname):
 		db = self.handle[dbname]
 		
