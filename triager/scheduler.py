@@ -10,8 +10,9 @@ import progressbar
 import os
 import re
 
-def execute():
+def execute(debug=False):
 
+	# TODO: Change in production
 	# date_now = datetime.datetime.now()
 	date_now = {
 		"year": "2016",
@@ -19,10 +20,34 @@ def execute():
 		"month": "1"
 	}
 
+	user_availability = {
+		"full_day": 8,
+		"half_day": 4
+	}
+
+	skill_level_mapping = {
+		"Beginner": 3,
+		"Intermediate": 2,
+		"Expert": 1
+	}
+
+	skills = []
+
+	category_time_requirements = {
+		'S - Map Change': 4,			#2-4
+		'S - Mapping Request': 4,		#2-4
+		'S - Map Research': 2,			#1-2
+		'S - PER - New Map': 8,			#6-8
+		'S - PER - Map Change': 6		#4-6
+	}
+
+	not_available_legend = ['N','V','E','O','S','C']
+	half_day_legend = ['H','C']
+
 	file_paths = {
 		"backlog": "./data/backlog_report.csv",
 		"utilization": "./data/utilization.csv",
-		"skills_tracker": "./data/skills_tracker.json",
+		"skills_tracker": "./data/skills_tracker.csv",
 		"vacation_plan": "./data/vacation_plan.csv"
 	}
 
@@ -41,7 +66,8 @@ def execute():
 		"dec": "11"
 	}
 
-	vacation_plan = {}	#Populate with present day vacation plan
+	employee_status = {}
+	available_employees = 0
 	skills_tracker = None	#Populate with all the skills of employees
 
 	couch_handle = CouchInterface()
@@ -89,7 +115,9 @@ def execute():
 	if os.path.isfile(file_paths['skills_tracker']):
 		print "*Skills Tracker - Found"
 		print "	Reading skills..."
-		skills_tracker = pd.read_json(file_paths['skills_tracker'])
+		skills_tracker = pd.read_csv(file_paths['skills_tracker'])
+		skills_tracker['LEVEL'] = skills_tracker['LEVEL'].apply(lambda x: skill_level_mapping[x])
+		skills = pd.unique(skills_tracker['TYPE'])
 		print "	Skill Tracker Read - Complete"
 	else:
 		print "*Skills Tracker not found"
@@ -106,7 +134,25 @@ def execute():
 				coli = str(date_now['date'])
 				if monthi != 0:
 					coli = coli+"."+str(monthi)
-				vacation_plan[row[' [o] = Owner']] = row[coli]
+
+				try:
+					employee_status[row[' [o] = Owner']]
+				except KeyError:
+					employee_status[row[' [o] = Owner']] = {}
+					employee_status[row[' [o] = Owner']]['tickets'] = []
+
+				if row[coli]=='P':
+					print "Public Holiday. Exiting...."
+				elif row[coli] in not_available_legend:
+					employee_status[row[' [o] = Owner']]['total_availability'] = 0
+				elif row[coli] in half_day_legend:
+					employee_status[row[' [o] = Owner']]['total_availability'] = user_availability['half_day']
+					available_employees +=1
+				else:
+					employee_status[row[' [o] = Owner']]['total_availability'] = user_availability['full_day']
+					available_employees +=1
+				employee_status[row[' [o] = Owner']]['usage'] = 0
+
 		print "	Vacation Plan Read - Complete "
 	else:
 		print "*Vacation Plan not found"
@@ -115,12 +161,107 @@ def execute():
 	print "---------------Allocating for Needs Reply queue and [SMAP-IN]-----"
 
 	df_nr = df[df['status']=='Needs Reply']
+	df_nr_severity = df_nr.sort_values('severity')
+
+	skills_tracker = skills_tracker.sort_values('LEVEL')
+	# print skills_tracker
+
+	total_tickets = df_nr.shape[0]
+	number_of_assigned = 0
 
 	pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
 	for index,row in df_nr.iterrows():
+		assigned = False
+		ticket_category = row['category']
 		csr_person = re.search(pattern,row['performed_by_csr'])
+		
+		if debug:
+			print "ticket number: ",row['ticket_number']
+
 		if csr_person != None:
-			# print csr_person.group(1)
+			employee=csr_person.group(1)
+			#Assign to person set assigned to True
+			
+			try:
+				availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
+				if availability >= category_time_requirements[ticket_category]:
+					if debug:
+						print "assigned to ",employee
+					employee_status[employee]['tickets'].append(row)
+					employee_status[employee]['usage']+=category_time_requirements[ticket_category]
+					assigned = True
+				# print employee_status[employee]
+
+			except KeyError:
+				if debug:
+					print "WARNING: No data found for ",employee,". Reassigning ticket"
+
+		if not assigned:
+			#Assign to particular csr based on availability and ticket history
+			# temp_df = pd.DataFrame(couch_handle.document_by_key('ticket_number',row['ticket_number']))
+			# for index1,row1 in temp_df.iterrows():
+			# 	csr_person = re.search(pattern,row['performed_by_csr'])
+			# 	break
 			pass
 
-	print skills_tracker.head()
+		if not assigned:
+			req_skill = 'Sterling Integrator (SI)'
+			for x in skills:
+				skill_regx = re.compile(r'.*'+x+'.*')
+
+				if skill_regx.search(row['alert_comments'])!=None or skill_regx.search(row['detail'])!=None or skill_regx.search(row['comments'])!=None:
+					req_skill = x
+
+			if debug:
+				print "Skill Required: ",req_skill
+
+			temp_skills = skills_tracker[skills_tracker['TYPE'] == req_skill]
+			# print temp_skills
+			for i,r in temp_skills.iterrows():
+				employee = r['NResource_2E']
+				try:
+					availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
+					if availability >= category_time_requirements[ticket_category]:
+						if debug:
+							print "assigned to ",employee
+						employee_status[employee]['tickets'].append(row)
+						employee_status[employee]['usage']+=category_time_requirements[ticket_category]
+						assigned = True
+						break
+					# print employee_status[employee]
+
+				except KeyError:
+					pass
+				# print "WARNING: No data found for ",employee,". Reassigning ticket"
+		
+		if not assigned:
+			if debug:
+				print "Unable to assign ticket"
+		else:
+			number_of_assigned += 1
+
+	print "Allocation Complete"
+	# Utilisation Calculation
+	# print "---------------------Utilization------------------------------"
+	for x in employee_status:
+		print "-----------------------------------------------------"
+		print "Name: ",x
+		if employee_status[x]['total_availability'] == 0:
+			print "Employee not available"
+		else:
+			utilization = 100.0*employee_status[x]['usage']/employee_status[x]['total_availability']
+			print "Availability: ",employee_status[x]['total_availability']
+			print "Usage: ",employee_status[x]['usage']
+			print "Number of tickets assigned: ",len(employee_status[x]['tickets'])
+			print "Utilization: ",utilization,"%"
+			print "Tickets:"
+			for x in employee_status[x]['tickets']:
+				print "\t",x['ticket_number']
+
+	print "-----------------System Status-------------------"
+	print "Total tickets: ",total_tickets
+	print "Tickets assigned: ",number_of_assigned
+	print "Available employees: ",available_employees
+	print "% assigned: ",((1.0*number_of_assigned/total_tickets)*100),"%"
+
+	# print employee_status

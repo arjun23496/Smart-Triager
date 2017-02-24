@@ -46,7 +46,7 @@ class CouchInterface:
 		return success
 
 
-	def document_by_key(self, key, value, dbname):
+	def document_by_key(self, key, value, dbname="triager_tickets"):
 		# try:
 		db = self.handle[dbname]
 		# except Exception:

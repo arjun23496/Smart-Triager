@@ -22,6 +22,7 @@ def category_imputer(df,index):
 
 	return pred_res
 
+
 def category_imputer(df, index):
 	categories = ['S - PER - New Map', 'S - Map Research', 'S - Map Change', 'S - PER - Map Change']
 	transformer=joblib.load('./predictors/category/transformer.pkl')
