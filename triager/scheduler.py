@@ -15,6 +15,9 @@ def execute(debug=True):
 	# TODO: Change in production
 	# date_now = datetime.datetime.now()
 	#2016-12-21
+
+	priority_setting = [ 'status', 'severity' ]
+
 	date_now = {
 		"year": "2016",
 		"date": "21",
@@ -171,8 +174,39 @@ def execute(debug=True):
 
 	print "---------------Allocating for Needs Reply queue and [SMAP-IN]-----"
 
-	df_nr = df[df['status']=='Needs Reply']
-	df_nr_severity = df_nr.sort_values('severity')
+	# df_nr = df[df['status']=='Needs Reply']
+
+	status_priority = [1,2]
+
+	def filter_prior(x):
+		if x == 'Needs Reply':
+			return status_priority[0]
+		else:
+			return status_priority[1]
+
+	df_nr = df.copy()
+	df_nr['status'] = df_nr['status'].apply(filter_prior)
+
+	#Ticket Assigning priority setting
+
+	df_nr.sort_values(priority_setting[0])
+	
+	if priority_setting[0] == 'status':
+		level1_val = status_priority
+	else:
+		level1_val = ['Sev 1','Sev 2','Sev 3','Sev 4']
+
+	temp_df = pd.DataFrame([], columns=df_nr.columns)
+
+	for x in level1_val:
+		temp_df = temp_df.append(df_nr[df_nr[priority_setting[0]] == x].sort_values(priority_setting[1]))
+
+	# df_nr_severity = df_nr.sort_values('status')
+	
+	if debug:
+		print temp_df[['status','severity']]
+
+	df_nr_severity = temp_df	
 
 	skills_tracker = skills_tracker.sort_values('LEVEL')
 	# print skills_tracker
