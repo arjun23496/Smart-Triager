@@ -10,15 +10,20 @@ import progressbar
 import os
 import re
 
-def execute(debug=False):
+def execute(debug=True):
 
 	# TODO: Change in production
 	# date_now = datetime.datetime.now()
+	#2016-12-21
 	date_now = {
 		"year": "2016",
-		"date": "13",
-		"month": "1"
+		"date": "21",
+		"month": "12"
 	}
+	date_param = date_now['year']+"-"+date_now['month']+"-"+date_now['date']
+
+	print "Executing scheduler"
+	print "date: "+date_param
 
 	user_availability = {
 		"full_day": 8,
@@ -75,7 +80,12 @@ def execute(debug=False):
 	utilization_df = None
 	skills_tracker_df = None
 	vacation_plan_df = None
-	df = pd.DataFrame(couch_handle.document_by_assigned(False))
+	df = pd.DataFrame(couch_handle.document_by_assigned(date_param, False))
+
+	if df.shape[0] <= 0:
+		print "No tickets for the given day"
+		print "Exiting...."
+		return
 
 	print "---------------Executing Transformations------------"
 
@@ -135,6 +145,9 @@ def execute(debug=False):
 				if monthi != 0:
 					coli = coli+"."+str(monthi)
 
+				if skills_tracker[skills_tracker['NResource_2E'] == row[' [o] = Owner']].shape[0] <= 0:
+					continue
+
 				try:
 					employee_status[row[' [o] = Owner']]
 				except KeyError:
@@ -147,10 +160,8 @@ def execute(debug=False):
 					employee_status[row[' [o] = Owner']]['total_availability'] = 0
 				elif row[coli] in half_day_legend:
 					employee_status[row[' [o] = Owner']]['total_availability'] = user_availability['half_day']
-					available_employees +=1
 				else:
 					employee_status[row[' [o] = Owner']]['total_availability'] = user_availability['full_day']
-					available_employees +=1
 				employee_status[row[' [o] = Owner']]['usage'] = 0
 
 		print "	Vacation Plan Read - Complete "
@@ -258,10 +269,15 @@ def execute(debug=False):
 			for x in employee_status[x]['tickets']:
 				print "\t",x['ticket_number']
 
+	for x in employee_status:
+		if employee_status[x]['total_availability'] > 0:
+			available_employees+=1
+
 	print "-----------------System Status-------------------"
 	print "Total tickets: ",total_tickets
 	print "Tickets assigned: ",number_of_assigned
-	print "Available employees: ",available_employees
+	print "Total employees: ",len(employee_status)
+	print "Employees available: ",available_employees
 	print "% assigned: ",((1.0*number_of_assigned/total_tickets)*100),"%"
 
 	# print employee_status

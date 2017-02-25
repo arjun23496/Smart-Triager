@@ -67,8 +67,9 @@ class CouchInterface:
 		return return_value
 
 
-	def document_by_assigned(self, key=False, dbname="triager_tickets"):
+	def document_by_assigned(self, date, key=False, dbname="triager_tickets"):
 		# try:
+		#2017-01-24
 		db = self.handle[dbname]
 		# except Exception:
 		# 	print "!!!!!! Database "+dbname+" not detected !!!!!!"
@@ -76,12 +77,12 @@ class CouchInterface:
 
 		if key:
 			map_fun = '''function (doc){
-				if(doc.assigned)
+				if(doc.assigned && doc.action_date.substr(0,10) == "'''+date+'''")
 					emit(doc.action_date,doc);
 			}'''
 		else:
 			map_fun = '''function (doc){
-				if(!doc.assigned)
+				if(!doc.assigned && doc.action_date.substr(0,10) == "'''+date+'''")
 					emit(doc.action_date,doc);
 			}'''
 
@@ -89,16 +90,20 @@ class CouchInterface:
 
 		db_return = db.query(map_fun)
 		ctr=0
-		print "Retrieving documents from db..."
-		bar = progressbar.ProgressBar(maxval=len(db_return), widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
-		bar.start()
-
-		for row in db_return:
-			return_value.append(row.value)
-			ctr = ctr+1
-			bar.update(ctr)
 		
-		bar.finish()
+		if len(db_return) > 0:
+			print "Retrieving documents from db..."
+
+			bar = progressbar.ProgressBar(maxval=len(db_return), widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
+			bar.start()
+
+			for row in db_return:
+				return_value.append(row.value)
+				ctr = ctr+1
+				bar.update(ctr)
+			
+			bar.finish()
+		
 		return return_value
 
 
