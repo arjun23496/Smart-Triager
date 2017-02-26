@@ -16,7 +16,7 @@ def execute(debug=True):
 	# date_now = datetime.datetime.now()
 	#2016-12-21
 
-	priority_setting = [ 'status', 'severity' ]
+	priority_setting = [ 'severity', 'status' ]
 
 	date_now = {
 		"year": "2016",
@@ -231,7 +231,7 @@ def execute(debug=True):
 				availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
 				if availability >= category_time_requirements[ticket_category]:
 					if debug:
-						print "assigned to ",employee
+						print "assigned directly to ",employee
 					employee_status[employee]['tickets'].append(row)
 					employee_status[employee]['usage']+=category_time_requirements[ticket_category]
 					assigned = True
@@ -243,11 +243,26 @@ def execute(debug=True):
 
 		if not assigned:
 			#Assign to particular csr based on availability and ticket history
-			# temp_df = pd.DataFrame(couch_handle.document_by_key('ticket_number',row['ticket_number']))
-			# for index1,row1 in temp_df.iterrows():
-			# 	csr_person = re.search(pattern,row['performed_by_csr'])
-			# 	break
-			pass
+			employee = ''
+			temp_df = pd.DataFrame(couch_handle.document_by_key('ticket_number',row['ticket_number']))
+			for index1,row1 in temp_df.iterrows():
+				if row1['action_date'][:10]==date_param:
+					break
+				csr_person = re.search(pattern,row1['performed_by_csr'])
+				if csr_person!=None:
+					employee = csr_person.group(1)
+			
+			try:
+				availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
+				if availability >= category_time_requirements[ticket_category]:
+					if debug:
+						print "assigned from history to ",employee
+					employee_status[employee]['tickets'].append(row)
+					employee_status[employee]['usage']+=category_time_requirements[ticket_category]
+					assigned = True
+			except KeyError:
+				if debug:
+					print "Ticket history not present"
 
 		if not assigned:
 			req_skill = 'Sterling Integrator (SI)'
@@ -268,7 +283,7 @@ def execute(debug=True):
 					availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
 					if availability >= category_time_requirements[ticket_category]:
 						if debug:
-							print "assigned to ",employee
+							print "assigned using scheduler to ",employee
 						employee_status[employee]['tickets'].append(row)
 						employee_status[employee]['usage']+=category_time_requirements[ticket_category]
 						assigned = True
