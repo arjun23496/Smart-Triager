@@ -90,7 +90,7 @@ ENV/
 
 
 # database test files
-triager/data/
+triager/data
 
 #watson data
 retrieved_data/

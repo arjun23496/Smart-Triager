@@ -1,9 +1,28 @@
-## Smart Triager Assistant for IBM
+## Smart Triager Assistant for IBM (Development Phase)
 
 # Requirements
 
 - Python 2.7
 - Python virtual environment
+
+# Database Setup
+
+- Create a database named ```triager_tickets``` in couchdb
+- Change line:11 in ```triager/utility/CouchInterface.py```
+- The address in the line is to be changed. address will be in the following format:
+	- ```http://<username>:<password>@localhost:<port_number>/```
+
+** NOTE: Use a user with administrator privileges in the database **
+
+# Initial Data Setup
+
+- All the required data files are to be stored in the folder triager/data
+- The data files should have the following names.
+	- ```Ticket_list.csv``` \- List of tickets
+	- ```skills_tracker.csv``` \- The skills of employees
+	- ```vacation_plan.csv``` \- The vacation plan of employees
+	- ```utilization.csv``` \- Utilization report of employee
+	- ```backlog_report.csv``` \- Backlog Report
 
 # Setting up
 
