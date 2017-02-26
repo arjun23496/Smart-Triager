@@ -12,7 +12,7 @@
 - The address in the line is to be changed. address will be in the following format:
 	- ```http://<username>:<password>@localhost:<port_number>/```
 
-** NOTE: Use a user with administrator privileges in the database **
+**NOTE: Use a user with administrator privileges in the database**
 
 # Initial Data Setup
 
@@ -33,4 +33,4 @@
 - Go to the triager directory
 - Run the driver script ```python driver.py```
 
-** NOTE: The date is presently manually fed to the system. The date setting can be found in ```triager/driver.py``` line:54 **
+**NOTE: The date is presently manually fed to the system. The date setting can be found in ```triager/driver.py``` line:54**
