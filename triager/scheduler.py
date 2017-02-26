@@ -275,8 +275,10 @@ def execute(debug=True):
 			if debug:
 				print "Skill Required: ",req_skill
 
+			##Scheduler---------------
+
 			temp_skills = skills_tracker[skills_tracker['TYPE'] == req_skill]
-			# print temp_skills
+
 			for i,r in temp_skills.iterrows():
 				employee = r['NResource_2E']
 				try:
@@ -288,7 +290,6 @@ def execute(debug=True):
 						employee_status[employee]['usage']+=category_time_requirements[ticket_category]
 						assigned = True
 						break
-					# print employee_status[employee]
 
 				except KeyError:
 					pass
