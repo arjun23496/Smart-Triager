@@ -32,3 +32,5 @@
 - Install dependencies ```pip install -r requirements.txt```
 - Go to the triager directory
 - Run the driver script ```python driver.py```
+
+** NOTE: The date is presently manually fed to the system. The date setting can be found in ```triager/driver.py``` line:54 **

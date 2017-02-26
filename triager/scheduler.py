@@ -10,7 +10,7 @@ import progressbar
 import os
 import re
 
-def execute(debug=True):
+def execute(date_now, debug=True):
 
 	# TODO: Change in production
 	# date_now = datetime.datetime.now()
@@ -18,11 +18,6 @@ def execute(debug=True):
 
 	priority_setting = [ 'severity', 'status' ]
 
-	date_now = {
-		"year": "2016",
-		"date": "21",
-		"month": "12"
-	}
 	date_param = date_now['year']+"-"+date_now['month']+"-"+date_now['date']
 
 	print "Executing scheduler"

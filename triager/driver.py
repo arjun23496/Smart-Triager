@@ -51,4 +51,10 @@ import scheduler
 
 ######################################### Transformer testing
 
-scheduler.execute()
+date_now = {
+		"year": "2016",
+		"date": "21",
+		"month": "12"
+	}
+
+scheduler.execute(date_now)
