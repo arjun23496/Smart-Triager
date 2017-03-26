@@ -23,6 +23,7 @@
 	- ```vacation_plan.csv``` \- The vacation plan of employees
 	- ```utilization.csv``` \- Utilization report of employee
 	- ```backlog_report.csv``` \- Backlog Report
+- Run the upload script ```python driver_upload.py```
 
 # Setting up
 
