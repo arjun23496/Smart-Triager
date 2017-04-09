@@ -28,6 +28,8 @@ def execute(date_now, debug=True):
 		"half_day": 4
 	}
 
+	backlog_req = 2
+
 	skill_level_mapping = {
 		"Beginner": 3,
 		"Intermediate": 2,
@@ -108,11 +110,6 @@ def execute(date_now, debug=True):
 	print "---------------Checking file requirements------------"
 
 	status = True
-	if os.path.isfile(file_paths['backlog']):
-		print "*Backlog Report - Found"
-	else:
-		print "*Backlog Report not found"
-		status = False
 
 	if os.path.isfile(file_paths['utilization']):
 		print "*Utilization Report - Found"
@@ -167,6 +164,35 @@ def execute(date_now, debug=True):
 		print "*Vacation Plan not found"
 		status = False
 
+	print employee_status
+
+	if os.path.isfile(file_paths['backlog']):
+		print "*Backlog Report - Found"
+		blog_report = pd.read_csv(file_paths['backlog'], skiprows=3)
+		
+		pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
+		
+		for index,row in blog_report.iterrows():
+			if row.isnull()['Assigned To (CSR)']:
+				continue			
+			# if row['Assigned To (CSR)'].isnan():
+				# continue
+			
+			csr_person = re.search(pattern,row['Assigned To (CSR)']).group(1)
+			
+			try:
+				employee_status[csr_person]['total_availability'] -= 2
+				if employee_status[csr_person]['total_availability'] < 0:
+					employee_status[csr_person]['total_availability'] = 0
+			except KeyError:
+				if debug:
+					print 'No data found for backlog report employee ',csr_person
+
+	else:
+		print "*Backlog Report not found"
+		status = False
+
+
 	print "---------------Allocating for Needs Reply queue and [SMAP-IN]-----"
 
 	# df_nr = df[df['status']=='Needs Reply']
@@ -199,7 +225,7 @@ def execute(date_now, debug=True):
 	# df_nr_severity = df_nr.sort_values('status')
 	
 	if debug:
-		print temp_df[['status','severity']]
+		print temp_df[['status','severity','ticket_number']]
 
 	df_nr_severity = temp_df	
 
