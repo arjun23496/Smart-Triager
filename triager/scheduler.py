@@ -175,11 +175,14 @@ def execute(date_now, debug=True):
 		for index,row in blog_report.iterrows():
 			if row.isnull()['Assigned To (CSR)']:
 				continue			
-			# if row['Assigned To (CSR)'].isnan():
-				# continue
-			
-			csr_person = re.search(pattern,row['Assigned To (CSR)']).group(1)
-			
+
+			csr_person = re.search(pattern,row['Assigned To (CSR)'])
+
+			if csr_person == None:
+				continue
+
+			csr_person = csr_person.group(1)
+
 			try:
 				employee_status[csr_person]['total_availability'] -= 2
 				if employee_status[csr_person]['total_availability'] < 0:
