@@ -12,8 +12,8 @@ import scheduler
 
 tkt = Tickets()
 
-print "uploading xlsx file"
-tkt.upload_tickets_xlsx()
+#print "uploading xlsx file"
+#tkt.upload_tickets_xlsx()
 
 print "uploading csv tickets"
 tkt.upload_tickets_csv()

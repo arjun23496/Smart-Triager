@@ -55,7 +55,7 @@ class Tickets:
 			dbinter = CouchInterface()
 
 			print "Uploading "+str(len(document))+" tickets to database"
-			n_success = dbinter.add_documents('triager_tickets', document)
+			n_success = dbinter.add_documents(document)
 			n_failed = len(template)-n_success
 			print "Upload Complete"
 			print str(len(template))+" documents processed"
@@ -136,7 +136,7 @@ class Tickets:
 			dbinter = CouchInterface()
 
 			print "Uploading "+str(len(document))+" tickets to database"
-			n_success = dbinter.add_documents('triager_tickets', document)
+			n_success = dbinter.add_documents(document)
 			n_failed = len(document)-n_success
 			print "Upload Complete"
 			print str(len(document))+" documents processed"

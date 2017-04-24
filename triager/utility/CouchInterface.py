@@ -14,7 +14,7 @@ class CouchInterface:
 		except Exception:
 			print "!!!!!! Connection to database Failed !!!!!!"
 
-	def add_documents(self, dbname, document):
+	def add_documents(self, document, dbname='triager_tickets'):
 		try:
 			db = self.handle[dbname]
 		except Exception:
@@ -91,7 +91,9 @@ class CouchInterface:
 		db_return = db.query(map_fun)
 		ctr=0
 		
-		if len(db_return) > 0:
+		print db_return.rows
+
+		if len(db_return.rows) > 0:
 			print "Retrieving documents from db..."
 
 			bar = progressbar.ProgressBar(maxval=len(db_return), widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
