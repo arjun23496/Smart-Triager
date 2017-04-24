@@ -140,7 +140,7 @@ def execute(date_now, debug=True):
 				if monthi != 0:
 					coli = coli+"."+str(monthi)
 
-				if skills_tracker[skills_tracker['NResource_2E'] == row[' [o] = Owner']].shape[0] <= 0:
+				if skills_tracker[skills_tracker['NAME'] == row[' [o] = Owner']].shape[0] <= 0:
 					continue
 
 				try:
@@ -238,6 +238,8 @@ def execute(date_now, debug=True):
 	total_tickets = df_nr.shape[0]
 	number_of_assigned = 0
 
+	print employee_status
+
 	pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
 	for index,row in df_nr.iterrows():
 		assigned = False
@@ -291,7 +293,8 @@ def execute(date_now, debug=True):
 		if not assigned:
 			req_skill = 'Sterling Integrator (SI)'
 			for x in skills:
-				skill_regx = re.compile(r'.*'+x+'.*')
+				reg_x = re.escape(x)
+				skill_regx = re.compile(r'.*'+reg_x+'.*')
 
 				if skill_regx.search(row['alert_comments'])!=None or skill_regx.search(row['detail'])!=None or skill_regx.search(row['comments'])!=None:
 					req_skill = x
@@ -304,7 +307,7 @@ def execute(date_now, debug=True):
 			temp_skills = skills_tracker[skills_tracker['TYPE'] == req_skill]
 
 			for i,r in temp_skills.iterrows():
-				employee = r['NResource_2E']
+				employee = r['NAME']
 				try:
 					availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
 					if availability >= category_time_requirements[ticket_category]:
