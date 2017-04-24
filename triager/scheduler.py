@@ -80,7 +80,7 @@ def execute(date_now, debug=True):
 	utilization_df = None
 	skills_tracker_df = None
 	vacation_plan_df = None
-	df = pd.DataFrame(couch_handle.document_by_assigned(date_param, False))
+	df = pd.DataFrame(couch_handle.document_by_assigned(date_now, False))
 
 	if df.shape[0] <= 0:
 		print "No tickets for the given day"
@@ -164,7 +164,7 @@ def execute(date_now, debug=True):
 		print "*Vacation Plan not found"
 		status = False
 
-	print employee_status
+	# print employee_status
 
 	if os.path.isfile(file_paths['backlog']):
 		print "*Backlog Report - Found"

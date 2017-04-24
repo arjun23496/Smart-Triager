@@ -77,12 +77,12 @@ class CouchInterface:
 
 		if key:
 			map_fun = '''function (doc){
-				if(doc.assigned && doc.action_date.substr(0,10) == "'''+date+'''")
+				if(doc.assigned && doc.action_date.substr(0,4) == "'''+date['year']+'''")
 					emit(doc.action_date,doc);
 			}'''
 		else:
 			map_fun = '''function (doc){
-				if(!doc.assigned && doc.action_date.substr(0,10) == "'''+date+'''")
+				if(!doc.assigned && doc.action_date.substr(0,4) == "'''+date['year']+'''" && doc.action_date.substr(5,2) == "'''+date['month']+'''" && doc.action_date.substr(8,2) == "'''+date['date']+'''")
 					emit(doc.action_date,doc);
 			}'''
 
@@ -91,7 +91,7 @@ class CouchInterface:
 		db_return = db.query(map_fun)
 		ctr=0
 		
-		print db_return.rows
+		# print db_return.rows
 
 		if len(db_return.rows) > 0:
 			print "Retrieving documents from db..."
