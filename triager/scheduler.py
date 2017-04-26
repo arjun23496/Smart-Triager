@@ -38,6 +38,8 @@ def execute(date_now, debug=True):
 
 	skills = []
 
+	permitted_categories = [ 'S - Map Change', 'S - Mapping Request', 'S - Map Research', 'S - PER - New Map', 'S - PER - Map Change' ]
+
 	category_time_requirements = {
 		'S - Map Change': 4,			#2-4
 		'S - Mapping Request': 4,		#2-4
@@ -97,11 +99,21 @@ def execute(date_now, debug=True):
 		temp = row
 		if row['new_queue']=='' or pd.isnull(row['new_queue']):
 			temp['new_queue']=transformations.new_value_imputer(df,index,row['ticket_number'])
+			df.set_value(index, 'new queue', temp['new_queue'])
 		if row['category']=='' or pd.isnull(row['category']):
 			temp['category']=transformations.category_imputer(df,index)
+			df.set_value(index, 'category', temp['category'])
 		if row['severity']=='' or pd.isnull(row['severity']):
 			temp['severity']=transformations.severity_imputer(df,index)
+			df.set_value(index, 'severity', temp['severity'])
+		
 		bar.update(index)
+
+		if temp['category'] not in permitted_categories:
+			print "\n\nUnknown Categories encountered... Please check the Ticket List..."
+			print "Category: ",temp['category']
+			print "exiting....."
+			return
 
 	bar.finish()
 
@@ -128,13 +140,17 @@ def execute(date_now, debug=True):
 		print "*Skills Tracker not found"
 		status = False
 
+	print skills_tracker
+
 	if os.path.isfile(file_paths['vacation_plan']):
 		print "*Vacation Plan - Found"
 		print "	Reading Vacation Plan..."
 		vacation_plan_df = pd.read_csv(file_paths['vacation_plan'], header=4)
+		# print vacation_plan_df
 
 		for index,row in vacation_plan_df.iterrows():
 			if not pd.isnull(row[' [o] = Owner']):
+				# print employee_status
 				monthi = int(date_now['month'])-1
 				coli = str(date_now['date'])
 				if monthi != 0:
@@ -168,13 +184,14 @@ def execute(date_now, debug=True):
 
 	if os.path.isfile(file_paths['backlog']):
 		print "*Backlog Report - Found"
-		blog_report = pd.read_csv(file_paths['backlog'], skiprows=3)
+		blog_report = pd.read_csv(file_paths['backlog'])
 		
 		pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
 		
 		for index,row in blog_report.iterrows():
+			# print row
 			if row.isnull()['Assigned To (CSR)']:
-				continue			
+				continue
 
 			csr_person = re.search(pattern,row['Assigned To (CSR)'])
 
@@ -238,14 +255,13 @@ def execute(date_now, debug=True):
 	total_tickets = df_nr.shape[0]
 	number_of_assigned = 0
 
-	print employee_status
-
 	pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
 	for index,row in df_nr.iterrows():
 		assigned = False
 		ticket_category = row['category']
 		csr_person = re.search(pattern,row['performed_by_csr'])
-		
+		print ticket_category
+
 		if debug:
 			print "ticket number: ",row['ticket_number']
 
@@ -305,11 +321,14 @@ def execute(date_now, debug=True):
 			##Scheduler---------------
 
 			temp_skills = skills_tracker[skills_tracker['TYPE'] == req_skill]
+			# print temp_skills
 
 			for i,r in temp_skills.iterrows():
 				employee = r['NAME']
 				try:
 					availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
+					# print availability
+					
 					if availability >= category_time_requirements[ticket_category]:
 						if debug:
 							print "assigned using scheduler to ",employee
@@ -319,14 +338,16 @@ def execute(date_now, debug=True):
 						break
 
 				except KeyError:
+					print "WARNING: No data found for ",employee,". Reassigning ticket"
 					pass
-				# print "WARNING: No data found for ",employee,". Reassigning ticket"
 		
 		if not assigned:
 			if debug:
 				print "Unable to assign ticket"
 		else:
 			number_of_assigned += 1
+
+	print skills_tracker[skills_tracker['TYPE'] == 'Sterling Integrator (SI)']
 
 	print "Allocation Complete"
 	# Utilisation Calculation
