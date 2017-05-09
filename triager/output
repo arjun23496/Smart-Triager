@@ -1,0 +1,146 @@
+Creating temporary database...
+uploading csv tickets
+Uploading 2712 tickets to database
+Uploading 2712 document(s)..
+Upload Complete
+2712 documents processed
+2712 document successfully uploaded
+0 documents failed!!
+Executing scheduler
+date: 2016-12-21
+Retrieving documents from db...
+---------------Executing Transformations------------
+[u'5377-13089649' u'5377-13120012' u'5377-13104307']
+Transformations Complete
+---------------Checking file requirements------------
+*Utilization Report - Found
+*Skills Tracker - Found
+	Reading skills...
+	Skill Tracker Read - Complete
+*Vacation Plan - Found
+	Reading Vacation Plan...
+	Vacation Plan Read - Complete 
+*Backlog Report - Found
+---------------Processing-------------
+ticket number:  5377-13120012
+Ticket history not present
+Skill Required:  AS2
+assigned using scheduler to  Resource_A
+ticket number:  5377-13104307
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+assigned using scheduler to  Resource_YM
+ticket number:  5377-13089649
+Ticket history not present
+Skill Required:  XML
+assigned using scheduler to  Resource_NP
+Allocation Complete
+-----------------------------------------------------
+Name:  Resource_SSP
+Availability:  8
+Usage:  0
+Number of tickets assigned:  0
+Utilization:  0.0 %
+Tickets:
+-----------------------------------------------------
+Name:  Resource_HBS
+Availability:  8
+Usage:  0
+Number of tickets assigned:  0
+Utilization:  0.0 %
+Tickets:
+-----------------------------------------------------
+Name:  Resource_NP
+Availability:  8
+Usage:  8
+Number of tickets assigned:  1
+Utilization:  100.0 %
+Tickets:
+	5377-13089649
+-----------------------------------------------------
+Name:  Resource_DS
+Availability:  8
+Usage:  0
+Number of tickets assigned:  0
+Utilization:  0.0 %
+Tickets:
+-----------------------------------------------------
+Name:  Resource_AKS
+Availability:  8
+Usage:  0
+Number of tickets assigned:  0
+Utilization:  0.0 %
+Tickets:
+-----------------------------------------------------
+Name:  Resource_AK
+Availability:  8
+Usage:  0
+Number of tickets assigned:  0
+Utilization:  0.0 %
+Tickets:
+-----------------------------------------------------
+Name:  Resource_SRB
+Availability:  8
+Usage:  0
+Number of tickets assigned:  0
+Utilization:  0.0 %
+Tickets:
+-----------------------------------------------------
+Name:  Resource_SY
+Availability:  8
+Usage:  0
+Number of tickets assigned:  0
+Utilization:  0.0 %
+Tickets:
+-----------------------------------------------------
+Name:  Resource_SVK
+Availability:  8
+Usage:  0
+Number of tickets assigned:  0
+Utilization:  0.0 %
+Tickets:
+-----------------------------------------------------
+Name:  Resource_A
+Availability:  8
+Usage:  6
+Number of tickets assigned:  1
+Utilization:  75.0 %
+Tickets:
+	5377-13120012
+-----------------------------------------------------
+Name:  Resource_SR
+Availability:  8
+Usage:  0
+Number of tickets assigned:  0
+Utilization:  0.0 %
+Tickets:
+-----------------------------------------------------
+Name:  Resource_NK
+Availability:  8
+Usage:  0
+Number of tickets assigned:  0
+Utilization:  0.0 %
+Tickets:
+-----------------------------------------------------
+Name:  Resource_YM
+Availability:  8
+Usage:  8
+Number of tickets assigned:  1
+Utilization:  100.0 %
+Tickets:
+	5377-13104307
+-----------------------------------------------------
+Name:  Resource_DK
+Availability:  8
+Usage:  0
+Number of tickets assigned:  0
+Utilization:  0.0 %
+Tickets:
+-----------------System Status-------------------
+Total tickets:  3
+Tickets assigned:  3
+Total employees:  14
+Employees available:  14
+% assigned:  100.0 %
+Cleaning up database...
+*** Execution Complete ***

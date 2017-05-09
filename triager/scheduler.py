@@ -16,6 +16,8 @@ def execute(date_now, debug=True):
 	# date_now = datetime.datetime.now()
 	#2016-12-21
 
+	ticket_dtime_format = "%Y-%m-%d-%H.%M.%S"
+
 	priority_setting = [ 'severity', 'status' ]
 
 	date_param = date_now['year']+"-"+date_now['month']+"-"+date_now['date']
@@ -73,6 +75,8 @@ def execute(date_now, debug=True):
 		"dec": "11"
 	}
 
+	completed_tickets = []
+
 	employee_status = {}
 	available_employees = 0
 	skills_tracker = None	#Populate with all the skills of employees
@@ -93,6 +97,8 @@ def execute(date_now, debug=True):
 
 	bar = progressbar.ProgressBar(maxval=df.shape[0], widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 	bar.start()
+
+	print pd.unique(df['ticket_number'])
 
 	for index,row in df.iterrows():
 		temp = {}
@@ -139,8 +145,6 @@ def execute(date_now, debug=True):
 	else:
 		print "*Skills Tracker not found"
 		status = False
-
-	print skills_tracker
 
 	if os.path.isfile(file_paths['vacation_plan']):
 		print "*Vacation Plan - Found"
@@ -213,7 +217,7 @@ def execute(date_now, debug=True):
 		status = False
 
 
-	print "---------------Allocating for Needs Reply queue and [SMAP-IN]-----"
+	print "---------------Processing-------------"
 
 	# df_nr = df[df['status']=='Needs Reply']
 
@@ -244,23 +248,40 @@ def execute(date_now, debug=True):
 
 	# df_nr_severity = df_nr.sort_values('status')
 	
-	if debug:
-		print temp_df[['status','severity','ticket_number']]
+	# if debug:
+	# 	print temp_df[['status','severity','ticket_number']]
 
 	df_nr_severity = temp_df	
 
 	skills_tracker = skills_tracker.sort_values('LEVEL')
 	# print skills_tracker
 
-	total_tickets = df_nr.shape[0]
+	total_tickets = len(pd.unique(df['ticket_number']))
 	number_of_assigned = 0
 
 	pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
 	for index,row in df_nr.iterrows():
+
+		ticket_dtime = datetime.datetime.strptime(row['action_date'], ticket_dtime_format)
+
+		mult_ticket = False
+
+		if row['ticket_number'] in completed_tickets:
+			continue
+
+		for index1,row1 in df_nr.iterrows():
+			if row1['ticket_number'] == row['ticket_number']:
+				temp_dt = datetime.datetime.strptime(row1['action_date'], ticket_dtime_format)
+				if temp_dt > ticket_dtime:
+					mult_ticket = True
+					break
+
+		if mult_ticket:
+			continue
+
 		assigned = False
 		ticket_category = row['category']
 		csr_person = re.search(pattern,row['performed_by_csr'])
-		print ticket_category
 
 		if debug:
 			print "ticket number: ",row['ticket_number']
@@ -283,16 +304,33 @@ def execute(date_now, debug=True):
 				if debug:
 					print "WARNING: No data found for ",employee,". Reassigning ticket"
 
+		maxdtime = 0
+
 		if not assigned:
 			#Assign to particular csr based on availability and ticket history
 			employee = ''
 			temp_df = pd.DataFrame(couch_handle.document_by_key('ticket_number',row['ticket_number']))
 			for index1,row1 in temp_df.iterrows():
-				if row1['action_date'][:10]==date_param:
+				# if row1['action_date'][:10]==date_param:
+				# 	break
+
+				temp_dtime = datetime.datetime.strptime(row1['action_date'],ticket_dtime_format)
+
+				pre_max = False
+
+				if temp_dtime == ticket_dtime:
 					break
-				csr_person = re.search(pattern,row1['performed_by_csr'])
-				if csr_person!=None:
-					employee = csr_person.group(1)
+				elif maxdtime == 0:
+					maxdtime = temp_dtime
+					pre_max = True
+				elif temp_dtime > maxdtime:
+					maxdtime = temp_dtime
+					pre_max = True
+
+				if pre_max:
+					csr_person = re.search(pattern,row1['performed_by_csr'])
+					if csr_person!=None:
+						employee = csr_person.group(1)
 			
 			try:
 				availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
@@ -340,14 +378,14 @@ def execute(date_now, debug=True):
 				except KeyError:
 					print "WARNING: No data found for ",employee,". Reassigning ticket"
 					pass
+
+		completed_tickets.append(row['ticket_number'])
 		
 		if not assigned:
 			if debug:
 				print "Unable to assign ticket"
 		else:
 			number_of_assigned += 1
-
-	print skills_tracker[skills_tracker['TYPE'] == 'Sterling Integrator (SI)']
 
 	print "Allocation Complete"
 	# Utilisation Calculation

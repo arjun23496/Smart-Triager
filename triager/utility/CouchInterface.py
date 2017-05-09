@@ -14,6 +14,9 @@ class CouchInterface:
 		except Exception:
 			print "!!!!!! Connection to database Failed !!!!!!"
 
+	def create_database(self, dbname='triager_tickets'):
+		self.handle.create(dbname)
+
 	def add_documents(self, document, dbname='triager_tickets'):
 		try:
 			db = self.handle[dbname]
@@ -122,3 +125,7 @@ class CouchInterface:
 			return_value.append(row.key)
 
 		return return_value
+
+
+	def cleanup(self, dbname='triager_tickets'):
+		self.handle.delete(dbname)

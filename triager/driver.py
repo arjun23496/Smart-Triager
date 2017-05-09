@@ -1,5 +1,6 @@
 from preprocessor import Tickets
 # from utility import WatsonInterface
+from utility.CouchInterface import CouchInterface
 from sklearn.externals import joblib
 
 import category_learner
@@ -51,6 +52,16 @@ import scheduler
 
 ######################################### Transformer testing
 
+couch_handle = CouchInterface()
+
+print "Creating temporary database..."
+couch_handle.create_database()
+
+tkt = Tickets()
+
+print "uploading csv tickets"
+tkt.upload_tickets_csv()
+
 date_now = {
 		"year": "2016",
 		"date": "21",
@@ -58,3 +69,8 @@ date_now = {
 	}
 
 scheduler.execute(date_now)
+
+print "Cleaning up database..."
+couch_handle.cleanup('triager_tickets')
+
+print "*** Execution Complete ***"
