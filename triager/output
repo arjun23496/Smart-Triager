@@ -1,16 +1,272 @@
 Creating temporary database...
 uploading csv tickets
-Uploading 2712 tickets to database
-Uploading 2712 document(s)..
+Uploading 2273 tickets to database
+Uploading 2273 document(s)..
 Upload Complete
-2712 documents processed
-2712 document successfully uploaded
+2273 documents processed
+2273 document successfully uploaded
 0 documents failed!!
 Executing scheduler
-date: 2016-12-21
+date: 2017-04-27
 Retrieving documents from db...
 ---------------Executing Transformations------------
-[u'5377-13089649' u'5377-13120012' u'5377-13104307']
+[u'5377-11967602' u'5377-11967955' u'5377-12224905' u'5377-12239488'
+ u'5377-12239494' u'5377-12658124' u'5377-12807324' u'5377-13110265'
+ u'5377-13138653' u'5377-13197372' u'5377-13201601' u'5377-13206569'
+ u'5377-13226382' u'5377-13230293' u'5377-13230565' u'5377-13244374'
+ u'5377-13247647' u'5377-13251973' u'5377-13255195' u'5377-13273274'
+ u'5377-13287985' u'5377-13288504' u'5377-13302537' u'5377-13303134'
+ u'5377-13303536' u'5377-13313965' u'5377-13314146' u'5377-13313992'
+ u'5377-13318253' u'5377-13318371' u'5377-13319239' u'5377-13320241'
+ u'5377-13322444' u'5377-13321587' u'5377-13323309' u'5377-13323320'
+ u'5377-13327777' u'5377-13333848' u'5377-13333771' u'5377-13322599'
+ u'5377-13331911' u'5377-13337390' u'5377-13337453' u'5377-13337546'
+ u'5377-13343717' u'5377-13345685' u'5377-13347047' u'5377-13350921'
+ u'5377-13311398' u'5377-13350634' u'5377-13352578' u'5377-13356379'
+ u'5377-13358902' u'5377-13359108' u'5377-13360880' u'5377-13361579'
+ u'5377-13362321' u'5377-13362597' u'5377-13362753' u'5377-13362885'
+ u'5377-13362179' u'5377-13361990' u'5377-13361765' u'5377-13363021'
+ u'5377-13361746' u'5377-13363255' u'5377-13363308' u'5377-13363476'
+ u'5377-13363701' u'5377-13364357' u'5377-13364399' u'5377-13364635'
+ u'5377-13364643' u'5377-13364829' u'5377-13363747' u'5377-13364921']
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13337390
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Info/Question/How To
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13337390
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Info/Question/How To
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13337390
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Info/Question/How To
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13337390
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Info/Question/How To
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13337390
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Info/Question/How To
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13337390
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Info/Question/How To
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13337390
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Info/Question/How To
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13337390
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Info/Question/How To
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13337390
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Info/Question/How To
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13363021
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Proactive Notification
+Imputing Category
+New Category:  S - Map Change
+Ticket Number:  5377-13363021
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Proactive Notification
+Imputing Category
+New Category:  S - Map Change
+Ticket Number:  5377-13363021
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Proactive Notification
+Imputing Category
+New Category:  S - Map Change
+Ticket Number:  5377-13363021
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Proactive Notification
+Imputing Category
+New Category:  S - Map Change
+Ticket Number:  5377-13363021
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Proactive Notification
+Imputing Category
+New Category:  S - Map Change
+Ticket Number:  5377-13363021
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Proactive Notification
+Imputing Category
+New Category:  S - Map Change
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13321587
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Business Need
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13337390
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Info/Question/How To
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13337390
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Info/Question/How To
+Imputing Category
+New Category:  S - PER - New Map
+Ticket Number:  5377-13337390
+
+
+Unknown Categories encountered... Please check the Ticket List...
+S - Info/Question/How To
+Imputing Category
+New Category:  S - PER - New Map
 Transformations Complete
 ---------------Checking file requirements------------
 *Utilization Report - Found
@@ -22,125 +278,592 @@ Transformations Complete
 	Vacation Plan Read - Complete 
 *Backlog Report - Found
 ---------------Processing-------------
-ticket number:  5377-13120012
+Assigning priority
+Priority assignment complete
+Arranging according to priority
+Sort by priority complete
+ticket number:  5377-13318371
+assigned from history to  Srinivasulu Yempuluru
+ticket number:  5377-13314146
+assigned directly to  Nisam Punchappadathu
+ticket number:  5377-13230565
 Ticket history not present
-Skill Required:  AS2
-assigned using scheduler to  Resource_A
-ticket number:  5377-13104307
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13311398
+assigned directly to  Satish V Kottapalli
+ticket number:  5377-13362321
+WARNING: No data found for  Archita Jain . Reassigning ticket
 Ticket history not present
 Skill Required:  Sterling Integrator (SI)
-assigned using scheduler to  Resource_YM
-ticket number:  5377-13089649
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+assigned using scheduler to  Venkatarao Mangineni
+ticket number:  5377-13320241
+assigned from history to  Sachinkumar Rajashekhar Baratakke
+ticket number:  5377-13201601
+WARNING: No data found for  Prashanth R Gomari . Reassigning ticket
+Ticket history not present
+Skill Required:  FTP
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+assigned using scheduler to  DIVYA KOVVURU
+ticket number:  5377-13350921
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+assigned using scheduler to  Venkatarao Mangineni
+ticket number:  5377-13206569
+Skill Required:  XML
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+assigned using scheduler to  Yellaji Matta
+ticket number:  5377-13362885
+Ticket history not present
+Skill Required:  ROSETTANET
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13356379
+Skill Required:  ROSETTANET
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-12658124
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+assigned using scheduler to  Satish V Kottapalli
+ticket number:  5377-13347047
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+assigned using scheduler to  Yukti Dhawan
+ticket number:  5377-12807324
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13331911
+Ticket history not present
+Skill Required:  Logistics
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13361990
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+assigned using scheduler to  Yukti Dhawan
+ticket number:  5377-13313965
+Skill Required:  XML
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+assigned using scheduler to  Naveen Kumar S
+ticket number:  5377-13352578
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13350634
+Ticket history not present
+Skill Required:  EDIFACT
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+WARNING: No data found for  Sarath S Polisetty . Reassigning ticket
+assigned using scheduler to  Srinivasulu Yempuluru
+ticket number:  5377-13333771
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13345685
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13319239
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13363255
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13363021
+Ticket history not present
+Skill Required:  ROSETTANET
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13322444
 Ticket history not present
 Skill Required:  XML
-assigned using scheduler to  Resource_NP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+assigned using scheduler to  Sunil Ramakrishna
+ticket number:  5377-13363701
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13360880
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+assigned using scheduler to  Venkatarao Mangineni
+ticket number:  5377-13287985
+WARNING: No data found for  Aishwarya Kavassery . Reassigning ticket
+Ticket history not present
+Skill Required:  EDIFACT
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+WARNING: No data found for  Sarath S Polisetty . Reassigning ticket
+assigned using scheduler to  Archana Kulkarni
+ticket number:  5377-13313992
+Ticket history not present
+Skill Required:  AS2
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13322599
+Skill Required:  XML
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13288504
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13361579
+Ticket history not present
+Skill Required:  XML
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13251973
+Skill Required:  XML
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13361765
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13302537
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-12224905
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13247647
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-12239488
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13230293
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13337546
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-12239494
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13343717
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13273274
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+assigned using scheduler to  Yellaji Matta
+ticket number:  5377-13364399
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13321587
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13337453
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-11967955
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-11967602
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13361746
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13226382
+Ticket history not present
+Skill Required:  AS2
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13110265
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13333848
+Ticket history not present
+Skill Required:  XML
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13318253
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13362179
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13363308
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13362597
+WARNING: No data found for  Sunil R . Reassigning ticket
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13364635
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13364643
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13363476
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13197372
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13364829
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13323309
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13303536
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13358902
+Ticket history not present
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13323320
+Skill Required:  SAP
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13359108
+Ticket history not present
+Skill Required:  XML
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13303134
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13337390
+Ticket history not present
+Skill Required:  Oracle
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13255195
+Ticket history not present
+Skill Required:  AS2
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13327777
+Ticket history not present
+Skill Required:  SFTP
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13364921
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13363747
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13138653
+Skill Required:  AS2
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13364357
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13244374
+Ticket history not present
+Skill Required:  Sterling Integrator (SI)
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
+ticket number:  5377-13362753
+Ticket history not present
+Skill Required:  XML
+WARNING: No data found for  Amaranatha R Varikuti . Reassigning ticket
+WARNING: No data found for  Basava Venkata Bharath Ku Anaparthi . Reassigning ticket
+WARNING: No data found for  Sanket S Patil . Reassigning ticket
+WARNING: No data found for  Akhila B Desai . Reassigning ticket
+WARNING: No data found for  Aishwarya K S . Reassigning ticket
+Unable to assign ticket
 Allocation Complete
 -----------------------------------------------------
-Name:  Resource_SSP
-Availability:  8
-Usage:  0
-Number of tickets assigned:  0
-Utilization:  0.0 %
-Tickets:
------------------------------------------------------
-Name:  Resource_HBS
-Availability:  8
-Usage:  0
-Number of tickets assigned:  0
-Utilization:  0.0 %
-Tickets:
------------------------------------------------------
-Name:  Resource_NP
+Name:  Nisam Punchappadathu
 Availability:  8
 Usage:  8
 Number of tickets assigned:  1
 Utilization:  100.0 %
 Tickets:
-	5377-13089649
+	5377-13314146
 -----------------------------------------------------
-Name:  Resource_DS
+Name:  Srinivasulu Yempuluru
 Availability:  8
-Usage:  0
-Number of tickets assigned:  0
-Utilization:  0.0 %
+Usage:  8
+Number of tickets assigned:  2
+Utilization:  100.0 %
 Tickets:
+	5377-13318371
+	5377-13350634
 -----------------------------------------------------
-Name:  Resource_AKS
+Name:  Venkatarao Mangineni
 Availability:  8
-Usage:  0
-Number of tickets assigned:  0
-Utilization:  0.0 %
+Usage:  8
+Number of tickets assigned:  3
+Utilization:  100.0 %
 Tickets:
+	5377-13362321
+	5377-13350921
+	5377-13360880
 -----------------------------------------------------
-Name:  Resource_AK
+Name:  Yellaji Matta
 Availability:  8
-Usage:  0
-Number of tickets assigned:  0
-Utilization:  0.0 %
+Usage:  8
+Number of tickets assigned:  2
+Utilization:  100.0 %
 Tickets:
+	5377-13206569
+	5377-13273274
 -----------------------------------------------------
-Name:  Resource_SRB
-Availability:  8
-Usage:  0
-Number of tickets assigned:  0
-Utilization:  0.0 %
-Tickets:
+Name:  Dipayan Samanta
+Employee not available
 -----------------------------------------------------
-Name:  Resource_SY
+Name:  Sachinkumar Rajashekhar Baratakke
 Availability:  8
-Usage:  0
-Number of tickets assigned:  0
-Utilization:  0.0 %
-Tickets:
------------------------------------------------------
-Name:  Resource_SVK
-Availability:  8
-Usage:  0
-Number of tickets assigned:  0
-Utilization:  0.0 %
-Tickets:
------------------------------------------------------
-Name:  Resource_A
-Availability:  8
-Usage:  6
+Usage:  2
 Number of tickets assigned:  1
-Utilization:  75.0 %
+Utilization:  25.0 %
 Tickets:
-	5377-13120012
+	5377-13320241
 -----------------------------------------------------
-Name:  Resource_SR
-Availability:  8
-Usage:  0
-Number of tickets assigned:  0
-Utilization:  0.0 %
-Tickets:
------------------------------------------------------
-Name:  Resource_NK
-Availability:  8
-Usage:  0
-Number of tickets assigned:  0
-Utilization:  0.0 %
-Tickets:
------------------------------------------------------
-Name:  Resource_YM
+Name:  Naveen Kumar S
 Availability:  8
 Usage:  8
 Number of tickets assigned:  1
 Utilization:  100.0 %
 Tickets:
-	5377-13104307
+	5377-13313965
 -----------------------------------------------------
-Name:  Resource_DK
+Name:  DIVYA KOVVURU
 Availability:  8
-Usage:  0
-Number of tickets assigned:  0
-Utilization:  0.0 %
+Usage:  8
+Number of tickets assigned:  1
+Utilization:  100.0 %
 Tickets:
+	5377-13201601
+-----------------------------------------------------
+Name:  Archana Kulkarni
+Availability:  8
+Usage:  8
+Number of tickets assigned:  1
+Utilization:  100.0 %
+Tickets:
+	5377-13287985
+-----------------------------------------------------
+Name:  Yukti Dhawan
+Availability:  8
+Usage:  8
+Number of tickets assigned:  2
+Utilization:  100.0 %
+Tickets:
+	5377-13347047
+	5377-13361990
+-----------------------------------------------------
+Name:  Satish V Kottapalli
+Availability:  8
+Usage:  8
+Number of tickets assigned:  2
+Utilization:  100.0 %
+Tickets:
+	5377-13311398
+	5377-12658124
+-----------------------------------------------------
+Name:  Sunil Ramakrishna
+Availability:  8
+Usage:  8
+Number of tickets assigned:  1
+Utilization:  100.0 %
+Tickets:
+	5377-13322444
 -----------------System Status-------------------
-Total tickets:  3
-Tickets assigned:  3
-Total employees:  14
-Employees available:  14
-% assigned:  100.0 %
+Total tickets:  76
+Tickets assigned:  17
+Total employees:  12
+Employees available:  11
+% assigned:  22.3684210526 %
+Execution Time:  229.880846977  seconds
 Cleaning up database...
 *** Execution Complete ***

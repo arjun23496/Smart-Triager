@@ -86,7 +86,7 @@ def execute(date_now, debug=True):
 	utilization_df = None
 	skills_tracker_df = None
 	vacation_plan_df = None
-	df = pd.DataFrame(couch_handle.document_by_assigned(date_now, False))
+	df = pd.DataFrame(couch_handle.document_by_assigned(False))
 
 	if df.shape[0] <= 0:
 		print "No tickets for the given day"
@@ -106,13 +106,30 @@ def execute(date_now, debug=True):
 		if row['new_queue']=='' or pd.isnull(row['new_queue']):
 			temp['new_queue']=transformations.new_value_imputer(df,index,row['ticket_number'])
 			df.set_value(index, 'new queue', temp['new_queue'])
-		if row['category']=='' or pd.isnull(row['category']):
+
+		if row['category']=='' or pd.isnull(row['category']) or row['category'] not in permitted_categories:
+			if debug:
+				print "Ticket Number: ",row['ticket_number']
+			if row['category'] not in permitted_categories and row['category']!='' and (not pd.isnull(row['category'])):
+				if debug:	
+					print "\n\nUnknown Categories encountered... Please check the Ticket List..."
+					print row['category']
+			if debug:
+				print "Imputing Category"
 			temp['category']=transformations.category_imputer(df,index)
 			df.set_value(index, 'category', temp['category'])
+			if debug:
+				print "New Category: ",temp['category']
+
 		if row['severity']=='' or pd.isnull(row['severity']):
+			if debug:
+				print "Ticket Number: ",row['ticket_number']
+				print "Imputing Severity"
 			temp['severity']=transformations.severity_imputer(df,index)
 			df.set_value(index, 'severity', temp['severity'])
-		
+			if debug:
+				print "New Severity: ",temp['severity']
+
 		bar.update(index)
 
 		if temp['category'] not in permitted_categories:
@@ -192,7 +209,9 @@ def execute(date_now, debug=True):
 		
 		pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
 		
+		# print blog_report.columns
 		for index,row in blog_report.iterrows():
+			# print row
 			# print row
 			if row.isnull()['Assigned To (CSR)']:
 				continue
@@ -229,10 +248,19 @@ def execute(date_now, debug=True):
 		else:
 			return status_priority[1]
 
+	if debug:
+		print "Assigning priority"
+
 	df_nr = df.copy()
 	df_nr['status'] = df_nr['status'].apply(filter_prior)
 
 	#Ticket Assigning priority setting
+
+	if debug:
+		print "Priority assignment complete"
+
+	if debug:
+		print "Arranging according to priority"
 
 	df_nr.sort_values(priority_setting[0])
 	
@@ -255,6 +283,9 @@ def execute(date_now, debug=True):
 
 	skills_tracker = skills_tracker.sort_values('LEVEL')
 	# print skills_tracker
+
+	if debug:
+		print "Sort by priority complete"
 
 	total_tickets = len(pd.unique(df['ticket_number']))
 	number_of_assigned = 0

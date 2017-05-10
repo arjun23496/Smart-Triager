@@ -70,7 +70,7 @@ class CouchInterface:
 		return return_value
 
 
-	def document_by_assigned(self, date, key=False, dbname="triager_tickets"):
+	def document_by_assigned(self, key=False, dbname="triager_tickets"):
 		# try:
 		#2017-01-24
 		db = self.handle[dbname]
@@ -79,13 +79,23 @@ class CouchInterface:
 		# 	return
 
 		if key:
+
+			# map_fun = '''function (doc){
+			# 	if(doc.assigned && doc.action_date.substr(0,4) == "'''+date['year']+'''")
+			# 		emit(doc.action_date,doc);
+			# }'''
 			map_fun = '''function (doc){
-				if(doc.assigned && doc.action_date.substr(0,4) == "'''+date['year']+'''")
+				if(doc.assigned)
 					emit(doc.action_date,doc);
 			}'''
 		else:
+
+			# map_fun = '''function (doc){
+			# 	if(!doc.assigned && doc.action_date.substr(0,4) == "'''+date['year']+'''" && doc.action_date.substr(5,2) == "'''+date['month']+'''" && doc.action_date.substr(8,2) == "'''+date['date']+'''")
+			# 		emit(doc.action_date,doc);
+			# }'''
 			map_fun = '''function (doc){
-				if(!doc.assigned && doc.action_date.substr(0,4) == "'''+date['year']+'''" && doc.action_date.substr(5,2) == "'''+date['month']+'''" && doc.action_date.substr(8,2) == "'''+date['date']+'''")
+				if(!doc.assigned)
 					emit(doc.action_date,doc);
 			}'''
 

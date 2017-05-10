@@ -8,6 +8,7 @@ import severity_learner
 import progressbar
 import transformations
 import scheduler
+import time
 
 ######################################## preprocessor testing script
 
@@ -54,8 +55,13 @@ import scheduler
 
 couch_handle = CouchInterface()
 
-print "Creating temporary database..."
-couch_handle.create_database()
+try:
+	print "Creating temporary database..."
+	couch_handle.create_database()
+except Exception:
+	print "Retrying..."
+	couch_handle.cleanup('trigaer_tickets')
+	couch_handle.create_database()
 
 tkt = Tickets()
 
@@ -63,12 +69,22 @@ print "uploading csv tickets"
 tkt.upload_tickets_csv()
 
 date_now = {
-		"year": "2016",
-		"date": "21",
-		"month": "12"
+		"year": "2017",
+		"date": "27",
+		"month": "04"
 	}
 
-scheduler.execute(date_now)
+start_time = time.time()
+
+try:
+	scheduler.execute(date_now)
+except Exception as e:
+	print "Scheduling Terminated"
+	print e
+
+elapsed = time.time() - start_time
+
+print "Execution Time: ",elapsed," seconds"
 
 print "Cleaning up database..."
 couch_handle.cleanup('triager_tickets')
