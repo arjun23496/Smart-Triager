@@ -187,7 +187,7 @@ def execute(date_now, debug=True):
 					employee_status[row[' [o] = Owner']]['tickets'] = []
 
 				if row[coli]=='P':
-					print "Public Holiday. Exiting...."
+					employee_status[row[' [o] = Owner']]['total_availability'] = 0
 				elif row[coli] in not_available_legend:
 					employee_status[row[' [o] = Owner']]['total_availability'] = 0
 				elif row[coli] in half_day_legend:
@@ -287,28 +287,49 @@ def execute(date_now, debug=True):
 	if debug:
 		print "Sort by priority complete"
 
-	total_tickets = len(pd.unique(df['ticket_number']))
+	all_ticket_no = pd.unique(df['ticket_number'])
+	total_tickets = len(all_ticket_no)
 	number_of_assigned = 0
 
 	pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
-	for index,row in df_nr.iterrows():
+	# for index,row in df_nr.iterrows():
+	for t_no in all_ticket_no:
+
+		print "Assigning ",t_no
+
+		df_temp_new = df_nr[df_nr['ticket_number'] == t_no]
+
+		row = {}
+		maxdate = ""
+
+		for tindex, trow in df_temp_new.iterrows():
+			# print tindex
+			if tindex == 0 or maxdate == "":
+				maxdate = datetime.datetime.strptime(trow['action_date'], ticket_dtime_format)
+				row = trow
+			else:
+				tdate = datetime.datetime.strptime(trow['action_date'], ticket_dtime_format)
+
+				if maxdate < tdate:
+					maxdate = tdate
+					row = trow
 
 		ticket_dtime = datetime.datetime.strptime(row['action_date'], ticket_dtime_format)
 
-		mult_ticket = False
+		# mult_ticket = False
 
-		if row['ticket_number'] in completed_tickets:
-			continue
+		# if row['ticket_number'] in completed_tickets:
+		# 	continue
 
-		for index1,row1 in df_nr.iterrows():
-			if row1['ticket_number'] == row['ticket_number']:
-				temp_dt = datetime.datetime.strptime(row1['action_date'], ticket_dtime_format)
-				if temp_dt > ticket_dtime:
-					mult_ticket = True
-					break
+		# for index1,row1 in df_nr.iterrows():
+		# 	if row1['ticket_number'] == row['ticket_number']:
+		# 		temp_dt = datetime.datetime.strptime(row1['action_date'], ticket_dtime_format)
+		# 		if temp_dt > ticket_dtime:
+		# 			mult_ticket = True
+		# 			break
 
-		if mult_ticket:
-			continue
+		# if mult_ticket:
+		# 	continue
 
 		assigned = False
 		ticket_category = row['category']
@@ -414,7 +435,8 @@ def execute(date_now, debug=True):
 		
 		if not assigned:
 			if debug:
-				print "Unable to assign ticket"
+				# print "Unable to assign ticket"
+					
 		else:
 			number_of_assigned += 1
 
