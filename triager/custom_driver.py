@@ -9,6 +9,25 @@ import progressbar
 import transformations
 import scheduler
 import time
+import datetime
+
+
+def inc_date(date_now, ctr):
+	ticket_dtime_format = "%Y-%m-%d-%H.%M.%S"
+	date_param = date_now['year']+"-"+date_now['month']+"-"+date_now['date']+"-00.00.00"
+
+	date_now = datetime.datetime.strptime(date_param, ticket_dtime_format)
+
+	date_now = date_now+datetime.timedelta(days=ctr)
+
+	ret = {
+			"year": str(date_now.year),
+			"month": str(date_now.month),
+			"date": str(date_now.day)
+	}
+
+	return ret
+
 
 ######################################## preprocessor testing script
 
@@ -53,7 +72,7 @@ import time
 
 ######################################### Transformer testing
 
-# couch_handle = CouchInterface()
+couch_handle = CouchInterface()
 
 # try:
 # 	print "Creating temporary database..."
@@ -77,7 +96,12 @@ date_now = {
 start_time = time.time()
 
 # try:
-scheduler.execute(date_now)
+ret = False
+
+while not ret:
+	ret = scheduler.execute(date_now)
+	date_now = inc_date(date_now,1)
+	print "Scheduling for ",date_now
 # except Exception as e:
 	# print "Scheduling Terminated"
 	# print e

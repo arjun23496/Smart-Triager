@@ -430,14 +430,19 @@ def execute(date_now, debug=True):
 				except KeyError:
 					print "WARNING: No data found for ",employee,". Reassigning ticket"
 					pass
-
-		completed_tickets.append(row['ticket_number'])
 		
 		if not assigned:
 			if debug:
 				print "Unable to assign ticket"
 		else:
 			number_of_assigned += 1
+			completed_tickets.append(row['ticket_number'])
+
+	print completed_tickets
+
+	print "Setting completed tickets as assigned"
+	couch_handle.set_assigned(completed_tickets,'triager_tickets')
+	print "Setting assigned complete"
 
 	print "Allocation Complete"
 	# Utilisation Calculation
@@ -467,5 +472,13 @@ def execute(date_now, debug=True):
 	print "Total employees: ",len(employee_status)
 	print "Employees available: ",available_employees
 	print "% assigned: ",((1.0*number_of_assigned/total_tickets)*100),"%"
+
+	if available_employees == 0:
+		return False
+
+	if total_tickets != 0 and number_of_assigned !=0 and  total_tickets != number_of_assigned:
+		return False
+	else:
+		return True
 
 	# print employee_status

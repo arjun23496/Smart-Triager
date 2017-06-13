@@ -134,8 +134,49 @@ class CouchInterface:
 		for row in db.query(map_fun):
 			return_value.append(row.key)
 
-		return return_value
+
+	def set_assigned(self, t_nos, dbname):
+		db = self.handle[dbname]
+
+		for x in range(0,len(t_nos)):
+			t_nos[x] = '"'+t_nos[x]+'"'
+
+		t_nos = ','.join(t_nos)
+
+		print t_nos
+
+		map_fun = '''function (doc){
+			val = ['''+t_nos+''']
+			if(val.indexOf(doc.ticket_number) != -1)
+			{
+				emit(doc,doc._id)
+			}
+		}'''
+
+		return_value = []
+
+		for row in db.query(map_fun):
+			row.key['assigned'] = True
+			db[row.value] = row.key
+			return_value.append(row.key)
+
+		return True
 
 
 	def cleanup(self, dbname='triager_tickets'):
 		self.handle.delete(dbname)
+
+	def reset_assigned(self, dbname):
+		db = self.handle[dbname]
+
+		map_fun = '''function (doc){
+			if(doc.assigned)
+				emit(doc,doc._id)
+		}'''
+
+		for row in db.query(map_fun):
+			print row.value
+			row.key['assigned'] = False
+			db[row.value] = row.key
+	
+		return True
