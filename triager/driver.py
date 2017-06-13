@@ -9,6 +9,25 @@ import progressbar
 import transformations
 import scheduler
 import time
+import sys
+import traceback
+import datetime
+
+def inc_date(date_now, ctr):
+	ticket_dtime_format = "%Y-%m-%d-%H.%M.%S"
+	date_param = date_now['year']+"-"+date_now['month']+"-"+date_now['date']+"-00.00.00"
+
+	date_now = datetime.datetime.strptime(date_param, ticket_dtime_format)
+
+	date_now = date_now+datetime.timedelta(days=ctr)
+
+	ret = {
+			"year": str(date_now.year),
+			"month": str(date_now.month),
+			"date": str(date_now.day)
+	}
+
+	return ret
 
 ######################################## preprocessor testing script
 
@@ -60,7 +79,7 @@ try:
 	couch_handle.create_database()
 except Exception:
 	print "Retrying..."
-	couch_handle.cleanup('trigaer_tickets')
+	couch_handle.cleanup('triager_tickets')
 	couch_handle.create_database()
 
 tkt = Tickets()
@@ -76,13 +95,45 @@ date_now = {
 
 start_time = time.time()
 
-try:
-	scheduler.execute(date_now)
-except Exception as e:
-	print "Scheduling Terminated"
-	print e
+ret = False
+
+employee_status = {}
+
+while not ret:
+	try:
+		print "Scheduling for ",date_now
+		ret = scheduler.execute(date_now)
+		
+		if employee_status == {}:
+			employee_status = ret[1].copy()
+		
+		ticket_assignment = {}
+		ticket_assignment['date'] = date_now
+		ticket_assignment['ticket_list'] = []
+		ticket_assignment['usage'] = 0
+		ticket_assignment['availability'] = 0
+		for x in ret[1]:
+			ticket_assignment['ticket_list'] = ret[1][x]['tickets']
+			ticket_assignment['usage'] = ret[1][x]['usage']
+			ticket_assignment['availability'] = ret[1][x]['total_availability']
+			try:
+				employee_status[x]['daily_assignment']
+			except KeyError:
+				employee_status[x]['daily_assignment'] = []
+			employee_status[x]['daily_assignment'].append(ticket_assignment.copy())
+
+		ret = ret[0]
+
+		date_now = inc_date(date_now,1)
+	except:
+		exc_type, exc_value, exc_traceback = sys.exc_info()	
+		print "Scheduling Terminated"
+		traceback.print_exception(exc_type, exc_value, exc_traceback, limit=2, file=sys.stdout)
+		ret = True
 
 elapsed = time.time() - start_time
+
+print employee_status
 
 print "Execution Time: ",elapsed," seconds"
 

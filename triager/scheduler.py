@@ -10,6 +10,16 @@ import progressbar
 import os
 import re
 
+def clean_name_index(x):
+	x= x.upper()
+	if x[:3] == '[O]':
+		x = x[4:]
+	x = x.replace('.','')
+	
+	x = x.strip()
+	x = re.sub(' +',' ',x)
+	return x
+
 def execute(date_now, debug=True):
 
 	# TODO: Change in production
@@ -91,7 +101,7 @@ def execute(date_now, debug=True):
 	if df.shape[0] <= 0:
 		print "No tickets for the given day"
 		print "Exiting...."
-		return
+		return [True, None]
 
 	print "---------------Executing Transformations------------"
 
@@ -136,7 +146,7 @@ def execute(date_now, debug=True):
 			print "\n\nUnknown Categories encountered... Please check the Ticket List..."
 			print "Category: ",temp['category']
 			print "exiting....."
-			return
+			return [ False, None ]
 
 	bar.finish()
 
@@ -157,8 +167,10 @@ def execute(date_now, debug=True):
 		print "	Reading skills..."
 		skills_tracker = pd.read_csv(file_paths['skills_tracker'])
 		skills_tracker['LEVEL'] = skills_tracker['LEVEL'].apply(lambda x: skill_level_mapping[x])
+		skills_tracker['NAME'] = skills_tracker['NAME'].apply(lambda x: clean_name_index(x))
 		skills = pd.unique(skills_tracker['TYPE'])
 		print "	Skill Tracker Read - Complete"
+		# print skills_tracker
 	else:
 		print "*Skills Tracker not found"
 		status = False
@@ -177,24 +189,31 @@ def execute(date_now, debug=True):
 				if monthi != 0:
 					coli = coli+"."+str(monthi)
 
-				if skills_tracker[skills_tracker['NAME'] == row[' [o] = Owner']].shape[0] <= 0:
-					continue
+				emp_status_key = clean_name_index(row[' [o] = Owner'])
+				if emp_status_key[:3] == '[O]':
+					emp_status_key = emp_status_key[4:]
+
+				if skills_tracker[skills_tracker['NAME'] == emp_status_key].shape[0] <= 0:
+					print "Appending ",emp_status_key
+					temp_df_stracker = pd.DataFrame([[emp_status_key, 'Product', 'Sterling Integrator (SI)', 'Beginner', ' ', '2016', '-']], columns=['NAME','SKILL','TYPE','LEVEL','EXPERIENCE','LAST WORKED','CLIENTS'])
+					skills_tracker = skills_tracker.append(temp_df_stracker, ignore_index = True)
+					# continue
 
 				try:
-					employee_status[row[' [o] = Owner']]
+					employee_status[emp_status_key]
 				except KeyError:
-					employee_status[row[' [o] = Owner']] = {}
-					employee_status[row[' [o] = Owner']]['tickets'] = []
+					employee_status[emp_status_key] = {}
+					employee_status[emp_status_key]['tickets'] = []
 
 				if row[coli]=='P':
-					employee_status[row[' [o] = Owner']]['total_availability'] = 0
+					employee_status[emp_status_key]['total_availability'] = 0
 				elif row[coli] in not_available_legend:
-					employee_status[row[' [o] = Owner']]['total_availability'] = 0
+					employee_status[emp_status_key]['total_availability'] = 0
 				elif row[coli] in half_day_legend:
-					employee_status[row[' [o] = Owner']]['total_availability'] = user_availability['half_day']
+					employee_status[emp_status_key]['total_availability'] = user_availability['half_day']
 				else:
-					employee_status[row[' [o] = Owner']]['total_availability'] = user_availability['full_day']
-				employee_status[row[' [o] = Owner']]['usage'] = 0
+					employee_status[emp_status_key]['total_availability'] = user_availability['full_day']
+				employee_status[emp_status_key]['usage'] = 0
 
 		print "	Vacation Plan Read - Complete "
 	else:
@@ -202,6 +221,8 @@ def execute(date_now, debug=True):
 		status = False
 
 	# print employee_status
+	# print skills_tracker
+	# return True
 
 	if os.path.isfile(file_paths['backlog']):
 		print "*Backlog Report - Found"
@@ -267,7 +288,7 @@ def execute(date_now, debug=True):
 	if priority_setting[0] == 'status':
 		level1_val = status_priority
 	else:
-		level1_val = ['Sev 1','Sev 2','Sev 3','Sev 4']
+		level1_val = ['Sev 4','Sev 3','Sev 2','Sev 1']
 
 	temp_df = pd.DataFrame([], columns=df_nr.columns)
 
@@ -339,7 +360,8 @@ def execute(date_now, debug=True):
 			print "ticket number: ",row['ticket_number']
 
 		if csr_person != None:
-			employee=csr_person.group(1)
+			employee = csr_person.group(1)
+			employee = clean_name_index(employee)
 			#Assign to person set assigned to True
 			
 			try:
@@ -347,7 +369,7 @@ def execute(date_now, debug=True):
 				if availability >= category_time_requirements[ticket_category]:
 					if debug:
 						print "assigned directly to ",employee
-					employee_status[employee]['tickets'].append(row)
+					employee_status[employee]['tickets'].append(row['ticket_number'])
 					employee_status[employee]['usage']+=category_time_requirements[ticket_category]
 					assigned = True
 				# print employee_status[employee]
@@ -389,7 +411,7 @@ def execute(date_now, debug=True):
 				if availability >= category_time_requirements[ticket_category]:
 					if debug:
 						print "assigned from history to ",employee
-					employee_status[employee]['tickets'].append(row)
+					employee_status[employee]['tickets'].append(row['ticket_number'])
 					employee_status[employee]['usage']+=category_time_requirements[ticket_category]
 					assigned = True
 			except KeyError:
@@ -422,7 +444,7 @@ def execute(date_now, debug=True):
 					if availability >= category_time_requirements[ticket_category]:
 						if debug:
 							print "assigned using scheduler to ",employee
-						employee_status[employee]['tickets'].append(row)
+						employee_status[employee]['tickets'].append(row['ticket_number'])
 						employee_status[employee]['usage']+=category_time_requirements[ticket_category]
 						assigned = True
 						break
@@ -438,7 +460,7 @@ def execute(date_now, debug=True):
 			number_of_assigned += 1
 			completed_tickets.append(row['ticket_number'])
 
-	print completed_tickets
+	# print completed_tickets
 
 	print "Setting completed tickets as assigned"
 	couch_handle.set_assigned(completed_tickets,'triager_tickets')
@@ -460,7 +482,7 @@ def execute(date_now, debug=True):
 			print "Utilization: ",utilization,"%"
 			print "Tickets:"
 			for x in employee_status[x]['tickets']:
-				print "\t",x['ticket_number']
+				print "\t",x
 
 	for x in employee_status:
 		if employee_status[x]['total_availability'] > 0:
@@ -471,14 +493,14 @@ def execute(date_now, debug=True):
 	print "Tickets assigned: ",number_of_assigned
 	print "Total employees: ",len(employee_status)
 	print "Employees available: ",available_employees
-	print "% assigned: ",((1.0*number_of_assigned/total_tickets)*100),"%"
+	print "%f assigned: ",((1.0*number_of_assigned/total_tickets)*100),"%"
 
-	if available_employees == 0:
-		return False
+	if available_employees == 0 or number_of_assigned == 0:
+		return [ False, employee_status ]
 
 	if total_tickets != 0 and number_of_assigned !=0 and  total_tickets != number_of_assigned:
-		return False
+		return [ False, employee_status ]
 	else:
-		return True
+		return [ True, employee_status ]
 
 	# print employee_status
