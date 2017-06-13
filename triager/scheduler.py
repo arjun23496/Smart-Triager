@@ -435,8 +435,7 @@ def execute(date_now, debug=True):
 		
 		if not assigned:
 			if debug:
-				# print "Unable to assign ticket"
-					
+				print "Unable to assign ticket"
 		else:
 			number_of_assigned += 1
 
