@@ -60,7 +60,7 @@ import time
 # 	couch_handle.create_database()
 # except Exception:
 # 	print "Retrying..."
-# 	couch_handle.cleanup('trigaer_tickets')
+# 	couch_handle.cleanup('triager_tickets')
 # 	couch_handle.create_database()
 
 # tkt = Tickets()

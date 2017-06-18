@@ -9,6 +9,19 @@ import datetime
 import progressbar
 import os
 import re
+import sys
+import traceback
+
+
+def clean_name_index(x):
+	x= x.upper()
+	if x[:3] == '[O]':
+		x = x[4:]
+	x = x.replace('.','')
+	
+	x = x.strip()
+	x = re.sub(' +',' ',x)
+	return x
 
 def execute(date_now, debug=True):
 
@@ -177,8 +190,11 @@ def execute(date_now, debug=True):
 				if monthi != 0:
 					coli = coli+"."+str(monthi)
 
-				if skills_tracker[skills_tracker['NAME'] == row[' [o] = Owner']].shape[0] <= 0:
-					continue
+				temp_tracker = skills_tracker[skills_tracker['NAME'] == row[' [o] = Owner']]
+
+				if temp_tracker.shape[0] <= 0 or temp_tracker[temp_tracker['TYPE'] == 'Sterling Integrator (SI)'].shape[0] <=0:
+					temp_df_stracker = pd.DataFrame([[row[' [o] = Owner'], 'Product', 'Sterling Integrator (SI)', 'Beginner', ' ', '2016', '-']], columns=['NAME','SKILL','TYPE','LEVEL','EXPERIENCE','LAST WORKED','CLIENTS'])
+					skills_tracker = skills_tracker.append(temp_df_stracker, ignore_index = True)
 
 				try:
 					employee_status[row[' [o] = Owner']]
@@ -201,7 +217,7 @@ def execute(date_now, debug=True):
 		print "*Vacation Plan not found"
 		status = False
 
-	# print employee_status
+	print employee_status
 
 	if os.path.isfile(file_paths['backlog']):
 		print "*Backlog Report - Found"
@@ -341,15 +357,17 @@ def execute(date_now, debug=True):
 		if csr_person != None:
 			employee=csr_person.group(1)
 			#Assign to person set assigned to True
+			if debug:
+				print "Trying to assing directly to ",employee
 			
 			try:
 				availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
-				if availability >= category_time_requirements[ticket_category]:
-					if debug:
-						print "assigned directly to ",employee
-					employee_status[employee]['tickets'].append(row)
-					employee_status[employee]['usage']+=category_time_requirements[ticket_category]
-					assigned = True
+				# if availability >= category_time_requirements[ticket_category]:
+				if debug:
+					print "assigned directly to ",employee
+				employee_status[employee]['tickets'].append(row)
+				employee_status[employee]['usage']+=category_time_requirements[ticket_category]
+				assigned = True
 				# print employee_status[employee]
 
 			except KeyError:
@@ -360,6 +378,10 @@ def execute(date_now, debug=True):
 
 		if not assigned:
 			#Assign to particular csr based on availability and ticket history
+			
+			if debug:
+				print "Trying to assign to employee from ticket history"
+
 			employee = ''
 			temp_df = pd.DataFrame(couch_handle.document_by_key('ticket_number',row['ticket_number']))
 			for index1,row1 in temp_df.iterrows():
@@ -372,10 +394,10 @@ def execute(date_now, debug=True):
 
 				if temp_dtime == ticket_dtime:
 					break
-				elif maxdtime == 0:
+				elif maxdtime == 0 and (row1['performed_by_csr'] != '' or row1['performed_by_csr'] != None) :
 					maxdtime = temp_dtime
 					pre_max = True
-				elif temp_dtime > maxdtime:
+				elif temp_dtime > maxdtime and (row1['performed_by_csr'] != '' or row1['performed_by_csr'] != None):
 					maxdtime = temp_dtime
 					pre_max = True
 
@@ -384,19 +406,34 @@ def execute(date_now, debug=True):
 					if csr_person!=None:
 						employee = csr_person.group(1)
 			
+			t = False
+
+			if debug:
+				print "Assiging to ",employee
+
 			try:
 				availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
-				if availability >= category_time_requirements[ticket_category]:
+				# if availability >= category_time_requirements[ticket_category]:
+			
+			except KeyError:
+				if debug:
+					print "Employee not present in vacation planner ",employee
+					t = True
+
+			if not t:
+				try:
 					if debug:
 						print "assigned from history to ",employee
 					employee_status[employee]['tickets'].append(row)
 					employee_status[employee]['usage']+=category_time_requirements[ticket_category]
 					assigned = True
-			except KeyError:
-				if debug:
-					print "Ticket history not present"
+				except KeyError:
+					if debug:
+						print "Ticket history not present"
 
 		if not assigned:
+			if debug:
+				print "Trying default scheduler model"
 			req_skill = 'Sterling Integrator (SI)'
 			for x in skills:
 				reg_x = re.escape(x)
@@ -410,30 +447,83 @@ def execute(date_now, debug=True):
 
 			##Scheduler---------------
 
+			
 			temp_skills = skills_tracker[skills_tracker['TYPE'] == req_skill]
-			# print temp_skills
+			
+			temp_skills = temp_skills.reset_index(drop=True)
 
-			for i,r in temp_skills.iterrows():
-				employee = r['NAME']
-				try:
-					availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
-					# print availability
+			maxrows = temp_skills.shape[0]
+
+			iter_num = 0
+			while (not assigned) and iter_num <= 5:
+
+				local_availability = 0
+
+				for i,r in temp_skills.iterrows():
+					employee = r['NAME']
 					
-					if availability >= category_time_requirements[ticket_category]:
-						if debug:
-							print "assigned using scheduler to ",employee
-						employee_status[employee]['tickets'].append(row)
-						employee_status[employee]['usage']+=category_time_requirements[ticket_category]
-						assigned = True
-						break
+					index = i
 
-				except KeyError:
-					print "WARNING: No data found for ",employee,". Reassigning ticket"
-					pass
+					for xi in range(1, maxrows+1):
+						index = (i+xi)%maxrows
+						n = temp_skills.loc[index,"NAME"]
+
+						try:
+							if employee_status[n]['total_availability'] > 0:
+								break
+						except KeyError:
+							pass
+					
+					if debug:
+						print "Trying to assign to ",employee
+					try:
+						# availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
+						# print availability
+
+						# try:
+						# 	if employee_status[employee]:
+						# 		continue 
+						# except:
+						# 	print "Error 1"
+
+						try:
+							prev = temp_skills.loc[index,"NAME"]
+							print prev
+						except:
+							print "Error 2"
+							exc_type, exc_value, exc_traceback = sys.exc_info()	
+							print "Scheduling Terminated"
+							traceback.print_exception(exc_type, exc_value, exc_traceback, limit=2, file=sys.stdout)
+							return
+
+						print "prev ",prev
+						print employee
+
+						local_availability += employee_status[employee]['total_availability']
+
+						if len(employee_status[prev]['tickets']) >= len(employee_status[employee]['tickets']):
+							if debug:
+								print "assigned using scheduler to ",employee
+							employee_status[employee]['tickets'].append(row)
+							employee_status[employee]['usage']+=category_time_requirements[ticket_category]
+							assigned = True
+							break
+
+					except KeyError:
+						print "WARNING: No data found for ",employee,". Reassigning ticket"
+						pass
+				iter_num += 1
+
+				if local_availability ==0:
+					if debug:
+						print "No employee available to assign..."
+					break
 
 		completed_tickets.append(row['ticket_number'])
 		
 		if not assigned:
+			# print employee_status
+			# return
 			if debug:
 				print "Unable to assign ticket"
 		else:
@@ -449,10 +539,10 @@ def execute(date_now, debug=True):
 			print "Employee not available"
 		else:
 			utilization = 100.0*employee_status[x]['usage']/employee_status[x]['total_availability']
-			print "Availability: ",employee_status[x]['total_availability']
-			print "Usage: ",employee_status[x]['usage']
+			# print "Availability: ",employee_status[x]['total_availability']
+			# print "Usage: ",employee_status[x]['usage']
 			print "Number of tickets assigned: ",len(employee_status[x]['tickets'])
-			print "Utilization: ",utilization,"%"
+			# print "Utilization: ",utilization,"%"
 			print "Tickets:"
 			for x in employee_status[x]['tickets']:
 				print "\t",x['ticket_number']
@@ -467,5 +557,8 @@ def execute(date_now, debug=True):
 	print "Total employees: ",len(employee_status)
 	print "Employees available: ",available_employees
 	print "% assigned: ",((1.0*number_of_assigned/total_tickets)*100),"%"
+
+	# print employee_status['Resource_AB']
+	# print employee_status['Resource_DK']
 
 	# print employee_status
