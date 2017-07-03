@@ -417,12 +417,20 @@ def execute(date_now, debug=True):
 				print "Trying to assign to employee from ticket history"
 
 			employee = ''
+			tpattern = re.compile(r'.*\[.*\] (.*)')
 			temp_df = pd.DataFrame(couch_handle.document_by_key('ticket_number',row['ticket_number']))
+			# print temp_df
 			for index1,row1 in temp_df.iterrows():
 				# if row1['action_date'][:10]==date_param:
 				# 	break
 
 				temp_dtime = datetime.datetime.strptime(row1['action_date'],ticket_dtime_format)
+
+				# print "tempdtime ",temp_dtime
+				# print "emp ",row1['performed_by_csr']
+
+				if temp_dtime == None or row1['performed_by_csr'] == '':
+					continue
 
 				pre_max = False
 
@@ -436,7 +444,9 @@ def execute(date_now, debug=True):
 					pre_max = True
 
 				if pre_max:
-					csr_person = re.search(pattern,row1['performed_by_csr'])
+					# print "maximising to prev"
+					csr_person = re.search(tpattern,row1['performed_by_csr'])
+					# print csr_person
 					if csr_person!=None:
 						employee = csr_person.group(1)
 			
@@ -464,6 +474,9 @@ def execute(date_now, debug=True):
 				except KeyError:
 					if debug:
 						print "Ticket history not present"
+
+		# if row['ticket_number'] == u'5377-13340579':
+		# 	return
 
 		if not assigned:
 			if debug:
