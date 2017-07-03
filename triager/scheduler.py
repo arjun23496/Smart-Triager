@@ -124,12 +124,12 @@ def execute(date_now, debug=True):
 			if debug:
 				print "Ticket Number: ",row['ticket_number']
 			if row['category'] not in permitted_categories and row['category']!='' and (not pd.isnull(row['category'])):
-				if debug:	
+				if debug:
 					print "\n\nUnknown Categories encountered... Please check the Ticket List..."
 					print row['category']
 			if debug:
 				print "Imputing Category"
-			temp['category']=transformations.category_imputer(df,index)
+			temp['category']=transformations.category_imputer(df,index,row['ticket_number'],row['action_date'],ticket_dtime_format)
 			df.set_value(index, 'category', temp['category'])
 			if debug:
 				print "New Category: ",temp['category']
@@ -216,8 +216,6 @@ def execute(date_now, debug=True):
 	else:
 		print "*Vacation Plan not found"
 		status = False
-
-	print employee_status
 
 	if os.path.isfile(file_paths['backlog']):
 		print "*Backlog Report - Found"
@@ -342,8 +340,6 @@ def execute(date_now, debug=True):
 
 	for x in level1_val:
 		sort_df = sort_df.append(ttemp_df[ttemp_df[priority_setting[0]] == x].sort_values(priority_setting[1]))
-
-	print sort_df
 
 	scheduler_pointer = {}
 

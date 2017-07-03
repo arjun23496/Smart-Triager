@@ -1,4 +1,5 @@
 import pandas as pd
+import datetime
 from sklearn.externals import joblib
 
 def new_value_imputer(df,index,ticket_number):
@@ -23,8 +24,24 @@ def category_imputer(df,index):
 	return pred_res
 
 
-def category_imputer(df, index):
+def category_imputer(df, index, ticket_number,action_date,ticket_dtime_format):
 	categories = ['S - PER - New Map', 'S - Map Research', 'S - Map Change', 'S - PER - Map Change']
+	
+	df = df[df['ticket_number'] == ticket_number]
+	ptdate = datetime.datetime.strptime(action_date, ticket_dtime_format)
+	maxdate = ''
+	maxcategory = ''
+
+	for index, row in df.iterrows():
+		tdate = datetime.datetime.strptime(row['action_date'], ticket_dtime_format)
+		if (row['category']!='' and (not pd.isnull(row['category'])) and row['category'] in categories) and (maxdate == '' or (ptdate>tdate and tdate>maxdate)):
+			maxdate = tdate
+			maxcategory = row['category']
+
+	if maxcategory!='':
+		print "Assigned category using ticket history"
+		return maxcategory
+
 	transformer=joblib.load('./predictors/category/transformer.pkl')
 	learner=joblib.load('./predictors/category/learner.pkl')
 	
