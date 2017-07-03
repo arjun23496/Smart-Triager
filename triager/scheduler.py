@@ -278,7 +278,7 @@ def execute(date_now, debug=True):
 	if debug:
 		print "Arranging according to priority"
 
-	df_nr.sort_values(priority_setting[0])
+	# df_nr.sort_values(priority_setting[0])
 	
 	if priority_setting[0] == 'status':
 		level1_val = status_priority
@@ -287,8 +287,8 @@ def execute(date_now, debug=True):
 
 	temp_df = pd.DataFrame([], columns=df_nr.columns)
 
-	for x in level1_val:
-		temp_df = temp_df.append(df_nr[df_nr[priority_setting[0]] == x].sort_values(priority_setting[1]))
+	# for x in level1_val:
+	# 	temp_df = temp_df.append(df_nr[df_nr[priority_setting[0]] == x].sort_values(priority_setting[1]))
 
 	# df_nr_severity = df_nr.sort_values('status')
 	
@@ -309,9 +309,12 @@ def execute(date_now, debug=True):
 
 	pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
 	# for index,row in df_nr.iterrows():
-	for t_no in all_ticket_no:
 
-		print "Assigning ",t_no
+	#Sorting according to severity
+
+	ttemp_df = pd.DataFrame([], columns=df_nr.columns)
+
+	for t_no in all_ticket_no:
 
 		df_temp_new = df_nr[df_nr['ticket_number'] == t_no]
 
@@ -329,6 +332,41 @@ def execute(date_now, debug=True):
 				if maxdate < tdate:
 					maxdate = tdate
 					row = trow
+
+		ttemp_df = ttemp_df.append(pd.DataFrame([row], columns=df_nr.columns))
+		print t_no
+
+	ttemp_df = ttemp_df.sort_values('status')
+
+	sort_df = pd.DataFrame([], columns=df_nr.columns)
+
+	for x in level1_val:
+		sort_df = sort_df.append(ttemp_df[ttemp_df[priority_setting[0]] == x].sort_values(priority_setting[1]))
+
+	print sort_df
+
+	scheduler_pointer = {}
+
+	for tindex,row in ttemp_df.iterrows():
+
+		print "Assigning ",t_no
+
+		# df_temp_new = df_nr[df_nr['ticket_number'] == t_no]
+
+		# row = {}
+		# maxdate = ""
+
+		# for tindex, trow in df_temp_new.iterrows():
+		# 	# print tindex
+		# 	if tindex == 0 or maxdate == "":
+		# 		maxdate = datetime.datetime.strptime(trow['action_date'], ticket_dtime_format)
+		# 		row = trow
+		# 	else:
+		# 		tdate = datetime.datetime.strptime(trow['action_date'], ticket_dtime_format)
+
+		# 		if maxdate < tdate:
+		# 			maxdate = tdate
+		# 			row = trow
 
 		ticket_dtime = datetime.datetime.strptime(row['action_date'], ticket_dtime_format)
 
@@ -449,75 +487,36 @@ def execute(date_now, debug=True):
 
 			
 			temp_skills = skills_tracker[skills_tracker['TYPE'] == req_skill]
-			
+
 			temp_skills = temp_skills.reset_index(drop=True)
 
 			maxrows = temp_skills.shape[0]
 
-			iter_num = 0
-			while (not assigned) and iter_num <= 5:
+			minemployee = ''
+			mintickets = 0
+			local_availability = 0
 
-				local_availability = 0
+			for index1,row1 in temp_skills.iterrows():
+				f = False
+				try:
+					employee_status[row1['NAME']]
+				except KeyError:
+					print "WARNING: Employee '",row1['NAME'],"' not found in vacation planner"
+					continue
 
-				for i,r in temp_skills.iterrows():
-					employee = r['NAME']
-					
-					index = i
+				if employee_status[row1['NAME']]['total_availability'] > 0:
+					local_availability+=1
+					notickets = len(employee_status[row1['NAME']]['tickets'])
+					if minemployee == '' or notickets < mintickets:
+						minemployee = row1['NAME']
+						mintickets = notickets
 
-					for xi in range(1, maxrows+1):
-						index = (i+xi)%maxrows
-						n = temp_skills.loc[index,"NAME"]
-
-						try:
-							if employee_status[n]['total_availability'] > 0:
-								break
-						except KeyError:
-							pass
-					
-					if debug:
-						print "Trying to assign to ",employee
-					try:
-						# availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
-						# print availability
-
-						# try:
-						# 	if employee_status[employee]:
-						# 		continue 
-						# except:
-						# 	print "Error 1"
-
-						try:
-							prev = temp_skills.loc[index,"NAME"]
-							print prev
-						except:
-							print "Error 2"
-							exc_type, exc_value, exc_traceback = sys.exc_info()	
-							print "Scheduling Terminated"
-							traceback.print_exception(exc_type, exc_value, exc_traceback, limit=2, file=sys.stdout)
-							return
-
-						print "prev ",prev
-						print employee
-
-						local_availability += employee_status[employee]['total_availability']
-
-						if len(employee_status[prev]['tickets']) >= len(employee_status[employee]['tickets']):
-							if debug:
-								print "assigned using scheduler to ",employee
-							employee_status[employee]['tickets'].append(row)
-							employee_status[employee]['usage']+=category_time_requirements[ticket_category]
-							assigned = True
-							break
-
-					except KeyError:
-						print "WARNING: No data found for ",employee,". Reassigning ticket"
-						pass
-				iter_num += 1
-
-				if local_availability ==0:
-					if debug:
-						print "No employee available to assign..."
-					break
+			if local_availability ==0:
+				if debug:
+					print "No employee available to assign..."
+			else:
+				employee_status[minemployee]['tickets'].append(row)
+				assigned = True
 
 		completed_tickets.append(row['ticket_number'])
 		
