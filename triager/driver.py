@@ -70,8 +70,8 @@ tkt.upload_tickets_csv()
 
 date_now = {
 		"year": "2017",
-		"date": "27",
-		"month": "04"
+		"date": "06",
+		"month": "06"
 	}
 
 start_time = time.time()

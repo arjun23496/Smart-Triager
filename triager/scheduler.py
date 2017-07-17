@@ -186,9 +186,11 @@ def execute(date_now, debug=True):
 			if not pd.isnull(row[' [o] = Owner']):
 				# print employee_status
 				monthi = int(date_now['month'])-1
-				coli = str(date_now['date'])
+				coli = str(int(str(date_now['date'])))
+
 				if monthi != 0:
 					coli = coli+"."+str(monthi)
+				print row
 
 				temp_tracker = skills_tracker[skills_tracker['NAME'] == row[' [o] = Owner']]
 
@@ -201,6 +203,10 @@ def execute(date_now, debug=True):
 				except KeyError:
 					employee_status[row[' [o] = Owner']] = {}
 					employee_status[row[' [o] = Owner']]['tickets'] = []
+
+				print row[' [o] = Owner']
+
+				print coli
 
 				if row[coli]=='P':
 					employee_status[row[' [o] = Owner']]['total_availability'] = 0

@@ -1,5 +1,5 @@
 Executing scheduler
-date: 2017-04-27
+date: 2017-06-06
 Retrieving documents from db...
 ---------------Executing Transformations------------
 [u'5377-12097474' u'5377-12097487' u'5377-12239494' u'5377-12389221'
@@ -332,6 +332,2118 @@ Transformations Complete
 	Skill Tracker Read - Complete
 *Vacation Plan - Found
 	Reading Vacation Plan...
+ [o] = Owner    Resource_SS
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                        V
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 0, dtype: object
+Resource_SS
+6.5
+ [o] = Owner    Resource_AKS
+1                        NaN
+2                        NaN
+3                        NaN
+4                        NaN
+5                        NaN
+6                        NaN
+7                        NaN
+8                        NaN
+9                        NaN
+10                       NaN
+11                       NaN
+12                       NaN
+13                       NaN
+14                       NaN
+15                       NaN
+16                       NaN
+17                       NaN
+18                       NaN
+19                       NaN
+20                       NaN
+21                       NaN
+22                       NaN
+23                       NaN
+24                       NaN
+25                       NaN
+26                         P
+27                         O
+28                       NaN
+29                       NaN
+                    ...     
+3.11                     NaN
+4.11                     NaN
+5.11                     NaN
+6.11                     NaN
+7.11                     NaN
+8.11                     NaN
+9.11                     NaN
+10.11                    NaN
+11.11                    NaN
+12.11                    NaN
+13.11                    NaN
+14.11                    NaN
+15.11                    NaN
+16.11                    NaN
+17.11                    NaN
+18.11                    NaN
+19.11                    NaN
+20.11                    NaN
+21.11                    NaN
+22.11                    NaN
+23.11                    NaN
+24.11                    NaN
+25.11                      P
+26.11                    NaN
+27.11                    NaN
+28.11                    NaN
+29.10                    NaN
+30.10                    NaN
+31.6                     NaN
+Unnamed: 377             NaN
+Name: 1, dtype: object
+Resource_AKS
+6.5
+ [o] = Owner    Resource_AD
+1                       NaN
+2                         V
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 2, dtype: object
+Resource_AD
+6.5
+ [o] = Owner    Resource_AR
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                        W
+14                      NaN
+15                      NaN
+16                        V
+17                        V
+18                        W
+19                        W
+20                        W
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 3, dtype: object
+Resource_AR
+6.5
+ [o] = Owner    Resource_AK
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 4, dtype: object
+Resource_AK
+6.5
+ [o] = Owner    Resource_AJ
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 5, dtype: object
+Resource_AJ
+6.5
+ [o] = Owner    Resource_BK...
+1                          NaN
+2                          NaN
+3                          NaN
+4                          NaN
+5                          NaN
+6                          NaN
+7                          NaN
+8                          NaN
+9                          NaN
+10                         NaN
+11                         NaN
+12                         NaN
+13                         NaN
+14                         NaN
+15                         NaN
+16                         NaN
+17                         NaN
+18                         NaN
+19                         NaN
+20                         NaN
+21                         NaN
+22                         NaN
+23                         NaN
+24                         NaN
+25                         NaN
+26                         NaN
+27                         NaN
+28                         NaN
+29                         NaN
+                     ...      
+3.11                       NaN
+4.11                       NaN
+5.11                       NaN
+6.11                       NaN
+7.11                       NaN
+8.11                       NaN
+9.11                       NaN
+10.11                      NaN
+11.11                      NaN
+12.11                      NaN
+13.11                      NaN
+14.11                      NaN
+15.11                      NaN
+16.11                      NaN
+17.11                      NaN
+18.11                      NaN
+19.11                      NaN
+20.11                      NaN
+21.11                      NaN
+22.11                      NaN
+23.11                      NaN
+24.11                      NaN
+25.11                      NaN
+26.11                      NaN
+27.11                      NaN
+28.11                      NaN
+29.10                      NaN
+30.10                      NaN
+31.6                       NaN
+Unnamed: 377               NaN
+Name: 6, dtype: object
+Resource_BK...
+6.5
+ [o] = Owner    Resource_DK
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 7, dtype: object
+Resource_DK
+6.5
+ [o] = Owner    Resource_DS
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 8, dtype: object
+Resource_DS
+6.5
+ [o] = Owner    Resource_HBS
+1                        NaN
+2                        NaN
+3                        NaN
+4                        NaN
+5                        NaN
+6                        NaN
+7                        NaN
+8                        NaN
+9                        NaN
+10                       NaN
+11                       NaN
+12                       NaN
+13                       NaN
+14                       NaN
+15                       NaN
+16                       NaN
+17                       NaN
+18                       NaN
+19                       NaN
+20                       NaN
+21                       NaN
+22                       NaN
+23                       NaN
+24                       NaN
+25                       NaN
+26                         P
+27                       NaN
+28                       NaN
+29                       NaN
+                    ...     
+3.11                     NaN
+4.11                     NaN
+5.11                     NaN
+6.11                     NaN
+7.11                     NaN
+8.11                     NaN
+9.11                     NaN
+10.11                    NaN
+11.11                    NaN
+12.11                    NaN
+13.11                    NaN
+14.11                    NaN
+15.11                    NaN
+16.11                    NaN
+17.11                    NaN
+18.11                    NaN
+19.11                    NaN
+20.11                    NaN
+21.11                    NaN
+22.11                    NaN
+23.11                    NaN
+24.11                    NaN
+25.11                      P
+26.11                    NaN
+27.11                    NaN
+28.11                    NaN
+29.10                    NaN
+30.10                    NaN
+31.6                     NaN
+Unnamed: 377             NaN
+Name: 9, dtype: object
+Resource_HBS
+6.5
+ [o] = Owner    Resource_JKL
+1                        NaN
+2                        NaN
+3                        NaN
+4                        NaN
+5                        NaN
+6                        NaN
+7                        NaN
+8                        NaN
+9                        NaN
+10                       NaN
+11                       NaN
+12                       NaN
+13                       NaN
+14                       NaN
+15                       NaN
+16                       NaN
+17                       NaN
+18                       NaN
+19                       NaN
+20                         V
+21                       NaN
+22                       NaN
+23                       NaN
+24                       NaN
+25                       NaN
+26                         P
+27                       NaN
+28                       NaN
+29                       NaN
+                    ...     
+3.11                     NaN
+4.11                     NaN
+5.11                     NaN
+6.11                     NaN
+7.11                     NaN
+8.11                     NaN
+9.11                     NaN
+10.11                    NaN
+11.11                    NaN
+12.11                    NaN
+13.11                    NaN
+14.11                    NaN
+15.11                    NaN
+16.11                    NaN
+17.11                    NaN
+18.11                    NaN
+19.11                    NaN
+20.11                    NaN
+21.11                    NaN
+22.11                    NaN
+23.11                    NaN
+24.11                    NaN
+25.11                      P
+26.11                    NaN
+27.11                    NaN
+28.11                    NaN
+29.10                    NaN
+30.10                    NaN
+31.6                     NaN
+Unnamed: 377             NaN
+Name: 10, dtype: object
+Resource_JKL
+6.5
+ [o] = Owner    Resource_JB
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                        V
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                        V
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 11, dtype: object
+Resource_JB
+6.5
+ [o] = Owner    Resource_JVR
+1                        NaN
+2                        NaN
+3                        NaN
+4                        NaN
+5                        NaN
+6                        NaN
+7                        NaN
+8                        NaN
+9                        NaN
+10                       NaN
+11                       NaN
+12                       NaN
+13                       NaN
+14                       NaN
+15                       NaN
+16                       NaN
+17                       NaN
+18                       NaN
+19                       NaN
+20                       NaN
+21                       NaN
+22                       NaN
+23                       NaN
+24                       NaN
+25                       NaN
+26                         P
+27                       NaN
+28                       NaN
+29                       NaN
+                    ...     
+3.11                     NaN
+4.11                     NaN
+5.11                     NaN
+6.11                     NaN
+7.11                     NaN
+8.11                     NaN
+9.11                     NaN
+10.11                    NaN
+11.11                    NaN
+12.11                    NaN
+13.11                    NaN
+14.11                    NaN
+15.11                    NaN
+16.11                    NaN
+17.11                    NaN
+18.11                    NaN
+19.11                    NaN
+20.11                    NaN
+21.11                    NaN
+22.11                    NaN
+23.11                    NaN
+24.11                    NaN
+25.11                      P
+26.11                    NaN
+27.11                    NaN
+28.11                    NaN
+29.10                    NaN
+30.10                    NaN
+31.6                     NaN
+Unnamed: 377             NaN
+Name: 12, dtype: object
+Resource_JVR
+6.5
+ [o] = Owner    Resource_KS
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                        W
+17                        W
+18                        W
+19                        W
+20                        W
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                        V
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 13, dtype: object
+Resource_KS
+6.5
+ [o] = Owner    Resource_NK
+1                       NaN
+2                       NaN
+3                       NaN
+4                         V
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 14, dtype: object
+Resource_NK
+6.5
+ [o] = Owner    Resource_NP
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 15, dtype: object
+Resource_NP
+6.5
+ [o] = Owner    Resource_PRG
+1                        NaN
+2                        NaN
+3                        NaN
+4                        NaN
+5                        NaN
+6                        NaN
+7                        NaN
+8                        NaN
+9                        NaN
+10                       NaN
+11                       NaN
+12                       NaN
+13                         N
+14                       NaN
+15                       NaN
+16                         N
+17                         N
+18                         N
+19                       NaN
+20                       NaN
+21                       NaN
+22                       NaN
+23                       NaN
+24                       NaN
+25                       NaN
+26                         P
+27                       NaN
+28                       NaN
+29                       NaN
+                    ...     
+3.11                     NaN
+4.11                     NaN
+5.11                     NaN
+6.11                     NaN
+7.11                     NaN
+8.11                     NaN
+9.11                     NaN
+10.11                    NaN
+11.11                    NaN
+12.11                    NaN
+13.11                    NaN
+14.11                    NaN
+15.11                    NaN
+16.11                    NaN
+17.11                    NaN
+18.11                    NaN
+19.11                    NaN
+20.11                    NaN
+21.11                    NaN
+22.11                    NaN
+23.11                    NaN
+24.11                    NaN
+25.11                      P
+26.11                    NaN
+27.11                    NaN
+28.11                    NaN
+29.10                    NaN
+30.10                    NaN
+31.6                     NaN
+Unnamed: 377             NaN
+Name: 16, dtype: object
+Resource_PRG
+6.5
+ [o] = Owner    Resource_RKM
+1                        NaN
+2                        NaN
+3                        NaN
+4                        NaN
+5                        NaN
+6                        NaN
+7                        NaN
+8                        NaN
+9                        NaN
+10                       NaN
+11                       NaN
+12                       NaN
+13                       NaN
+14                       NaN
+15                       NaN
+16                       NaN
+17                       NaN
+18                       NaN
+19                       NaN
+20                       NaN
+21                       NaN
+22                       NaN
+23                       NaN
+24                       NaN
+25                       NaN
+26                         P
+27                         V
+28                       NaN
+29                       NaN
+                    ...     
+3.11                     NaN
+4.11                     NaN
+5.11                     NaN
+6.11                     NaN
+7.11                     NaN
+8.11                     NaN
+9.11                     NaN
+10.11                    NaN
+11.11                    NaN
+12.11                    NaN
+13.11                    NaN
+14.11                    NaN
+15.11                    NaN
+16.11                    NaN
+17.11                    NaN
+18.11                    NaN
+19.11                    NaN
+20.11                    NaN
+21.11                    NaN
+22.11                    NaN
+23.11                    NaN
+24.11                    NaN
+25.11                      P
+26.11                      V
+27.11                      V
+28.11                      V
+29.10                      V
+30.10                    NaN
+31.6                     NaN
+Unnamed: 377             NaN
+Name: 17, dtype: object
+Resource_RKM
+6.5
+ [o] = Owner    Resource_RC
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 18, dtype: object
+Resource_RC
+6.5
+ [o] = Owner    Resource_RMK
+1                        NaN
+2                        NaN
+3                        NaN
+4                        NaN
+5                        NaN
+6                        NaN
+7                        NaN
+8                        NaN
+9                        NaN
+10                       NaN
+11                       NaN
+12                       NaN
+13                       NaN
+14                       NaN
+15                       NaN
+16                       NaN
+17                       NaN
+18                       NaN
+19                       NaN
+20                       NaN
+21                       NaN
+22                       NaN
+23                       NaN
+24                       NaN
+25                       NaN
+26                         P
+27                       NaN
+28                       NaN
+29                       NaN
+                    ...     
+3.11                     NaN
+4.11                     NaN
+5.11                     NaN
+6.11                     NaN
+7.11                     NaN
+8.11                     NaN
+9.11                     NaN
+10.11                    NaN
+11.11                    NaN
+12.11                    NaN
+13.11                    NaN
+14.11                    NaN
+15.11                    NaN
+16.11                    NaN
+17.11                    NaN
+18.11                    NaN
+19.11                    NaN
+20.11                    NaN
+21.11                    NaN
+22.11                    NaN
+23.11                    NaN
+24.11                    NaN
+25.11                      P
+26.11                    NaN
+27.11                    NaN
+28.11                    NaN
+29.10                    NaN
+30.10                    NaN
+31.6                     NaN
+Unnamed: 377             NaN
+Name: 19, dtype: object
+Resource_RMK
+6.5
+ [o] = Owner    Resource_SRB
+1                        NaN
+2                        NaN
+3                        NaN
+4                        NaN
+5                        NaN
+6                        NaN
+7                        NaN
+8                        NaN
+9                        NaN
+10                       NaN
+11                       NaN
+12                         V
+13                         V
+14                       NaN
+15                       NaN
+16                       NaN
+17                       NaN
+18                       NaN
+19                       NaN
+20                       NaN
+21                       NaN
+22                       NaN
+23                       NaN
+24                       NaN
+25                       NaN
+26                         P
+27                       NaN
+28                       NaN
+29                       NaN
+                    ...     
+3.11                     NaN
+4.11                     NaN
+5.11                     NaN
+6.11                     NaN
+7.11                     NaN
+8.11                     NaN
+9.11                     NaN
+10.11                    NaN
+11.11                    NaN
+12.11                    NaN
+13.11                    NaN
+14.11                    NaN
+15.11                    NaN
+16.11                    NaN
+17.11                    NaN
+18.11                    NaN
+19.11                    NaN
+20.11                    NaN
+21.11                    NaN
+22.11                    NaN
+23.11                    NaN
+24.11                    NaN
+25.11                      P
+26.11                    NaN
+27.11                    NaN
+28.11                    NaN
+29.10                    NaN
+30.10                    NaN
+31.6                     NaN
+Unnamed: 377             NaN
+Name: 20, dtype: object
+Resource_SRB
+6.5
+ [o] = Owner    Resource_SK
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 21, dtype: object
+Resource_SK
+6.5
+ [o] = Owner    Resource_SD
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 22, dtype: object
+Resource_SD
+6.5
+ [o] = Owner    Resource_SP
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 23, dtype: object
+Resource_SP
+6.5
+ [o] = Owner    Resource_SSP
+1                        NaN
+2                        NaN
+3                        NaN
+4                        NaN
+5                        NaN
+6                        NaN
+7                        NaN
+8                        NaN
+9                        NaN
+10                       NaN
+11                         S
+12                         W
+13                         V
+14                       NaN
+15                       NaN
+16                       NaN
+17                         W
+18                         W
+19                         V
+20                       NaN
+21                       NaN
+22                       NaN
+23                       NaN
+24                       NaN
+25                       NaN
+26                         P
+27                       NaN
+28                       NaN
+29                       NaN
+                    ...     
+3.11                     NaN
+4.11                     NaN
+5.11                     NaN
+6.11                     NaN
+7.11                     NaN
+8.11                     NaN
+9.11                     NaN
+10.11                    NaN
+11.11                    NaN
+12.11                    NaN
+13.11                    NaN
+14.11                    NaN
+15.11                    NaN
+16.11                    NaN
+17.11                    NaN
+18.11                    NaN
+19.11                    NaN
+20.11                    NaN
+21.11                    NaN
+22.11                    NaN
+23.11                    NaN
+24.11                    NaN
+25.11                      P
+26.11                    NaN
+27.11                    NaN
+28.11                    NaN
+29.10                    NaN
+30.10                    NaN
+31.6                     NaN
+Unnamed: 377             NaN
+Name: 24, dtype: object
+Resource_SSP
+6.5
+ [o] = Owner    Resource_SVK
+1                        NaN
+2                        NaN
+3                        NaN
+4                        NaN
+5                        NaN
+6                        NaN
+7                        NaN
+8                        NaN
+9                          W
+10                         W
+11                         W
+12                         V
+13                         V
+14                       NaN
+15                       NaN
+16                         V
+17                       NaN
+18                       NaN
+19                       NaN
+20                       NaN
+21                       NaN
+22                       NaN
+23                       NaN
+24                       NaN
+25                       NaN
+26                         P
+27                       NaN
+28                       NaN
+29                       NaN
+                    ...     
+3.11                     NaN
+4.11                     NaN
+5.11                     NaN
+6.11                     NaN
+7.11                     NaN
+8.11                     NaN
+9.11                     NaN
+10.11                    NaN
+11.11                    NaN
+12.11                    NaN
+13.11                    NaN
+14.11                    NaN
+15.11                    NaN
+16.11                    NaN
+17.11                    NaN
+18.11                    NaN
+19.11                    NaN
+20.11                    NaN
+21.11                    NaN
+22.11                    NaN
+23.11                    NaN
+24.11                    NaN
+25.11                      P
+26.11                    NaN
+27.11                    NaN
+28.11                    NaN
+29.10                    NaN
+30.10                    NaN
+31.6                     NaN
+Unnamed: 377             NaN
+Name: 25, dtype: object
+Resource_SVK
+6.5
+ [o] = Owner    Resource_SJ
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 26, dtype: object
+Resource_SJ
+6.5
+ [o] = Owner    Resource_SKM
+1                        NaN
+2                        NaN
+3                        NaN
+4                        NaN
+5                        NaN
+6                        NaN
+7                        NaN
+8                        NaN
+9                        NaN
+10                       NaN
+11                       NaN
+12                       NaN
+13                       NaN
+14                       NaN
+15                       NaN
+16                       NaN
+17                       NaN
+18                       NaN
+19                       NaN
+20                       NaN
+21                       NaN
+22                       NaN
+23                       NaN
+24                       NaN
+25                       NaN
+26                         P
+27                       NaN
+28                       NaN
+29                       NaN
+                    ...     
+3.11                     NaN
+4.11                     NaN
+5.11                     NaN
+6.11                     NaN
+7.11                     NaN
+8.11                     NaN
+9.11                     NaN
+10.11                    NaN
+11.11                    NaN
+12.11                    NaN
+13.11                    NaN
+14.11                    NaN
+15.11                    NaN
+16.11                    NaN
+17.11                    NaN
+18.11                    NaN
+19.11                    NaN
+20.11                    NaN
+21.11                    NaN
+22.11                    NaN
+23.11                    NaN
+24.11                    NaN
+25.11                      P
+26.11                    NaN
+27.11                    NaN
+28.11                    NaN
+29.10                    NaN
+30.10                    NaN
+31.6                     NaN
+Unnamed: 377             NaN
+Name: 27, dtype: object
+Resource_SKM
+6.5
+ [o] = Owner    Resource_SY
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                        V
+12                        V
+13                        V
+14                      NaN
+15                      NaN
+16                        V
+17                        V
+18                        V
+19                        V
+20                        V
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 28, dtype: object
+Resource_SY
+6.5
+ [o] = Owner    Resource_SR
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                        N
+18                        N
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 29, dtype: object
+Resource_SR
+6.5
+ [o] = Owner    Resource_VM
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                        V
+13                        V
+14                      NaN
+15                      NaN
+16                        V
+17                        V
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 30, dtype: object
+Resource_VM
+6.5
+ [o] = Owner    Resource_YM
+1                       NaN
+2                         W
+3                         W
+4                         V
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 31, dtype: object
+Resource_YM
+6.5
+ [o] = Owner    Resource_YD
+1                       NaN
+2                       NaN
+3                       NaN
+4                       NaN
+5                       NaN
+6                       NaN
+7                       NaN
+8                       NaN
+9                       NaN
+10                      NaN
+11                      NaN
+12                      NaN
+13                      NaN
+14                      NaN
+15                      NaN
+16                      NaN
+17                      NaN
+18                      NaN
+19                      NaN
+20                      NaN
+21                      NaN
+22                      NaN
+23                      NaN
+24                      NaN
+25                      NaN
+26                        P
+27                      NaN
+28                      NaN
+29                      NaN
+                   ...     
+3.11                    NaN
+4.11                    NaN
+5.11                    NaN
+6.11                    NaN
+7.11                    NaN
+8.11                    NaN
+9.11                    NaN
+10.11                   NaN
+11.11                   NaN
+12.11                   NaN
+13.11                   NaN
+14.11                   NaN
+15.11                   NaN
+16.11                   NaN
+17.11                   NaN
+18.11                   NaN
+19.11                   NaN
+20.11                   NaN
+21.11                   NaN
+22.11                   NaN
+23.11                   NaN
+24.11                   NaN
+25.11                     P
+26.11                   NaN
+27.11                   NaN
+28.11                   NaN
+29.10                   NaN
+30.10                   NaN
+31.6                    NaN
+Unnamed: 377            NaN
+Name: 32, dtype: object
+Resource_YD
+6.5
 	Vacation Plan Read - Complete 
 *Backlog Report not found
 ---------------Processing-------------
@@ -421,33 +2533,33 @@ Sort by priority complete
 Assigning  5377-13340604
 ticket number:  5377-13311630
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_TK
+Employee not present in vacation planner  Resource_TK
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13178606
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
-Trying default scheduler model
-Skill Required:  XML
-WARNING: Employee ' Resource_A ' not found in vacation planner
-WARNING: Employee ' Resource_AB ' not found in vacation planner
+Assiging to  Resource_DS
+assigned from history to  Resource_DS
 Assigning  5377-13340604
 ticket number:  5377-13333875
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_DM
+Employee not present in vacation planner  Resource_DM
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13089649
 Trying to assign to employee from ticket history
-Assiging to  Resource_SP
-assigned from history to  Resource_SP
+Assiging to  Resource_BKS
+Employee not present in vacation planner  Resource_BKS
+Trying default scheduler model
+Skill Required:  XML
+WARNING: Employee ' Resource_A ' not found in vacation planner
+WARNING: Employee ' Resource_AB ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-12097474
 Trying to assign to employee from ticket history
@@ -467,8 +2579,8 @@ WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13336676
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_CA
+Employee not present in vacation planner  Resource_CA
 Trying default scheduler model
 Skill Required:  ROSETTANET
 WARNING: Employee ' Resource_AB ' not found in vacation planner
@@ -483,16 +2595,16 @@ WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13334630
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_SC
+Employee not present in vacation planner  Resource_SC
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13333611
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_LH
+Employee not present in vacation planner  Resource_LH
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
@@ -577,8 +2689,8 @@ assigned directly to  Resource_DK
 Assigning  5377-13340604
 ticket number:  5377-13339045
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_SC
+Employee not present in vacation planner  Resource_SC
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
@@ -614,24 +2726,24 @@ WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13340854
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_JR
+Employee not present in vacation planner  Resource_JR
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13340736
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_GW
+Employee not present in vacation planner  Resource_GW
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13340578
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_BW
+Employee not present in vacation planner  Resource_BW
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
@@ -646,16 +2758,16 @@ WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13339040
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_GW
+Employee not present in vacation planner  Resource_GW
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13340644
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_SC
+Employee not present in vacation planner  Resource_SC
 Trying default scheduler model
 Skill Required:  XML
 WARNING: Employee ' Resource_A ' not found in vacation planner
@@ -663,8 +2775,8 @@ WARNING: Employee ' Resource_AB ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13340424
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_LH
+Employee not present in vacation planner  Resource_LH
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
@@ -752,16 +2864,16 @@ WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13247712
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_GW
+Employee not present in vacation planner  Resource_GW
 Trying default scheduler model
 Skill Required:  AS2
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13245670
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_LC
+Employee not present in vacation planner  Resource_LC
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
@@ -801,16 +2913,16 @@ WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13104307
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_CK
+Employee not present in vacation planner  Resource_CK
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13095530
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_CA
+Employee not present in vacation planner  Resource_CA
 Trying default scheduler model
 Skill Required:  XML
 WARNING: Employee ' Resource_A ' not found in vacation planner
@@ -888,32 +3000,32 @@ WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13273282
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_DM
+Employee not present in vacation planner  Resource_DM
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13322770
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_GW
+Employee not present in vacation planner  Resource_GW
 Trying default scheduler model
 Skill Required:  FTP
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13319724
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_SF
+Employee not present in vacation planner  Resource_SF
 Trying default scheduler model
 Skill Required:  ROSETTANET
 WARNING: Employee ' Resource_AB ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13318566
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_CB
+Employee not present in vacation planner  Resource_CB
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
@@ -938,8 +3050,8 @@ WARNING: Employee ' Resource_AB ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13307765
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_TK
+Employee not present in vacation planner  Resource_TK
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
@@ -994,8 +3106,8 @@ WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13298405
 Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
+Assiging to  Resource_ER
+Employee not present in vacation planner  Resource_ER
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
@@ -1038,40 +3150,40 @@ WARNING: Employee ' Resource_A ' not found in vacation planner
 Allocation Complete
 -----------------------------------------------------
 Name:  Resource_JVR
-Employee not available
+Number of tickets assigned:  2
+Tickets:
+	5377-13340854
+	5377-13307765
 -----------------------------------------------------
 Name:  Resource_SKM
-Number of tickets assigned:  3
+Number of tickets assigned:  2
 Tickets:
-	5377-13331793
-	5377-13341369
-	5377-13340604
+	5377-13328586
+	5377-12424152
 -----------------------------------------------------
 Name:  Resource_DS
 Employee not available
 -----------------------------------------------------
 Name:  Resource_AKS
-Number of tickets assigned:  6
+Number of tickets assigned:  5
 Tickets:
 	5377-13311630
-	5377-13340424
+	5377-13337711
 	5377-13323436
 	5377-13120012
 	5377-13322770
-	5377-13275941
 -----------------------------------------------------
 Name:  Resource_BK...
 Number of tickets assigned:  2
 Tickets:
-	5377-13333342
-	5377-13104307
+	5377-13341325
+	5377-13273282
 -----------------------------------------------------
 Name:  Resource_SSP
-Number of tickets assigned:  3
+Number of tickets assigned:  2
 Tickets:
-	5377-13332718
-	5377-13327493
-	5377-13305728
+	5377-13330665
+	5377-13104307
 -----------------------------------------------------
 Name:  Resource_DK
 Number of tickets assigned:  6
@@ -1084,167 +3196,172 @@ Tickets:
 	5377-13326713
 -----------------------------------------------------
 Name:  Resource_SK
-Employee not available
------------------------------------------------------
-Name:  Resource_SJ
-Employee not available
------------------------------------------------------
-Name:  Resource_SD
-Number of tickets assigned:  3
-Tickets:
-	5377-13333137
-	5377-13340640
-	5377-13291444
------------------------------------------------------
-Name:  Resource_SY
-Number of tickets assigned:  4
-Tickets:
-	5377-13339098
-	5377-13339768
-	5377-13095530
-	5377-13314146
------------------------------------------------------
-Name:  Resource_YD
 Number of tickets assigned:  2
 Tickets:
-	5377-13339040
-	5377-13305722
+	5377-13333137
+	5377-13245670
+-----------------------------------------------------
+Name:  Resource_SJ
+Number of tickets assigned:  2
+Tickets:
+	5377-13331793
+	5377-13187779
+-----------------------------------------------------
+Name:  Resource_SD
+Number of tickets assigned:  2
+Tickets:
+	5377-13332718
+	5377-13218805
+-----------------------------------------------------
+Name:  Resource_SY
+Number of tickets assigned:  3
+Tickets:
+	5377-13339098
+	5377-13126338
+	5377-13317510
+-----------------------------------------------------
+Name:  Resource_YD
+Number of tickets assigned:  1
+Tickets:
+	5377-13338689
 -----------------------------------------------------
 Name:  Resource_JB
-Employee not available
+Number of tickets assigned:  2
+Tickets:
+	5377-13340736
+	5377-13305736
 -----------------------------------------------------
 Name:  Resource_NK
 Number of tickets assigned:  3
 Tickets:
 	5377-13333002
-	5377-13126338
-	5377-13048396
+	5377-13095530
+	5377-13314146
 -----------------------------------------------------
 Name:  Resource_SS
 Number of tickets assigned:  2
 Tickets:
-	5377-13340578
-	5377-13307765
+	5377-13339801
+	5377-13305728
 -----------------------------------------------------
 Name:  Resource_SR
-Number of tickets assigned:  3
+Number of tickets assigned:  2
 Tickets:
-	5377-13328586
-	5377-13218805
-	5377-12626199
+	5377-13333342
+	5377-13048396
 -----------------------------------------------------
 Name:  Resource_AR
 Number of tickets assigned:  3
 Tickets:
-	5377-13340736
-	5377-13318566
+	5377-13340319
+	5377-13291444
 	5377-13284729
 -----------------------------------------------------
 Name:  Resource_AK
 Number of tickets assigned:  2
 Tickets:
-	5377-13340854
-	5377-13273282
+	5377-13340424
+	5377-13298405
 -----------------------------------------------------
 Name:  Resource_AJ
 Number of tickets assigned:  2
 Tickets:
-	5377-13341186
-	5377-13265067
+	5377-13339040
+	5377-13301656
 -----------------------------------------------------
 Name:  Resource_SRB
-Number of tickets assigned:  3
+Number of tickets assigned:  2
 Tickets:
 	5377-13333611
 	5377-13327560
-	5377-13298405
 -----------------------------------------------------
 Name:  Resource_SVK
 Number of tickets assigned:  3
 Tickets:
 	5377-12097474
-	5377-13339801
+	5377-13340640
 	5377-13255215
 -----------------------------------------------------
 Name:  Resource_PRG
 Number of tickets assigned:  2
 Tickets:
-	5377-13327635
-	5377-13187779
+	5377-13341378
+	5377-13265067
 -----------------------------------------------------
 Name:  Resource_AD
 Employee not available
 -----------------------------------------------------
 Name:  Resource_RC
-Number of tickets assigned:  3
+Number of tickets assigned:  2
 Tickets:
 	5377-13333771
-	5377-13339775
-	5377-13301691
+	5377-13327493
 -----------------------------------------------------
 Name:  Resource_HBS
 Number of tickets assigned:  2
 Tickets:
-	5377-13341325
-	5377-12097487
+	5377-13340579
+	5377-13301691
 -----------------------------------------------------
 Name:  Resource_NP
 Number of tickets assigned:  5
 Tickets:
-	5377-13178606
+	5377-13089649
 	5377-13340644
-	5377-13337711
+	5377-12626199
 	5377-12389282
 	5377-12389221
 -----------------------------------------------------
 Name:  Resource_RKM
 Number of tickets assigned:  2
 Tickets:
-	5377-13330665
-	5377-13245670
+	5377-13327635
+	5377-12239494
 -----------------------------------------------------
 Name:  Resource_RMK
-Number of tickets assigned:  3
+Number of tickets assigned:  2
 Tickets:
 	5377-13334630
-	5377-13338689
-	5377-13301656
+	5377-13341369
 -----------------------------------------------------
 Name:  Resource_JKL
 Number of tickets assigned:  2
 Tickets:
-	5377-13341378
-	5377-12239494
+	5377-13340578
+	5377-13305722
 -----------------------------------------------------
 Name:  Resource_SP
-Employee not available
+Number of tickets assigned:  2
+Tickets:
+	5377-13339045
+	5377-12097487
 -----------------------------------------------------
 Name:  Resource_VM
 Number of tickets assigned:  2
 Tickets:
-	5377-13340579
-	5377-13305736
+	5377-13339775
+	5377-13340604
 -----------------------------------------------------
 Name:  Resource_YM
 Number of tickets assigned:  5
 Tickets:
 	5377-13333875
-	5377-13340319
+	5377-13339768
 	5377-13247712
-	5377-13317510
 	5377-13307196
+	5377-13275941
 -----------------------------------------------------
 Name:  Resource_KS
 Number of tickets assigned:  2
 Tickets:
-	5377-13339045
-	5377-12424152
+	5377-13341186
+	5377-13318566
 -----------------System Status-------------------
 Total tickets:  79
 Tickets assigned:  79
 Total employees:  33
-Employees available:  26
+Employees available:  31
 % assigned:  100.0 %
-Execution Time:  19.7797541618  seconds
+Execution Time:  19.6004359722  seconds
 Cleaning up database...
 *** Execution Complete ***
