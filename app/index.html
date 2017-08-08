@@ -1,0 +1,163 @@
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Arjun">
+		<meta name="description" content="EDI - Guide Creator">
+		<base href="/">
+		<title>EDI - Guide Creator</title>
+
+		<!--Import materialize.css-->
+		<link rel="stylesheet" href="./bower_components/materialize/dist/css/materialize.min.css"/>
+
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" media="print" href="css/print-style.css">
+
+		<!-- <link rel="stylesheet" href="css/custom_style.css"> -->
+
+		<link rel="stylesheet" href="bower_components/Font-Awesome/css/font-awesome.min.css">
+
+		<!-- <link rel="stylesheet" href="css/custom.css"> -->
+
+		<link rel="stylesheet" href="bower_components/angular-material/angular-material.css"/>
+		<link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css">
+		<link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" href="bower_components/datatables-tabletools/css/dataTables.tableTools.css">
+		<link rel="stylesheet" href="custom_components/Pikaday/css/pikaday.css">
+		<!-- <link rel="stylesheet" href="custom_components/Pikaday/css/site.css"> -->
+		
+		<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+
+		<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.12.1/select.min.css"> -->
+
+		<!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css"> -->
+		<!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css"> -->
+		
+		<link rel="stylesheet" href="bower_components/nvd3/nv.d3.css"/>
+		
+		<style>
+			.general{
+				margin-left : 1%;
+			}
+			.dataTables_filter {
+				display: none; 
+			}
+		</style>
+
+
+	</head>
+
+	<body class="fluid-container" ng-app="ediCreatorApp">
+
+	<!--Angular Dynamic Content -->
+	
+	<div ui-view autoscroll="true"></div>
+	<footer class="footer">
+																																																																																														
+	</footer>
+
+
+	<!-- JS -->
+
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+	<script src="custom_components/Pikaday/pikaday.js"></script>
+	<script src="custom_components/Pikaday/plugins/pikaday.jquery.js"></script>
+	<!-- <script src="js/jsPDF/jspdf.js"></script> -->
+<!-- 
+	<script src="bower_components/angular-ui-select3/dist/select.min.js"></script>
+ -->
+ 	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.12.1/select.min.js"></script> -->
+    <script type="text/javascript" src="cdnjs/select.min.js"></script>	
+	
+	<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+	
+
+	<script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+	<script src="bower_components/materialize/dist/js/materialize.js"></script>
+	<!-- <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
+
+	<script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
+	<script src="bower_components/datatables-tabletools/js/dataTables.tableTools.js"></script>
+	<script src="bower_components/angular-datatables/dist/plugins/tabletools/angular-datatables.tabletools.min.js"></script>	
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/js/TableTools.min.js"></script> -->
+	<script src="cdnjs/TableTools.min.js"></script>
+
+	<script src="bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-aria/angular-aria.js"></script>
+	<script src="bower_components/angular-material/angular-material.js"></script>
+
+	<script src="bower_components/pdfmake/build/pdfmake.min.js"></script>
+	<script src="bower_components/pdfmake/build/vfs_fonts.js"></script>
+	<script src="bower_components/docxtemplater-pykiss/browser/docxgen.js"></script>	
+	<!-- <script src="js/jspdf.min.js"></script> -->
+	<!-- <script src="js/html2canvas.js"></script> -->
+	<script src="js/additional/FileSaver.min.js"></script>
+
+	<!-- user defined javascript functions -->
+
+	<script src="custom_javascript/form-validation.js"></script>
+	<script src="custom_javascript/utility.js"></script>
+
+	<!-- Main App Routes -->
+	<script src="js/app.js"></script>
+	
+	<!-- Controllers -->
+ 	<script src="js/controllers/home.js"></script>
+	<script src="js/controllers/header.js"></script>
+	<script src="js/controllers/createEDI.js"></script>		
+	<script src="js/controllers/searchSpec.js"></script>
+	<script src="js/controllers/report.js"></script>
+
+	<!-- Directives -->
+	<script src="js/directives/angucomplete-alt.js"></script>
+	<script src="js/directives/myMap.js"></script>
+	<script src="js/directives/ngfModel.js"></script>
+	<script src="js/directives/pagination.js"></script>
+
+
+	<!-- Services -->
+	<script src="js/services/customHttp.js"></script>
+	<script src="js/services/fileUpload.js"></script>
+	<script src="js/services/docReady.js"></script>
+	<script>
+	// Prevent the backspace key from navigating back.
+$(document).unbind('keydown').bind('keydown', function (event) {
+    var doPrevent = false;
+    if (event.keyCode === 8) {
+        var d = event.srcElement || event.target;
+        if ((d.tagName.toUpperCase() === 'INPUT' && 
+             (
+                 d.type.toUpperCase() === 'TEXT' ||
+                 d.type.toUpperCase() === 'PASSWORD' || 
+                 d.type.toUpperCase() === 'FILE' || 
+                 d.type.toUpperCase() === 'SEARCH' || 
+                 d.type.toUpperCase() === 'EMAIL' || 
+                 d.type.toUpperCase() === 'NUMBER' || 
+                 d.type.toUpperCase() === 'DATE' )
+             ) || 
+             d.tagName.toUpperCase() === 'TEXTAREA') {
+            doPrevent = d.readOnly || d.disabled;
+        }
+        else {
+            doPrevent = true;
+        }
+    }
+
+    if (doPrevent) {
+        event.preventDefault();
+    }
+});
+
+  </script>
+
+	</body>
+
+</html>

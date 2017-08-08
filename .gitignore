@@ -98,3 +98,6 @@ retrieved_data/
 #predictors
 predictors/category/*.pkl
 predictors/severity/*.pkl
+
+#bower dependencies
+app/bower_components
