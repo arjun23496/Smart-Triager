@@ -56,8 +56,8 @@ import time
 # couch_handle = CouchInterface()
 
 # try:
-# print "Creating temporary database..."
-# couch_handle.create_database()
+# 	print "Creating temporary database..."
+# 	couch_handle.create_database()
 # except Exception:
 # 	print "Retrying..."
 # 	couch_handle.cleanup('triager_tickets')
@@ -70,8 +70,8 @@ import time
 
 date_now = {
 		"year": "2017",
-		"date": "06",
-		"month": "06"
+		"date": "20",
+		"month": "07"
 	}
 
 start_time = time.time()

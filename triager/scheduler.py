@@ -274,6 +274,8 @@ def execute(date_now, debug=True):
 	df_nr = df.copy()
 	df_nr['status'] = df_nr['status'].apply(filter_prior)
 
+	df_nr[df['status'] != 'Closed']
+
 	#Ticket Assigning priority setting
 
 	if debug:
@@ -307,7 +309,7 @@ def execute(date_now, debug=True):
 	if debug:
 		print "Sort by priority complete"
 
-	all_ticket_no = pd.unique(df['ticket_number'])
+	all_ticket_no = pd.unique(df[df['status'] != 'Closed']['ticket_number'])
 	total_tickets = len(all_ticket_no)
 	number_of_assigned = 0
 
@@ -403,11 +405,13 @@ def execute(date_now, debug=True):
 			try:
 				availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
 				# if availability >= category_time_requirements[ticket_category]:
-				if debug:
-					print "assigned directly to ",employee
-				employee_status[employee]['tickets'].append(row)
-				employee_status[employee]['usage']+=category_time_requirements[ticket_category]
-				assigned = True
+
+				if employee_status[employee]['total_availability'] > 0:
+					if debug:
+						print "assigned directly to ",employee
+					employee_status[employee]['tickets'].append(row)
+					employee_status[employee]['usage']+=category_time_requirements[ticket_category]
+					assigned = True
 				# print employee_status[employee]
 
 			except KeyError:
@@ -472,11 +476,12 @@ def execute(date_now, debug=True):
 
 			if not t:
 				try:
-					if debug:
-						print "assigned from history to ",employee
-					employee_status[employee]['tickets'].append(row)
-					employee_status[employee]['usage']+=category_time_requirements[ticket_category]
-					assigned = True
+					if employee_status[employee]['total_availability'] > 0:
+						if debug:
+							print "assigned from history to ",employee
+						employee_status[employee]['tickets'].append(row)
+						employee_status[employee]['usage']+=category_time_requirements[ticket_category]
+						assigned = True
 				except KeyError:
 					if debug:
 						print "Ticket history not present"

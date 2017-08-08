@@ -1,5 +1,5 @@
 Executing scheduler
-date: 2017-06-06
+date: 2017-07-20
 Retrieving documents from db...
 ---------------Executing Transformations------------
 [u'5377-12097474' u'5377-12097487' u'5377-12239494' u'5377-12389221'
@@ -395,7 +395,7 @@ Transformations Complete
 Unnamed: 377            NaN
 Name: 0, dtype: object
 Resource_SS
-6.5
+20.6
  [o] = Owner    Resource_AKS
 1                        NaN
 2                        NaN
@@ -459,7 +459,7 @@ Resource_SS
 Unnamed: 377             NaN
 Name: 1, dtype: object
 Resource_AKS
-6.5
+20.6
  [o] = Owner    Resource_AD
 1                       NaN
 2                         V
@@ -523,7 +523,7 @@ Resource_AKS
 Unnamed: 377            NaN
 Name: 2, dtype: object
 Resource_AD
-6.5
+20.6
  [o] = Owner    Resource_AR
 1                       NaN
 2                       NaN
@@ -587,7 +587,7 @@ Resource_AD
 Unnamed: 377            NaN
 Name: 3, dtype: object
 Resource_AR
-6.5
+20.6
  [o] = Owner    Resource_AK
 1                       NaN
 2                       NaN
@@ -651,7 +651,7 @@ Resource_AR
 Unnamed: 377            NaN
 Name: 4, dtype: object
 Resource_AK
-6.5
+20.6
  [o] = Owner    Resource_AJ
 1                       NaN
 2                       NaN
@@ -715,7 +715,7 @@ Resource_AK
 Unnamed: 377            NaN
 Name: 5, dtype: object
 Resource_AJ
-6.5
+20.6
  [o] = Owner    Resource_BK...
 1                          NaN
 2                          NaN
@@ -779,7 +779,7 @@ Resource_AJ
 Unnamed: 377               NaN
 Name: 6, dtype: object
 Resource_BK...
-6.5
+20.6
  [o] = Owner    Resource_DK
 1                       NaN
 2                       NaN
@@ -843,7 +843,7 @@ Resource_BK...
 Unnamed: 377            NaN
 Name: 7, dtype: object
 Resource_DK
-6.5
+20.6
  [o] = Owner    Resource_DS
 1                       NaN
 2                       NaN
@@ -907,7 +907,7 @@ Resource_DK
 Unnamed: 377            NaN
 Name: 8, dtype: object
 Resource_DS
-6.5
+20.6
  [o] = Owner    Resource_HBS
 1                        NaN
 2                        NaN
@@ -971,7 +971,7 @@ Resource_DS
 Unnamed: 377             NaN
 Name: 9, dtype: object
 Resource_HBS
-6.5
+20.6
  [o] = Owner    Resource_JKL
 1                        NaN
 2                        NaN
@@ -1035,7 +1035,7 @@ Resource_HBS
 Unnamed: 377             NaN
 Name: 10, dtype: object
 Resource_JKL
-6.5
+20.6
  [o] = Owner    Resource_JB
 1                       NaN
 2                       NaN
@@ -1099,7 +1099,7 @@ Resource_JKL
 Unnamed: 377            NaN
 Name: 11, dtype: object
 Resource_JB
-6.5
+20.6
  [o] = Owner    Resource_JVR
 1                        NaN
 2                        NaN
@@ -1163,7 +1163,7 @@ Resource_JB
 Unnamed: 377             NaN
 Name: 12, dtype: object
 Resource_JVR
-6.5
+20.6
  [o] = Owner    Resource_KS
 1                       NaN
 2                       NaN
@@ -1227,7 +1227,7 @@ Resource_JVR
 Unnamed: 377            NaN
 Name: 13, dtype: object
 Resource_KS
-6.5
+20.6
  [o] = Owner    Resource_NK
 1                       NaN
 2                       NaN
@@ -1291,7 +1291,7 @@ Resource_KS
 Unnamed: 377            NaN
 Name: 14, dtype: object
 Resource_NK
-6.5
+20.6
  [o] = Owner    Resource_NP
 1                       NaN
 2                       NaN
@@ -1355,7 +1355,7 @@ Resource_NK
 Unnamed: 377            NaN
 Name: 15, dtype: object
 Resource_NP
-6.5
+20.6
  [o] = Owner    Resource_PRG
 1                        NaN
 2                        NaN
@@ -1419,7 +1419,7 @@ Resource_NP
 Unnamed: 377             NaN
 Name: 16, dtype: object
 Resource_PRG
-6.5
+20.6
  [o] = Owner    Resource_RKM
 1                        NaN
 2                        NaN
@@ -1483,7 +1483,7 @@ Resource_PRG
 Unnamed: 377             NaN
 Name: 17, dtype: object
 Resource_RKM
-6.5
+20.6
  [o] = Owner    Resource_RC
 1                       NaN
 2                       NaN
@@ -1547,7 +1547,7 @@ Resource_RKM
 Unnamed: 377            NaN
 Name: 18, dtype: object
 Resource_RC
-6.5
+20.6
  [o] = Owner    Resource_RMK
 1                        NaN
 2                        NaN
@@ -1611,7 +1611,7 @@ Resource_RC
 Unnamed: 377             NaN
 Name: 19, dtype: object
 Resource_RMK
-6.5
+20.6
  [o] = Owner    Resource_SRB
 1                        NaN
 2                        NaN
@@ -1675,7 +1675,7 @@ Resource_RMK
 Unnamed: 377             NaN
 Name: 20, dtype: object
 Resource_SRB
-6.5
+20.6
  [o] = Owner    Resource_SK
 1                       NaN
 2                       NaN
@@ -1739,7 +1739,7 @@ Resource_SRB
 Unnamed: 377            NaN
 Name: 21, dtype: object
 Resource_SK
-6.5
+20.6
  [o] = Owner    Resource_SD
 1                       NaN
 2                       NaN
@@ -1803,7 +1803,7 @@ Resource_SK
 Unnamed: 377            NaN
 Name: 22, dtype: object
 Resource_SD
-6.5
+20.6
  [o] = Owner    Resource_SP
 1                       NaN
 2                       NaN
@@ -1867,7 +1867,7 @@ Resource_SD
 Unnamed: 377            NaN
 Name: 23, dtype: object
 Resource_SP
-6.5
+20.6
  [o] = Owner    Resource_SSP
 1                        NaN
 2                        NaN
@@ -1931,7 +1931,7 @@ Resource_SP
 Unnamed: 377             NaN
 Name: 24, dtype: object
 Resource_SSP
-6.5
+20.6
  [o] = Owner    Resource_SVK
 1                        NaN
 2                        NaN
@@ -1995,7 +1995,7 @@ Resource_SSP
 Unnamed: 377             NaN
 Name: 25, dtype: object
 Resource_SVK
-6.5
+20.6
  [o] = Owner    Resource_SJ
 1                       NaN
 2                       NaN
@@ -2059,7 +2059,7 @@ Resource_SVK
 Unnamed: 377            NaN
 Name: 26, dtype: object
 Resource_SJ
-6.5
+20.6
  [o] = Owner    Resource_SKM
 1                        NaN
 2                        NaN
@@ -2123,7 +2123,7 @@ Resource_SJ
 Unnamed: 377             NaN
 Name: 27, dtype: object
 Resource_SKM
-6.5
+20.6
  [o] = Owner    Resource_SY
 1                       NaN
 2                       NaN
@@ -2187,7 +2187,7 @@ Resource_SKM
 Unnamed: 377            NaN
 Name: 28, dtype: object
 Resource_SY
-6.5
+20.6
  [o] = Owner    Resource_SR
 1                       NaN
 2                       NaN
@@ -2251,7 +2251,7 @@ Resource_SY
 Unnamed: 377            NaN
 Name: 29, dtype: object
 Resource_SR
-6.5
+20.6
  [o] = Owner    Resource_VM
 1                       NaN
 2                       NaN
@@ -2315,7 +2315,7 @@ Resource_SR
 Unnamed: 377            NaN
 Name: 30, dtype: object
 Resource_VM
-6.5
+20.6
  [o] = Owner    Resource_YM
 1                       NaN
 2                         W
@@ -2379,7 +2379,7 @@ Resource_VM
 Unnamed: 377            NaN
 Name: 31, dtype: object
 Resource_YM
-6.5
+20.6
  [o] = Owner    Resource_YD
 1                       NaN
 2                       NaN
@@ -2443,7 +2443,7 @@ Resource_YM
 Unnamed: 377            NaN
 Name: 32, dtype: object
 Resource_YD
-6.5
+20.6
 	Vacation Plan Read - Complete 
 *Backlog Report not found
 ---------------Processing-------------
@@ -2509,7 +2509,6 @@ Sort by priority complete
 5377-13336676
 5377-13337469
 5377-13339098
-5377-13339381
 5377-13339040
 5377-13339045
 5377-13338689
@@ -2524,7 +2523,6 @@ Sort by priority complete
 5377-13340579
 5377-13340578
 5377-13340736
-5377-13340854
 5377-13341186
 5377-13341325
 5377-13341378
@@ -2539,11 +2537,6 @@ Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
-ticket number:  5377-13178606
-Trying to assign to employee from ticket history
-Assiging to  Resource_DS
-assigned from history to  Resource_DS
-Assigning  5377-13340604
 ticket number:  5377-13333875
 Trying to assign to employee from ticket history
 Assiging to  Resource_DM
@@ -2551,6 +2544,11 @@ Employee not present in vacation planner  Resource_DM
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
+Assigning  5377-13340604
+ticket number:  5377-13178606
+Trying to assign to employee from ticket history
+Assiging to  Resource_DS
+assigned from history to  Resource_DS
 Assigning  5377-13340604
 ticket number:  5377-13089649
 Trying to assign to employee from ticket history
@@ -2569,14 +2567,6 @@ Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
-ticket number:  5377-13337469
-Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
-Trying default scheduler model
-Skill Required:  Sterling Integrator (SI)
-WARNING: Employee ' Resource_A ' not found in vacation planner
-Assigning  5377-13340604
 ticket number:  5377-13336676
 Trying to assign to employee from ticket history
 Assiging to  Resource_CA
@@ -2584,6 +2574,8 @@ Employee not present in vacation planner  Resource_CA
 Trying default scheduler model
 Skill Required:  ROSETTANET
 WARNING: Employee ' Resource_AB ' not found in vacation planner
+No employee available to assign...
+Unable to assign ticket
 Assigning  5377-13340604
 ticket number:  5377-13333771
 Trying to assign to employee from ticket history
@@ -2609,22 +2601,13 @@ Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
-ticket number:  5377-13333137
+ticket number:  5377-13333342
 Trying to assign to employee from ticket history
 Assiging to  
 Employee not present in vacation planner  
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
-Assigning  5377-13340604
-ticket number:  5377-13339098
-Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
-Trying default scheduler model
-Skill Required:  XML
-WARNING: Employee ' Resource_A ' not found in vacation planner
-WARNING: Employee ' Resource_AB ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13333002
 Trying to assign to employee from ticket history
@@ -2634,6 +2617,14 @@ Trying default scheduler model
 Skill Required:  XML
 WARNING: Employee ' Resource_A ' not found in vacation planner
 WARNING: Employee ' Resource_AB ' not found in vacation planner
+Assigning  5377-13340604
+ticket number:  5377-13337469
+Trying to assign to employee from ticket history
+Assiging to  
+Employee not present in vacation planner  
+Trying default scheduler model
+Skill Required:  Sterling Integrator (SI)
+WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13332718
 Trying to assign to employee from ticket history
@@ -2675,7 +2666,12 @@ Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
-ticket number:  5377-13333342
+ticket number:  5377-13327560
+Trying to assign to employee from ticket history
+Assiging to  Resource_SRB
+assigned from history to  Resource_SRB
+Assigning  5377-13340604
+ticket number:  5377-13333137
 Trying to assign to employee from ticket history
 Assiging to  
 Employee not present in vacation planner  
@@ -2683,9 +2679,22 @@ Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
-ticket number:  5377-13339381
-Trying to assing directly to  Resource_DK
-assigned directly to  Resource_DK
+ticket number:  5377-13339098
+Trying to assign to employee from ticket history
+Assiging to  
+Employee not present in vacation planner  
+Trying default scheduler model
+Skill Required:  XML
+WARNING: Employee ' Resource_A ' not found in vacation planner
+WARNING: Employee ' Resource_AB ' not found in vacation planner
+Assigning  5377-13340604
+ticket number:  5377-13339040
+Trying to assign to employee from ticket history
+Assiging to  Resource_GW
+Employee not present in vacation planner  Resource_GW
+Trying default scheduler model
+Skill Required:  Sterling Integrator (SI)
+WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13339045
 Trying to assign to employee from ticket history
@@ -2694,11 +2703,6 @@ Employee not present in vacation planner  Resource_SC
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
-Assigning  5377-13340604
-ticket number:  5377-13327560
-Trying to assign to employee from ticket history
-Assiging to  Resource_SRB
-assigned from history to  Resource_SRB
 Assigning  5377-13340604
 ticket number:  5377-13341378
 Trying to assign to employee from ticket history
@@ -2720,14 +2724,6 @@ ticket number:  5377-13341186
 Trying to assign to employee from ticket history
 Assiging to  
 Employee not present in vacation planner  
-Trying default scheduler model
-Skill Required:  Sterling Integrator (SI)
-WARNING: Employee ' Resource_A ' not found in vacation planner
-Assigning  5377-13340604
-ticket number:  5377-13340854
-Trying to assign to employee from ticket history
-Assiging to  Resource_JR
-Employee not present in vacation planner  Resource_JR
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
@@ -2756,14 +2752,6 @@ Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
-ticket number:  5377-13339040
-Trying to assign to employee from ticket history
-Assiging to  Resource_GW
-Employee not present in vacation planner  Resource_GW
-Trying default scheduler model
-Skill Required:  Sterling Integrator (SI)
-WARNING: Employee ' Resource_A ' not found in vacation planner
-Assigning  5377-13340604
 ticket number:  5377-13340644
 Trying to assign to employee from ticket history
 Assiging to  Resource_SC
@@ -2772,6 +2760,14 @@ Trying default scheduler model
 Skill Required:  XML
 WARNING: Employee ' Resource_A ' not found in vacation planner
 WARNING: Employee ' Resource_AB ' not found in vacation planner
+Assigning  5377-13340604
+ticket number:  5377-13340640
+Trying to assign to employee from ticket history
+Assiging to  
+Employee not present in vacation planner  
+Trying default scheduler model
+Skill Required:  Sterling Integrator (SI)
+WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13340424
 Trying to assign to employee from ticket history
@@ -2830,14 +2826,6 @@ Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
-ticket number:  5377-13340640
-Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
-Trying default scheduler model
-Skill Required:  Sterling Integrator (SI)
-WARNING: Employee ' Resource_A ' not found in vacation planner
-Assigning  5377-13340604
 ticket number:  5377-13327493
 Trying to assign to employee from ticket history
 Assiging to  
@@ -2846,12 +2834,22 @@ Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
-ticket number:  5377-13323436
+ticket number:  5377-13326713
 Trying to assign to employee from ticket history
 Assiging to  
 Employee not present in vacation planner  
 Trying default scheduler model
-Skill Required:  AS2
+Skill Required:  ROSETTANET
+WARNING: Employee ' Resource_AB ' not found in vacation planner
+No employee available to assign...
+Unable to assign ticket
+Assigning  5377-13340604
+ticket number:  5377-13322770
+Trying to assign to employee from ticket history
+Assiging to  Resource_GW
+Employee not present in vacation planner  Resource_GW
+Trying default scheduler model
+Skill Required:  FTP
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13341369
@@ -2982,20 +2980,20 @@ ticket number:  5377-13255215
 Trying to assing directly to  Resource_SVK
 assigned directly to  Resource_SVK
 Assigning  5377-13340604
+ticket number:  5377-13323436
+Trying to assign to employee from ticket history
+Assiging to  
+Employee not present in vacation planner  
+Trying default scheduler model
+Skill Required:  AS2
+WARNING: Employee ' Resource_A ' not found in vacation planner
+Assigning  5377-13340604
 ticket number:  5377-13265067
 Trying to assign to employee from ticket history
 Assiging to  
 Employee not present in vacation planner  
 Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
-WARNING: Employee ' Resource_A ' not found in vacation planner
-Assigning  5377-13340604
-ticket number:  5377-13265301
-Trying to assign to employee from ticket history
-Assiging to  
-Employee not present in vacation planner  
-Trying default scheduler model
-Skill Required:  AS2
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13273282
@@ -3006,14 +3004,6 @@ Trying default scheduler model
 Skill Required:  Sterling Integrator (SI)
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
-ticket number:  5377-13322770
-Trying to assign to employee from ticket history
-Assiging to  Resource_GW
-Employee not present in vacation planner  Resource_GW
-Trying default scheduler model
-Skill Required:  FTP
-WARNING: Employee ' Resource_A ' not found in vacation planner
-Assigning  5377-13340604
 ticket number:  5377-13319724
 Trying to assign to employee from ticket history
 Assiging to  Resource_SF
@@ -3021,6 +3011,8 @@ Employee not present in vacation planner  Resource_SF
 Trying default scheduler model
 Skill Required:  ROSETTANET
 WARNING: Employee ' Resource_AB ' not found in vacation planner
+No employee available to assign...
+Unable to assign ticket
 Assigning  5377-13340604
 ticket number:  5377-13318566
 Trying to assign to employee from ticket history
@@ -3064,15 +3056,15 @@ Trying default scheduler model
 Skill Required:  AS2
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
-ticket number:  5377-13326713
+ticket number:  5377-13305736
 Trying to assign to employee from ticket history
 Assiging to  
 Employee not present in vacation planner  
 Trying default scheduler model
-Skill Required:  ROSETTANET
-WARNING: Employee ' Resource_AB ' not found in vacation planner
+Skill Required:  Sterling Integrator (SI)
+WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
-ticket number:  5377-13305736
+ticket number:  5377-13305728
 Trying to assign to employee from ticket history
 Assiging to  
 Employee not present in vacation planner  
@@ -3132,12 +3124,12 @@ Trying default scheduler model
 Skill Required:  AS2
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
-ticket number:  5377-13305728
+ticket number:  5377-13265301
 Trying to assign to employee from ticket history
 Assiging to  
 Employee not present in vacation planner  
 Trying default scheduler model
-Skill Required:  Sterling Integrator (SI)
+Skill Required:  AS2
 WARNING: Employee ' Resource_A ' not found in vacation planner
 Assigning  5377-13340604
 ticket number:  5377-13340604
@@ -3152,71 +3144,68 @@ Allocation Complete
 Name:  Resource_JVR
 Number of tickets assigned:  2
 Tickets:
-	5377-13340854
-	5377-13307765
+	5377-13341325
+	5377-13305728
 -----------------------------------------------------
 Name:  Resource_SKM
 Number of tickets assigned:  2
 Tickets:
-	5377-13328586
-	5377-12424152
+	5377-13330665
+	5377-12097487
 -----------------------------------------------------
 Name:  Resource_DS
-Employee not available
+Number of tickets assigned:  2
+Tickets:
+	5377-13178606
+	5377-13341369
 -----------------------------------------------------
 Name:  Resource_AKS
-Number of tickets assigned:  5
+Number of tickets assigned:  6
 Tickets:
 	5377-13311630
 	5377-13337711
-	5377-13323436
-	5377-13120012
 	5377-13322770
+	5377-13120012
+	5377-13307196
+	5377-13265301
 -----------------------------------------------------
 Name:  Resource_BK...
 Number of tickets assigned:  2
 Tickets:
-	5377-13341325
-	5377-13273282
+	5377-13339045
+	5377-13307765
 -----------------------------------------------------
 Name:  Resource_SSP
 Number of tickets assigned:  2
 Tickets:
-	5377-13330665
-	5377-13104307
+	5377-13331793
+	5377-12239494
 -----------------------------------------------------
 Name:  Resource_DK
-Number of tickets assigned:  6
-Tickets:
-	5377-13337469
-	5377-13336676
-	5377-13339381
-	5377-13265301
-	5377-13319724
-	5377-13326713
+Employee not available
 -----------------------------------------------------
 Name:  Resource_SK
 Number of tickets assigned:  2
 Tickets:
-	5377-13333137
-	5377-13245670
+	5377-13333342
+	5377-13187779
 -----------------------------------------------------
 Name:  Resource_SJ
 Number of tickets assigned:  2
 Tickets:
-	5377-13331793
-	5377-13187779
+	5377-13332718
+	5377-12424152
 -----------------------------------------------------
 Name:  Resource_SD
 Number of tickets assigned:  2
 Tickets:
-	5377-13332718
-	5377-13218805
+	5377-13337469
+	5377-13104307
 -----------------------------------------------------
 Name:  Resource_SY
 Number of tickets assigned:  3
 Tickets:
-	5377-13339098
+	5377-13333002
 	5377-13126338
 	5377-13317510
 -----------------------------------------------------
@@ -3228,46 +3217,44 @@ Tickets:
 Name:  Resource_JB
 Number of tickets assigned:  2
 Tickets:
-	5377-13340736
-	5377-13305736
+	5377-13341186
+	5377-13305722
 -----------------------------------------------------
 Name:  Resource_NK
 Number of tickets assigned:  3
 Tickets:
-	5377-13333002
+	5377-13339098
 	5377-13095530
 	5377-13314146
 -----------------------------------------------------
 Name:  Resource_SS
-Number of tickets assigned:  2
+Number of tickets assigned:  1
 Tickets:
 	5377-13339801
-	5377-13305728
 -----------------------------------------------------
 Name:  Resource_SR
 Number of tickets assigned:  2
 Tickets:
-	5377-13333342
+	5377-13327635
 	5377-13048396
 -----------------------------------------------------
 Name:  Resource_AR
-Number of tickets assigned:  3
+Number of tickets assigned:  2
 Tickets:
-	5377-13340319
-	5377-13291444
+	5377-13340424
 	5377-13284729
 -----------------------------------------------------
 Name:  Resource_AK
 Number of tickets assigned:  2
 Tickets:
-	5377-13340424
-	5377-13298405
+	5377-13340640
+	5377-13291444
 -----------------------------------------------------
 Name:  Resource_AJ
 Number of tickets assigned:  2
 Tickets:
-	5377-13339040
-	5377-13301656
+	5377-13340579
+	5377-13298405
 -----------------------------------------------------
 Name:  Resource_SRB
 Number of tickets assigned:  2
@@ -3279,29 +3266,32 @@ Name:  Resource_SVK
 Number of tickets assigned:  3
 Tickets:
 	5377-12097474
-	5377-13340640
+	5377-13327493
 	5377-13255215
 -----------------------------------------------------
 Name:  Resource_PRG
 Number of tickets assigned:  2
 Tickets:
-	5377-13341378
-	5377-13265067
+	5377-13339040
+	5377-13318566
 -----------------------------------------------------
 Name:  Resource_AD
-Employee not available
+Number of tickets assigned:  2
+Tickets:
+	5377-13340319
+	5377-13340604
 -----------------------------------------------------
 Name:  Resource_RC
 Number of tickets assigned:  2
 Tickets:
 	5377-13333771
-	5377-13327493
+	5377-13245670
 -----------------------------------------------------
 Name:  Resource_HBS
 Number of tickets assigned:  2
 Tickets:
-	5377-13340579
-	5377-13301691
+	5377-13340578
+	5377-13301656
 -----------------------------------------------------
 Name:  Resource_NP
 Number of tickets assigned:  5
@@ -3315,32 +3305,31 @@ Tickets:
 Name:  Resource_RKM
 Number of tickets assigned:  2
 Tickets:
-	5377-13327635
-	5377-12239494
+	5377-13328586
+	5377-13265067
 -----------------------------------------------------
 Name:  Resource_RMK
 Number of tickets assigned:  2
 Tickets:
 	5377-13334630
-	5377-13341369
+	5377-13218805
 -----------------------------------------------------
 Name:  Resource_JKL
 Number of tickets assigned:  2
 Tickets:
-	5377-13340578
-	5377-13305722
+	5377-13340736
+	5377-13301691
 -----------------------------------------------------
 Name:  Resource_SP
 Number of tickets assigned:  2
 Tickets:
-	5377-13339045
-	5377-12097487
+	5377-13333137
+	5377-13273282
 -----------------------------------------------------
 Name:  Resource_VM
-Number of tickets assigned:  2
+Number of tickets assigned:  1
 Tickets:
 	5377-13339775
-	5377-13340604
 -----------------------------------------------------
 Name:  Resource_YM
 Number of tickets assigned:  5
@@ -3348,20 +3337,20 @@ Tickets:
 	5377-13333875
 	5377-13339768
 	5377-13247712
-	5377-13307196
+	5377-13323436
 	5377-13275941
 -----------------------------------------------------
 Name:  Resource_KS
 Number of tickets assigned:  2
 Tickets:
-	5377-13341186
-	5377-13318566
+	5377-13341378
+	5377-13305736
 -----------------System Status-------------------
-Total tickets:  79
-Tickets assigned:  79
+Total tickets:  77
+Tickets assigned:  74
 Total employees:  33
-Employees available:  31
-% assigned:  100.0 %
-Execution Time:  19.6004359722  seconds
+Employees available:  32
+% assigned:  96.1038961039 %
+Execution Time:  19.4745559692  seconds
 Cleaning up database...
 *** Execution Complete ***
