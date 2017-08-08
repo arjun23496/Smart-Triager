@@ -190,7 +190,7 @@ def execute(date_now, debug=True):
 
 				if monthi != 0:
 					coli = coli+"."+str(monthi)
-				print row
+				# print row
 
 				temp_tracker = skills_tracker[skills_tracker['NAME'] == row[' [o] = Owner']]
 
@@ -203,10 +203,6 @@ def execute(date_now, debug=True):
 				except KeyError:
 					employee_status[row[' [o] = Owner']] = {}
 					employee_status[row[' [o] = Owner']]['tickets'] = []
-
-				print row[' [o] = Owner']
-
-				print coli
 
 				if row[coli]=='P':
 					employee_status[row[' [o] = Owner']]['total_availability'] = 0
@@ -310,6 +306,7 @@ def execute(date_now, debug=True):
 		print "Sort by priority complete"
 
 	all_ticket_no = pd.unique(df[df['status'] != 'Closed']['ticket_number'])
+	all_ticket_no = pd.unique(df['ticket_number'])
 	total_tickets = len(all_ticket_no)
 	number_of_assigned = 0
 
@@ -351,9 +348,11 @@ def execute(date_now, debug=True):
 
 	scheduler_pointer = {}
 
+	unassigned_tickets = []
+
 	for tindex,row in ttemp_df.iterrows():
 
-		print "Assigning ",t_no
+		print "\n--------------------\nAssigning ",t_no
 
 		# df_temp_new = df_nr[df_nr['ticket_number'] == t_no]
 
@@ -536,6 +535,7 @@ def execute(date_now, debug=True):
 					print "No employee available to assign..."
 			else:
 				employee_status[minemployee]['tickets'].append(row)
+				print "Assigned to employee ",minemployee
 				assigned = True
 
 		completed_tickets.append(row['ticket_number'])
@@ -545,8 +545,10 @@ def execute(date_now, debug=True):
 			# return
 			if debug:
 				print "Unable to assign ticket"
+			unassigned_tickets.append(row['ticket_number'])
 		else:
 			number_of_assigned += 1
+		print "--------------------"
 
 	print "Allocation Complete"
 	# Utilisation Calculation
@@ -569,6 +571,9 @@ def execute(date_now, debug=True):
 	for x in employee_status:
 		if employee_status[x]['total_availability'] > 0:
 			available_employees+=1
+
+	print "Unassigned Tickets"
+	print unassigned_tickets
 
 	print "-----------------System Status-------------------"
 	print "Total tickets: ",total_tickets
