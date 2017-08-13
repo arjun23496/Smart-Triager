@@ -1,5 +1,6 @@
 from utility.MLStripper import MLStripper
 from utility.CouchInterface import CouchInterface 
+from utility.custom_output import cprint
 from mappings.Ticket import Ticket
 from datetime import datetime
 
@@ -13,11 +14,8 @@ class Tickets:
 	    s.feed(html)
 	    return s.get_data()
 
-	def upload_tickets_csv(self, file_path="data/Ticket_list.csv", upload=True):
+	def upload_tickets_csv(self, file_path="data/ticket_list.csv", upload=True):
 		df = pd.read_csv(file_path)
-		# print df.describe()
-		# print df.columns
-		# print mapping.csv_mapping
 		document = []
 		template = []
 
@@ -46,7 +44,6 @@ class Tickets:
 			doc['alert_comments'] = temp['alert_comments']
 			doc['comments'] = temp['comments']
 			doc['alert_comments'] = temp['alert_comments']
-			# print datetime.strptime(temp['action_date'])
 
 			document.append(temp)
 			template.append(doc)
@@ -54,13 +51,13 @@ class Tickets:
 		if upload:
 			dbinter = CouchInterface()
 
-			print "Uploading "+str(len(document))+" tickets to database"
+			cprint("Uploading "+str(len(document))+" tickets to database", "status_update", mode=2)
 			n_success = dbinter.add_documents(document)
 			n_failed = len(template)-n_success
-			print "Upload Complete"
-			print str(len(template))+" documents processed"
-			print str(n_success)+" document successfully uploaded"
-			print str(n_failed)+" documents failed!!"
+			cprint("Upload Complete", "status_update", mode=2)
+			cprint(str(len(template))+"documents processed", "status_update", mode=2)
+			cprint(str(n_success)+" document successfully uploaded", "status_update", mode=2)
+			cprint(str(n_failed)+" documents failed!!", "status_update", mode=2)
 
 		return document
 

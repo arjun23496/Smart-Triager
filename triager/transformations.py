@@ -1,5 +1,6 @@
 import pandas as pd
 import datetime
+import os
 from sklearn.externals import joblib
 
 def new_value_imputer(df,index,ticket_number):
@@ -14,7 +15,7 @@ def new_value_imputer(df,index,ticket_number):
 
 def category_imputer(df,index):
 	categories = ['S - PER - New Map', 'S - Map Research', 'S - Map Change', 'S - PER - Map Change']
-	transformer=joblib.load('./predictors/category/transformer.pkl')
+	transformer=joblib.load(os.path.join(os.path.dirname(__file__),'/predictors/category/transformer.pkl'))
 	learner=joblib.load('./predictors/category/learner.pkl')
 	
 	transformed_df = transformer.transform(df.loc[index:index])
@@ -42,8 +43,8 @@ def category_imputer(df, index, ticket_number,action_date,ticket_dtime_format):
 		print "Assigned category using ticket history"
 		return maxcategory
 
-	transformer=joblib.load('./predictors/category/transformer.pkl')
-	learner=joblib.load('./predictors/category/learner.pkl')
+	transformer=joblib.load(os.path.join(os.path.dirname(__file__),'predictors/category/transformer.pkl'))
+	learner=joblib.load(os.path.join(os.path.dirname(__file__),'predictors/category/learner.pkl'))
 	
 	transformed_df = transformer.transform(df.loc[index:index])
 	pred_res = learner.predict(transformed_df)

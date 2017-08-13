@@ -1,6 +1,7 @@
 import pandas as pd
 
 from utility.CouchInterface import CouchInterface
+from utility.custom_output import cprint
 from openpyxl import load_workbook
 
 import transformations
@@ -35,8 +36,8 @@ def execute(date_now, debug=True):
 
 	date_param = date_now['year']+"-"+date_now['month']+"-"+date_now['date']
 
-	print "Executing scheduler"
-	print "date: "+date_param
+	cprint("Executing scheduler", 'status_update', mode=2)
+	cprint("date: "+date_param, 'status_update', mode=2)
 
 	user_availability = {
 		"full_day": 8,
@@ -102,16 +103,16 @@ def execute(date_now, debug=True):
 	df = pd.DataFrame(couch_handle.document_by_assigned(False))
 
 	if df.shape[0] <= 0:
-		print "No tickets for the given day"
-		print "Exiting...."
+		cprint("No tickets for the given day", 'status_update', mode=2)
+		cprint("Exiting....", 'status_update', mode=2)
 		return
 
-	print "---------------Executing Transformations------------"
+	cprint("---------------Executing Transformations------------", 'status_update', mode=2)
 
 	bar = progressbar.ProgressBar(maxval=df.shape[0], widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 	bar.start()
 
-	print pd.unique(df['ticket_number'])
+	# print pd.unique(df['ticket_number'])
 
 	for index,row in df.iterrows():
 		temp = {}
@@ -122,63 +123,63 @@ def execute(date_now, debug=True):
 
 		if row['category']=='' or pd.isnull(row['category']) or row['category'] not in permitted_categories:
 			if debug:
-				print "Ticket Number: ",row['ticket_number']
+				cprint("Ticket Number: "+row['ticket_number'], 'status_update', mode=2)
 			if row['category'] not in permitted_categories and row['category']!='' and (not pd.isnull(row['category'])):
 				if debug:
-					print "\n\nUnknown Categories encountered... Please check the Ticket List..."
-					print row['category']
+					cprint("\n\nUnknown Categories encountered... Please check the Ticket List...", 'status_update', mode=2)
+					cprint(row['category'], 'status_update', mode=2)
 			if debug:
-				print "Imputing Category"
+				cprint("Imputing Category", 'status_update', mode=2)
 			temp['category']=transformations.category_imputer(df,index,row['ticket_number'],row['action_date'],ticket_dtime_format)
 			df.set_value(index, 'category', temp['category'])
 			if debug:
-				print "New Category: ",temp['category']
+				cprint("New Category: "+temp['category'], 'status_update', mode=2)
 
 		if row['severity']=='' or pd.isnull(row['severity']):
 			if debug:
-				print "Ticket Number: ",row['ticket_number']
-				print "Imputing Severity"
+				cprint("Ticket Number: "+row['ticket_number'], 'status_update', mode=2)
+				cprint("Imputing Severity", 'status_update', mode=2)
 			temp['severity']=transformations.severity_imputer(df,index)
 			df.set_value(index, 'severity', temp['severity'])
 			if debug:
-				print "New Severity: ",temp['severity']
+				cprint("New Severity: "+temp['severity'], 'status_update', mode=2)
 
 		bar.update(index)
 
 		if temp['category'] not in permitted_categories:
-			print "\n\nUnknown Categories encountered... Please check the Ticket List..."
-			print "Category: ",temp['category']
-			print "exiting....."
+			cprint("\n\nUnknown Categories encountered... Please check the Ticket List...", 'status_update', mode=2)
+			cprint("Category: "+temp['category'], 'status_update', mode=2)
+			cprint("exiting.....", 'status_update', mode=2)
 			return
 
 	bar.finish()
 
-	print "Transformations Complete"
+	cprint("Transformations Complete", 'status_update', mode=2)
 
-	print "---------------Checking file requirements------------"
+	cprint("---------------Checking file requirements------------", 'status_update', mode=2)
 
 	status = True
 
 	if os.path.isfile(file_paths['utilization']):
-		print "*Utilization Report - Found"
+		cprint("*Utilization Report - Found", 'status_update', mode=2)
 	else:
-		print "*Utilization Report not found"
+		cprint("*Utilization Report not found", 'status_update', mode=2)
 		status = False
 
 	if os.path.isfile(file_paths['skills_tracker']):
-		print "*Skills Tracker - Found"
-		print "	Reading skills..."
+		cprint("*Skills Tracker - Found", 'status_update', mode=2)
+		cprint("	Reading skills...", 'status_update', mode=2)
 		skills_tracker = pd.read_csv(file_paths['skills_tracker'])
 		skills_tracker['LEVEL'] = skills_tracker['LEVEL'].apply(lambda x: skill_level_mapping[x])
 		skills = pd.unique(skills_tracker['TYPE'])
-		print "	Skill Tracker Read - Complete"
+		cprint("	Skill Tracker Read - Complete", 'status_update', mode=2)
 	else:
-		print "*Skills Tracker not found"
+		cprint("*Skills Tracker not found", 'status_update', mode=2)
 		status = False
 
 	if os.path.isfile(file_paths['vacation_plan']):
-		print "*Vacation Plan - Found"
-		print "	Reading Vacation Plan..."
+		cprint("*Vacation Plan - Found", 'status_update', mode=2)
+		cprint("	Reading Vacation Plan...", 'status_update', mode=2)
 		vacation_plan_df = pd.read_csv(file_paths['vacation_plan'], header=4)
 		# print vacation_plan_df
 
@@ -214,13 +215,13 @@ def execute(date_now, debug=True):
 					employee_status[row[' [o] = Owner']]['total_availability'] = user_availability['full_day']
 				employee_status[row[' [o] = Owner']]['usage'] = 0
 
-		print "	Vacation Plan Read - Complete "
+		cprint("	Vacation Plan Read - Complete ", 'status_update', mode=2)
 	else:
-		print "*Vacation Plan not found"
+		cprint("*Vacation Plan not found", 'status_update', mode=2)
 		status = False
 
 	if os.path.isfile(file_paths['backlog']):
-		print "*Backlog Report - Found"
+		cprint("*Backlog Report - Found", 'status_update', mode=2)
 		blog_report = pd.read_csv(file_paths['backlog'])
 		
 		pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
@@ -245,14 +246,14 @@ def execute(date_now, debug=True):
 					employee_status[csr_person]['total_availability'] = 0
 			except KeyError:
 				if debug:
-					print 'No data found for backlog report employee ',csr_person
+					cprint('No data found for backlog report employee '+csr_person, 'status_update', mode=2)
 
 	else:
-		print "*Backlog Report not found"
+		cprint("*Backlog Report not found", 'status_update', mode=2)
 		status = False
 
 
-	print "---------------Processing-------------"
+	cprint("---------------Processing-------------", 'status_update', mode=2)
 
 	# df_nr = df[df['status']=='Needs Reply']
 
@@ -265,7 +266,7 @@ def execute(date_now, debug=True):
 			return status_priority[1]
 
 	if debug:
-		print "Assigning priority"
+		cprint("Assigning priority", 'status_update', mode=2)
 
 	df_nr = df.copy()
 	df_nr['status'] = df_nr['status'].apply(filter_prior)
@@ -275,10 +276,10 @@ def execute(date_now, debug=True):
 	#Ticket Assigning priority setting
 
 	if debug:
-		print "Priority assignment complete"
+		cprint("Priority assignment complete", 'status_update', mode=2)
 
 	if debug:
-		print "Arranging according to priority"
+		cprint("Arranging according to priority", 'status_update', mode=2)
 
 	# df_nr.sort_values(priority_setting[0])
 	
@@ -303,7 +304,7 @@ def execute(date_now, debug=True):
 	# print skills_tracker
 
 	if debug:
-		print "Sort by priority complete"
+		cprint("Sort by priority complete", 'status_update', mode=2)
 
 	all_ticket_no = pd.unique(df[df['status'] != 'Closed']['ticket_number'])
 	all_ticket_no = pd.unique(df['ticket_number'])
@@ -337,7 +338,7 @@ def execute(date_now, debug=True):
 					row = trow
 
 		ttemp_df = ttemp_df.append(pd.DataFrame([row], columns=df_nr.columns))
-		print t_no
+		# print t_no
 
 	ttemp_df = ttemp_df.sort_values('status')
 
@@ -350,9 +351,21 @@ def execute(date_now, debug=True):
 
 	unassigned_tickets = []
 
+	index = 0
+	progress_res = {
+		'message': 'Executing Scheduler',
+		'max': total_tickets,
+		'index': 0,
+		'step': 1
+	}
+
 	for tindex,row in ttemp_df.iterrows():
 
-		print "\n--------------------\nAssigning ",t_no
+		cprint("\n--------------------\nAssigning "+t_no, 'status_update', mode=2)
+
+		index+=1
+		progress_res['index']=index
+		cprint(progress_res, 'status_progress', mode=3)
 
 		# df_temp_new = df_nr[df_nr['ticket_number'] == t_no]
 
@@ -393,13 +406,13 @@ def execute(date_now, debug=True):
 		csr_person = re.search(pattern,row['performed_by_csr'])
 
 		if debug:
-			print "ticket number: ",row['ticket_number']
+			cprint("ticket number: "+row['ticket_number'], 'status_update', mode=2)
 
 		if csr_person != None:
 			employee=csr_person.group(1)
 			#Assign to person set assigned to True
 			if debug:
-				print "Trying to assing directly to ",employee
+				cprint("Trying to assing directly to "+employee, 'status_update', mode=2)
 			
 			try:
 				availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
@@ -407,7 +420,7 @@ def execute(date_now, debug=True):
 
 				if employee_status[employee]['total_availability'] > 0:
 					if debug:
-						print "assigned directly to ",employee
+						cprint("assigned directly to "+employee, 'status_update', mode=2)
 					employee_status[employee]['tickets'].append(row)
 					employee_status[employee]['usage']+=category_time_requirements[ticket_category]
 					assigned = True
@@ -415,7 +428,7 @@ def execute(date_now, debug=True):
 
 			except KeyError:
 				if debug:
-					print "WARNING: No data found for ",employee,". Reassigning ticket"
+					cprint("WARNING: No data found for "+employee+". Reassigning ticket", 'status_update', mode=2)
 
 		maxdtime = 0
 
@@ -423,7 +436,7 @@ def execute(date_now, debug=True):
 			#Assign to particular csr based on availability and ticket history
 			
 			if debug:
-				print "Trying to assign to employee from ticket history"
+				cprint("Trying to assign to employee from ticket history", 'status_update', mode=2)
 
 			employee = ''
 			tpattern = re.compile(r'.*\[.*\] (.*)')
@@ -462,7 +475,7 @@ def execute(date_now, debug=True):
 			t = False
 
 			if debug:
-				print "Assiging to ",employee
+				cprint("Assiging to "+employee, 'status_update', mode=2)
 
 			try:
 				availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
@@ -470,27 +483,27 @@ def execute(date_now, debug=True):
 			
 			except KeyError:
 				if debug:
-					print "Employee not present in vacation planner ",employee
+					cprint("Employee not present in vacation planner "+employee, 'status_update', mode=2)
 					t = True
 
 			if not t:
 				try:
 					if employee_status[employee]['total_availability'] > 0:
 						if debug:
-							print "assigned from history to ",employee
+							cprint("assigned from history to "+employee, 'status_update', mode=2)
 						employee_status[employee]['tickets'].append(row)
 						employee_status[employee]['usage']+=category_time_requirements[ticket_category]
 						assigned = True
 				except KeyError:
 					if debug:
-						print "Ticket history not present"
+						cprint("Ticket history not present", 'status_update', mode=2)
 
 		# if row['ticket_number'] == u'5377-13340579':
 		# 	return
 
 		if not assigned:
 			if debug:
-				print "Trying default scheduler model"
+				cprint("Trying default scheduler model", 'status_update', mode=2)
 			req_skill = 'Sterling Integrator (SI)'
 			for x in skills:
 				reg_x = re.escape(x)
@@ -500,7 +513,7 @@ def execute(date_now, debug=True):
 					req_skill = x
 
 			if debug:
-				print "Skill Required: ",req_skill
+				cprint("Skill Required: "+req_skill, 'status_update', mode=2)
 
 			##Scheduler---------------
 
@@ -520,7 +533,7 @@ def execute(date_now, debug=True):
 				try:
 					employee_status[row1['NAME']]
 				except KeyError:
-					print "WARNING: Employee '",row1['NAME'],"' not found in vacation planner"
+					cprint("WARNING: Employee '"+row1['NAME']+"' not found in vacation planner", 'status_update', mode=2)
 					continue
 
 				if employee_status[row1['NAME']]['total_availability'] > 0:
@@ -532,10 +545,10 @@ def execute(date_now, debug=True):
 
 			if local_availability ==0:
 				if debug:
-					print "No employee available to assign..."
+					cprint("No employee available to assign...", 'status_update', mode=2)
 			else:
 				employee_status[minemployee]['tickets'].append(row)
-				print "Assigned to employee ",minemployee
+				cprint("Assigned to employee "+minemployee, 'status_update', mode=2)
 				assigned = True
 
 		completed_tickets.append(row['ticket_number'])
@@ -544,43 +557,43 @@ def execute(date_now, debug=True):
 			# print employee_status
 			# return
 			if debug:
-				print "Unable to assign ticket"
+				cprint("Unable to assign ticket", 'status_update', mode=2)
 			unassigned_tickets.append(row['ticket_number'])
 		else:
 			number_of_assigned += 1
-		print "--------------------"
+		cprint("--------------------", 'status_update', mode=2)
 
-	print "Allocation Complete"
+	cprint("Allocation Complete", 'status_update', mode=2)
 	# Utilisation Calculation
 	# print "---------------------Utilization------------------------------"
 	for x in employee_status:
-		print "-----------------------------------------------------"
-		print "Name: ",x
+		cprint("-----------------------------------------------------", 'status_update', mode=2)
+		cprint("Name: "+x, 'status_update', mode=2)
 		if employee_status[x]['total_availability'] == 0:
-			print "Employee not available"
+			cprint("Employee not available", 'status_update', mode=2)
 		else:
 			utilization = 100.0*employee_status[x]['usage']/employee_status[x]['total_availability']
 			# print "Availability: ",employee_status[x]['total_availability']
 			# print "Usage: ",employee_status[x]['usage']
-			print "Number of tickets assigned: ",len(employee_status[x]['tickets'])
+			cprint("Number of tickets assigned: "+str(len(employee_status[x]['tickets'])), 'status_update', mode=2)
 			# print "Utilization: ",utilization,"%"
-			print "Tickets:"
+			cprint("Tickets:", 'status_update', mode=2)
 			for x in employee_status[x]['tickets']:
-				print "\t",x['ticket_number']
+				cprint("\t"+x['ticket_number'], 'status_update', mode=2)
 
 	for x in employee_status:
 		if employee_status[x]['total_availability'] > 0:
 			available_employees+=1
 
-	print "Unassigned Tickets"
-	print unassigned_tickets
+	cprint("Unassigned Tickets", 'status_update', mode=2)
+	cprint(str(unassigned_tickets), 'status_update', mode=2)
 
-	print "-----------------System Status-------------------"
-	print "Total tickets: ",total_tickets
-	print "Tickets assigned: ",number_of_assigned
-	print "Total employees: ",len(employee_status)
-	print "Employees available: ",available_employees
-	print "% assigned: ",((1.0*number_of_assigned/total_tickets)*100),"%"
+	cprint("-----------------System Status-------------------", 'status_update', mode=2)
+	cprint("Total tickets: "+str(total_tickets), 'status_update', mode=2)
+	cprint("Tickets assigned: "+str(number_of_assigned), 'status_update', mode=2)
+	cprint("Total employees: "+str(len(employee_status)), 'status_update', mode=2)
+	cprint("Employees available: "+str(available_employees), 'status_update', mode=2)
+	cprint("% assigned: "+str((1.0*number_of_assigned/total_tickets)*100)+"%", 'status_update', mode=2)
 
 	# print employee_status['Resource_AB']
 	# print employee_status['Resource_DK']
