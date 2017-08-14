@@ -22,9 +22,15 @@ socket.on('connect', function() {
 
 socket.on('system_status', function(data){
 	output("System: "+data)
-	if(data=="thread_complete")
+	if(data=="scheduler_start")
 	{
-		socket.emit('thread_complete')
+		$('#main-progress').show()
+	}
+
+	if(data=="scheduler_end")
+	{
+		$('#status-box').text('Execution Complete')
+		$('#main-progress').hide()
 	}
 	autoscroll()
 	return false
@@ -34,7 +40,6 @@ socket.on('system_status', function(data){
 socket.on('status_update', function(data){
 	
 	$('#status-box').text('Executing Scheduler')
-	$('#main-progress').show()
 
 	output(data);
 	socket.emit('ack');
@@ -79,10 +84,11 @@ $(document).ready(function(){
 	$('#start_scheduler').click(function(){
 		socket.emit('start_scheduler')
 		$('#status-box').text('Executing Scheduler')
-		$('#main-progress').show()
 	});
 
 	$("#status-box").text('Initailization Complete');
+
+	$('#main-progress').hide()
 
 	$('#start_scheduler').removeClass('disabled');
 

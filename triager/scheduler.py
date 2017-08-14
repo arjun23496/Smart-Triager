@@ -1,6 +1,7 @@
 import pandas as pd
 
 from utility.CouchInterface import CouchInterface
+from utility.custom_output import CustomOutput
 from utility.custom_output import cprint
 from openpyxl import load_workbook
 
@@ -12,6 +13,7 @@ import os
 import re
 import sys
 import traceback
+import json
 
 
 def clean_name_index(x):
@@ -24,11 +26,12 @@ def clean_name_index(x):
 	x = re.sub(' +',' ',x)
 	return x
 
-def execute(date_now, debug=True):
+def execute(date_now, debug=True, thread=False, socketio=None):
 
 	# TODO: Change in production
 	# date_now = datetime.datetime.now()
 	#2016-12-21
+	coutput = CustomOutput(thread=thread, socketio=socketio)
 
 	ticket_dtime_format = "%Y-%m-%d-%H.%M.%S"
 
@@ -36,8 +39,8 @@ def execute(date_now, debug=True):
 
 	date_param = date_now['year']+"-"+date_now['month']+"-"+date_now['date']
 
-	cprint("Executing scheduler", 'status_update', mode=2)
-	cprint("date: "+date_param, 'status_update', mode=2)
+	coutput.cprint("Executing scheduler", 'status_update', mode=2)
+	coutput.cprint("date: "+date_param, 'status_update', mode=2)
 
 	user_availability = {
 		"full_day": 8,
@@ -89,6 +92,29 @@ def execute(date_now, debug=True):
 		"dec": "11"
 	}
 
+	#DataStructures for report
+	category_report = {
+		"New Map": 0,
+		"PER Map Change": 0,
+		"Change": 0,
+		"Research": 0
+	}
+
+	backlog_report_report = {
+		"Sev3": 0,
+		"Sev4": 0
+	}
+
+	triage_summary_report = {
+		"priority_deliverables": 0,
+		"available_members": 0,
+		"number_new_maps": 0,
+		"backlog_report": {},
+		"category_report": {}
+	}
+
+	#System start
+
 	completed_tickets = []
 
 	employee_status = {}
@@ -103,11 +129,11 @@ def execute(date_now, debug=True):
 	df = pd.DataFrame(couch_handle.document_by_assigned(False))
 
 	if df.shape[0] <= 0:
-		cprint("No tickets for the given day", 'status_update', mode=2)
-		cprint("Exiting....", 'status_update', mode=2)
+		coutput.cprint("No tickets for the given day", 'status_update', mode=2)
+		coutput.cprint("Exiting....", 'status_update', mode=2)
 		return
 
-	cprint("---------------Executing Transformations------------", 'status_update', mode=2)
+	coutput.cprint("---------------Executing Transformations------------", 'status_update', mode=2)
 
 	bar = progressbar.ProgressBar(maxval=df.shape[0], widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 	bar.start()
@@ -121,65 +147,67 @@ def execute(date_now, debug=True):
 			temp['new_queue']=transformations.new_value_imputer(df,index,row['ticket_number'])
 			df.set_value(index, 'new queue', temp['new_queue'])
 
+		tempcat = row['category']
 		if row['category']=='' or pd.isnull(row['category']) or row['category'] not in permitted_categories:
 			if debug:
-				cprint("Ticket Number: "+row['ticket_number'], 'status_update', mode=2)
+				coutput.cprint("Ticket Number: "+row['ticket_number'], 'status_update', mode=2)
 			if row['category'] not in permitted_categories and row['category']!='' and (not pd.isnull(row['category'])):
 				if debug:
-					cprint("\n\nUnknown Categories encountered... Please check the Ticket List...", 'status_update', mode=2)
-					cprint(row['category'], 'status_update', mode=2)
+					coutput.cprint("\n\nUnknown Categories encountered... Please check the Ticket List...", 'status_update', mode=2)
+					coutput.cprint(row['category'], 'status_update', mode=2)
 			if debug:
-				cprint("Imputing Category", 'status_update', mode=2)
+				coutput.cprint("Imputing Category", 'status_update', mode=2)
 			temp['category']=transformations.category_imputer(df,index,row['ticket_number'],row['action_date'],ticket_dtime_format)
 			df.set_value(index, 'category', temp['category'])
+			tempcat = temp['category']
 			if debug:
-				cprint("New Category: "+temp['category'], 'status_update', mode=2)
+				coutput.cprint("New Category: "+temp['category'], 'status_update', mode=2)
 
 		if row['severity']=='' or pd.isnull(row['severity']):
 			if debug:
-				cprint("Ticket Number: "+row['ticket_number'], 'status_update', mode=2)
-				cprint("Imputing Severity", 'status_update', mode=2)
+				coutput.cprint("Ticket Number: "+row['ticket_number'], 'status_update', mode=2)
+				coutput.cprint("Imputing Severity", 'status_update', mode=2)
 			temp['severity']=transformations.severity_imputer(df,index)
 			df.set_value(index, 'severity', temp['severity'])
 			if debug:
-				cprint("New Severity: "+temp['severity'], 'status_update', mode=2)
+				coutput.cprint("New Severity: "+temp['severity'], 'status_update', mode=2)
 
 		bar.update(index)
 
 		if temp['category'] not in permitted_categories:
-			cprint("\n\nUnknown Categories encountered... Please check the Ticket List...", 'status_update', mode=2)
-			cprint("Category: "+temp['category'], 'status_update', mode=2)
-			cprint("exiting.....", 'status_update', mode=2)
+			coutput.cprint("\n\nUnknown Categories encountered... Please check the Ticket List...", 'status_update', mode=2)
+			coutput.cprint("Category: "+temp['category'], 'status_update', mode=2)
+			coutput.cprint("exiting.....", 'status_update', mode=2)
 			return
 
 	bar.finish()
 
-	cprint("Transformations Complete", 'status_update', mode=2)
+	coutput.cprint("Transformations Complete", 'status_update', mode=2)
 
-	cprint("---------------Checking file requirements------------", 'status_update', mode=2)
+	coutput.cprint("---------------Checking file requirements------------", 'status_update', mode=2)
 
 	status = True
 
 	if os.path.isfile(file_paths['utilization']):
-		cprint("*Utilization Report - Found", 'status_update', mode=2)
+		coutput.cprint("*Utilization Report - Found", 'status_update', mode=2)
 	else:
-		cprint("*Utilization Report not found", 'status_update', mode=2)
+		coutput.cprint("*Utilization Report not found", 'status_update', mode=2)
 		status = False
 
 	if os.path.isfile(file_paths['skills_tracker']):
-		cprint("*Skills Tracker - Found", 'status_update', mode=2)
-		cprint("	Reading skills...", 'status_update', mode=2)
+		coutput.cprint("*Skills Tracker - Found", 'status_update', mode=2)
+		coutput.cprint("	Reading skills...", 'status_update', mode=2)
 		skills_tracker = pd.read_csv(file_paths['skills_tracker'])
 		skills_tracker['LEVEL'] = skills_tracker['LEVEL'].apply(lambda x: skill_level_mapping[x])
 		skills = pd.unique(skills_tracker['TYPE'])
-		cprint("	Skill Tracker Read - Complete", 'status_update', mode=2)
+		coutput.cprint("	Skill Tracker Read - Complete", 'status_update', mode=2)
 	else:
-		cprint("*Skills Tracker not found", 'status_update', mode=2)
+		coutput.cprint("*Skills Tracker not found", 'status_update', mode=2)
 		status = False
 
 	if os.path.isfile(file_paths['vacation_plan']):
-		cprint("*Vacation Plan - Found", 'status_update', mode=2)
-		cprint("	Reading Vacation Plan...", 'status_update', mode=2)
+		coutput.cprint("*Vacation Plan - Found", 'status_update', mode=2)
+		coutput.cprint("	Reading Vacation Plan...", 'status_update', mode=2)
 		vacation_plan_df = pd.read_csv(file_paths['vacation_plan'], header=4)
 		# print vacation_plan_df
 
@@ -215,13 +243,13 @@ def execute(date_now, debug=True):
 					employee_status[row[' [o] = Owner']]['total_availability'] = user_availability['full_day']
 				employee_status[row[' [o] = Owner']]['usage'] = 0
 
-		cprint("	Vacation Plan Read - Complete ", 'status_update', mode=2)
+		coutput.cprint("	Vacation Plan Read - Complete ", 'status_update', mode=2)
 	else:
-		cprint("*Vacation Plan not found", 'status_update', mode=2)
+		coutput.cprint("*Vacation Plan not found", 'status_update', mode=2)
 		status = False
 
 	if os.path.isfile(file_paths['backlog']):
-		cprint("*Backlog Report - Found", 'status_update', mode=2)
+		coutput.cprint("*Backlog Report - Found", 'status_update', mode=2)
 		blog_report = pd.read_csv(file_paths['backlog'])
 		
 		pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
@@ -246,14 +274,14 @@ def execute(date_now, debug=True):
 					employee_status[csr_person]['total_availability'] = 0
 			except KeyError:
 				if debug:
-					cprint('No data found for backlog report employee '+csr_person, 'status_update', mode=2)
+					coutput.cprint('No data found for backlog report employee '+csr_person, 'status_update', mode=2)
 
 	else:
-		cprint("*Backlog Report not found", 'status_update', mode=2)
+		coutput.cprint("*Backlog Report not found", 'status_update', mode=2)
 		status = False
 
 
-	cprint("---------------Processing-------------", 'status_update', mode=2)
+	coutput.cprint("---------------Processing-------------", 'status_update', mode=2)
 
 	# df_nr = df[df['status']=='Needs Reply']
 
@@ -266,7 +294,7 @@ def execute(date_now, debug=True):
 			return status_priority[1]
 
 	if debug:
-		cprint("Assigning priority", 'status_update', mode=2)
+		coutput.cprint("Assigning priority", 'status_update', mode=2)
 
 	df_nr = df.copy()
 	df_nr['status'] = df_nr['status'].apply(filter_prior)
@@ -276,10 +304,10 @@ def execute(date_now, debug=True):
 	#Ticket Assigning priority setting
 
 	if debug:
-		cprint("Priority assignment complete", 'status_update', mode=2)
+		coutput.cprint("Priority assignment complete", 'status_update', mode=2)
 
 	if debug:
-		cprint("Arranging according to priority", 'status_update', mode=2)
+		coutput.cprint("Arranging according to priority", 'status_update', mode=2)
 
 	# df_nr.sort_values(priority_setting[0])
 	
@@ -304,7 +332,7 @@ def execute(date_now, debug=True):
 	# print skills_tracker
 
 	if debug:
-		cprint("Sort by priority complete", 'status_update', mode=2)
+		coutput.cprint("Sort by priority complete", 'status_update', mode=2)
 
 	all_ticket_no = pd.unique(df[df['status'] != 'Closed']['ticket_number'])
 	all_ticket_no = pd.unique(df['ticket_number'])
@@ -361,11 +389,11 @@ def execute(date_now, debug=True):
 
 	for tindex,row in ttemp_df.iterrows():
 
-		cprint("\n--------------------\nAssigning "+t_no, 'status_update', mode=2)
+		coutput.cprint("\n--------------------\nAssigning "+t_no, 'status_update', mode=2)
 
 		index+=1
 		progress_res['index']=index
-		cprint(progress_res, 'status_progress', mode=3)
+		coutput.cprint(progress_res, 'status_progress', mode=3)
 
 		# df_temp_new = df_nr[df_nr['ticket_number'] == t_no]
 
@@ -383,6 +411,19 @@ def execute(date_now, debug=True):
 		# 		if maxdate < tdate:
 		# 			maxdate = tdate
 		# 			row = trow
+
+		if row['severity'] == "Sev 2" or row['severity'] == "Sev 1":
+			triage_summary_report['priority_deliverables']+=1
+
+		if row['category'] == 'S - Map Change':
+			category_report['Change']+=1
+		elif row['category'] == 'S - Map Research':
+			category_report['Research']+=1
+		elif row['category'] == 'S - PER - New Map':
+			category_report['New Map']+=1
+		elif row['category'] == 'S - PER - Map Change':
+			category_report['PER Map Change']+=1
+
 
 		ticket_dtime = datetime.datetime.strptime(row['action_date'], ticket_dtime_format)
 
@@ -406,13 +447,13 @@ def execute(date_now, debug=True):
 		csr_person = re.search(pattern,row['performed_by_csr'])
 
 		if debug:
-			cprint("ticket number: "+row['ticket_number'], 'status_update', mode=2)
+			coutput.cprint("ticket number: "+row['ticket_number'], 'status_update', mode=2)
 
 		if csr_person != None:
 			employee=csr_person.group(1)
 			#Assign to person set assigned to True
 			if debug:
-				cprint("Trying to assing directly to "+employee, 'status_update', mode=2)
+				coutput.cprint("Trying to assing directly to "+employee, 'status_update', mode=2)
 			
 			try:
 				availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
@@ -420,7 +461,7 @@ def execute(date_now, debug=True):
 
 				if employee_status[employee]['total_availability'] > 0:
 					if debug:
-						cprint("assigned directly to "+employee, 'status_update', mode=2)
+						coutput.cprint("assigned directly to "+employee, 'status_update', mode=2)
 					employee_status[employee]['tickets'].append(row)
 					employee_status[employee]['usage']+=category_time_requirements[ticket_category]
 					assigned = True
@@ -428,7 +469,7 @@ def execute(date_now, debug=True):
 
 			except KeyError:
 				if debug:
-					cprint("WARNING: No data found for "+employee+". Reassigning ticket", 'status_update', mode=2)
+					coutput.cprint("WARNING: No data found for "+employee+". Reassigning ticket", 'status_update', mode=2)
 
 		maxdtime = 0
 
@@ -436,7 +477,7 @@ def execute(date_now, debug=True):
 			#Assign to particular csr based on availability and ticket history
 			
 			if debug:
-				cprint("Trying to assign to employee from ticket history", 'status_update', mode=2)
+				coutput.cprint("Trying to assign to employee from ticket history", 'status_update', mode=2)
 
 			employee = ''
 			tpattern = re.compile(r'.*\[.*\] (.*)')
@@ -475,7 +516,7 @@ def execute(date_now, debug=True):
 			t = False
 
 			if debug:
-				cprint("Assiging to "+employee, 'status_update', mode=2)
+				coutput.cprint("Assiging to "+employee, 'status_update', mode=2)
 
 			try:
 				availability = employee_status[employee]['total_availability'] - employee_status[employee]['usage']
@@ -483,27 +524,27 @@ def execute(date_now, debug=True):
 			
 			except KeyError:
 				if debug:
-					cprint("Employee not present in vacation planner "+employee, 'status_update', mode=2)
+					coutput.cprint("Employee not present in vacation planner "+employee, 'status_update', mode=2)
 					t = True
 
 			if not t:
 				try:
 					if employee_status[employee]['total_availability'] > 0:
 						if debug:
-							cprint("assigned from history to "+employee, 'status_update', mode=2)
+							coutput.cprint("assigned from history to "+employee, 'status_update', mode=2)
 						employee_status[employee]['tickets'].append(row)
 						employee_status[employee]['usage']+=category_time_requirements[ticket_category]
 						assigned = True
 				except KeyError:
 					if debug:
-						cprint("Ticket history not present", 'status_update', mode=2)
+						coutput.cprint("Ticket history not present", 'status_update', mode=2)
 
 		# if row['ticket_number'] == u'5377-13340579':
 		# 	return
 
 		if not assigned:
 			if debug:
-				cprint("Trying default scheduler model", 'status_update', mode=2)
+				coutput.cprint("Trying default scheduler model", 'status_update', mode=2)
 			req_skill = 'Sterling Integrator (SI)'
 			for x in skills:
 				reg_x = re.escape(x)
@@ -513,7 +554,7 @@ def execute(date_now, debug=True):
 					req_skill = x
 
 			if debug:
-				cprint("Skill Required: "+req_skill, 'status_update', mode=2)
+				coutput.cprint("Skill Required: "+req_skill, 'status_update', mode=2)
 
 			##Scheduler---------------
 
@@ -533,7 +574,7 @@ def execute(date_now, debug=True):
 				try:
 					employee_status[row1['NAME']]
 				except KeyError:
-					cprint("WARNING: Employee '"+row1['NAME']+"' not found in vacation planner", 'status_update', mode=2)
+					coutput.cprint("WARNING: Employee '"+row1['NAME']+"' not found in vacation planner", 'status_update', mode=2)
 					continue
 
 				if employee_status[row1['NAME']]['total_availability'] > 0:
@@ -545,10 +586,10 @@ def execute(date_now, debug=True):
 
 			if local_availability ==0:
 				if debug:
-					cprint("No employee available to assign...", 'status_update', mode=2)
+					coutput.cprint("No employee available to assign...", 'status_update', mode=2)
 			else:
 				employee_status[minemployee]['tickets'].append(row)
-				cprint("Assigned to employee "+minemployee, 'status_update', mode=2)
+				coutput.cprint("Assigned to employee "+minemployee, 'status_update', mode=2)
 				assigned = True
 
 		completed_tickets.append(row['ticket_number'])
@@ -557,43 +598,49 @@ def execute(date_now, debug=True):
 			# print employee_status
 			# return
 			if debug:
-				cprint("Unable to assign ticket", 'status_update', mode=2)
+				coutput.cprint("Unable to assign ticket", 'status_update', mode=2)
 			unassigned_tickets.append(row['ticket_number'])
 		else:
 			number_of_assigned += 1
-		cprint("--------------------", 'status_update', mode=2)
+		coutput.cprint("--------------------", 'status_update', mode=2)
 
-	cprint("Allocation Complete", 'status_update', mode=2)
+	triage_summary_report['category_report'] = category_report
+
+	coutput.cprint("Allocation Complete", 'status_update', mode=2)
 	# Utilisation Calculation
 	# print "---------------------Utilization------------------------------"
 	for x in employee_status:
-		cprint("-----------------------------------------------------", 'status_update', mode=2)
-		cprint("Name: "+x, 'status_update', mode=2)
+		coutput.cprint("-----------------------------------------------------", 'status_update', mode=2)
+		coutput.cprint("Name: "+x, 'status_update', mode=2)
 		if employee_status[x]['total_availability'] == 0:
-			cprint("Employee not available", 'status_update', mode=2)
+			coutput.cprint("Employee not available", 'status_update', mode=2)
 		else:
 			utilization = 100.0*employee_status[x]['usage']/employee_status[x]['total_availability']
 			# print "Availability: ",employee_status[x]['total_availability']
 			# print "Usage: ",employee_status[x]['usage']
-			cprint("Number of tickets assigned: "+str(len(employee_status[x]['tickets'])), 'status_update', mode=2)
+			coutput.cprint("Number of tickets assigned: "+str(len(employee_status[x]['tickets'])), 'status_update', mode=2)
 			# print "Utilization: ",utilization,"%"
-			cprint("Tickets:", 'status_update', mode=2)
+			coutput.cprint("Tickets:", 'status_update', mode=2)
 			for x in employee_status[x]['tickets']:
-				cprint("\t"+x['ticket_number'], 'status_update', mode=2)
+				coutput.cprint("\t"+x['ticket_number'], 'status_update', mode=2)
 
 	for x in employee_status:
 		if employee_status[x]['total_availability'] > 0:
 			available_employees+=1
 
-	cprint("Unassigned Tickets", 'status_update', mode=2)
-	cprint(str(unassigned_tickets), 'status_update', mode=2)
+	coutput.cprint("Unassigned Tickets", 'status_update', mode=2)
+	coutput.cprint(str(unassigned_tickets), 'status_update', mode=2)
 
-	cprint("-----------------System Status-------------------", 'status_update', mode=2)
-	cprint("Total tickets: "+str(total_tickets), 'status_update', mode=2)
-	cprint("Tickets assigned: "+str(number_of_assigned), 'status_update', mode=2)
-	cprint("Total employees: "+str(len(employee_status)), 'status_update', mode=2)
-	cprint("Employees available: "+str(available_employees), 'status_update', mode=2)
-	cprint("% assigned: "+str((1.0*number_of_assigned/total_tickets)*100)+"%", 'status_update', mode=2)
+	coutput.cprint("-----------------System Status-------------------", 'status_update', mode=2)
+	coutput.cprint("Total tickets: "+str(total_tickets), 'status_update', mode=2)
+	coutput.cprint("Tickets assigned: "+str(number_of_assigned), 'status_update', mode=2)
+	coutput.cprint("Total employees: "+str(len(employee_status)), 'status_update', mode=2)
+	coutput.cprint("Employees available: "+str(available_employees), 'status_update', mode=2)
+	coutput.cprint("% assigned: "+str((1.0*number_of_assigned/total_tickets)*100)+"%", 'status_update', mode=2)
+
+	triage_summary_report['available_members'] = available_employees
+	with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'w') as fp:
+		date_now = json.dump(triager_summary_report, fp)
 
 	# print employee_status['Resource_AB']
 	# print employee_status['Resource_DK']

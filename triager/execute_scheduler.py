@@ -3,6 +3,7 @@ from utility.CouchInterface import CouchInterface
 # from flask_socketio import emit
 from sklearn.externals import joblib
 from utility.custom_output import cprint
+from utility.custom_output import CustomOutput
 
 import category_learner
 import severity_learner
@@ -15,6 +16,8 @@ import sys
 
 def execute():
 	couch_handle = CouchInterface()
+
+	# coutput = CustomOutput(thread=True, socketio=)
 
 	cprint("Creating temporary database...", "status_update", mode=2)
 

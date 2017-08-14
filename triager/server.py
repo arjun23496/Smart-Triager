@@ -3,6 +3,7 @@ from flask import render_template
 from flask_socketio import SocketIO, emit, disconnect
 import numpy
 import os
+import json
 
 #API imports
 import api.uploader as uploader
@@ -36,6 +37,21 @@ REST APIS
 @app.route("/upload", methods=["POST"])
 def uploader_api():
 
+	month_map = {
+		"January,": u"01",
+		"February,": u"02",
+		"March,":	u"03",
+		"April,":	u"04",
+		"May,":		u"05",
+		"June,":		u"06",
+		"July,":		u"07",
+		"August,":	u"08",
+		"September,":u"09",
+		"October,":	u"10",
+		"November,":	u"11",
+		"December,":	u"12"
+	}
+
 	response_object = {
 		'status': 200,
 		'data': ''
@@ -45,9 +61,27 @@ def uploader_api():
 	date = request.form['date']
 
 	if date == None or date == "":
-		response_object['status'] = 500
-		response_object['data'] = "Invalid date"
 		return jsonify(response_object)
+
+	date = date.split(" ");
+	if len(date[0]) == 1:
+		date[0] = "0"+data[0]
+
+	date[1] = month_map[date[1]]
+
+	print date
+
+	date_sav = {
+		"year": date[2],
+		"date": date[0],
+		"month": date[1]
+	}
+
+	with open(os.path.join(os.path.dirname(__file__),'data/scheduler_date.json'), 'w') as fp:
+		json.dump(date_sav, fp)
+
+	response_object['status'] = 500
+	response_object['data'] = "Invalid date"
 
 	res = uploader.upload(app,request,response_object)
 	return res
