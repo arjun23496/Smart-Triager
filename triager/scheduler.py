@@ -353,7 +353,7 @@ def execute(date_now, debug=True):
 
 	index = 0
 	progress_res = {
-		'message': 'Executing Scheduler',
+		'message': 'Assigning Tickets',
 		'max': total_tickets,
 		'index': 0,
 		'step': 1

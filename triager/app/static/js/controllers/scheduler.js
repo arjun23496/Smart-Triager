@@ -7,9 +7,15 @@ function output(x, mode=1){
 	}
 }
 
+function autoscroll(){
+	$('#output-div').scrollTop(document.getElementById('output-div').scrollHeight)
+}
+
 socket.on('connect', function() {
-	output('Connected')    	
+	output('Connected')
+	autoscroll()    	
 	socket.emit('ack')
+	$('#main-progress').hide()
 	return true;
 });
 
@@ -20,20 +26,41 @@ socket.on('system_status', function(data){
 	{
 		socket.emit('thread_complete')
 	}
+	autoscroll()
 	return false
 });
 
 
 socket.on('status_update', function(data){
+	
+	$('#status-box').text('Executing Scheduler')
+	$('#main-progress').show()
+
 	output(data);
 	socket.emit('ack');
+	autoscroll()
 	return false;
 });
 
 
 socket.on('status_progress', function(data){
 	console.log(data)
-	socket.emit('ack');
+	
+	$('#status-box').text('Executing Scheduler')
+	$('#main-progress').show()
+
+	$('#determinate-progress-wrapper').show()
+	var perc = (data['index']+data['step'])*100/data['max']
+	if(perc>100)
+		perc=100
+	
+	perc = Math.ceil(perc).toString()
+
+
+	$('#determinate-status-box').text(data['message']+" ("+perc+"%)")
+
+	$('#determinate-progress').css('width',perc+"%")
+
 	return false
 });
 
@@ -41,17 +68,23 @@ socket.on('status_progress', function(data){
 socket.on('disconnect', function() {
 	output('Connection Closed')
 	$('#start_scheduler').removeClass('disabled');
+	$('#status-box').text('Execution Complete')
+	$('#main-progress').hide()
+	autoscroll()
 	return false;
 });
 
 $(document).ready(function(){
 
 	$('#start_scheduler').click(function(){
-		socket.emit('start_scheduler')	
+		socket.emit('start_scheduler')
+		$('#status-box').text('Executing Scheduler')
+		$('#main-progress').show()
 	});
 
 	$("#status-box").text('Initailization Complete');
 
 	$('#start_scheduler').removeClass('disabled');
 
+	$('#determinate-progress-wrapper').hide();
 });

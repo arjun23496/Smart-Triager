@@ -1,3 +1,8 @@
+.output-box{
+	overflow-y:auto;
+	height:400px;
+}
+
 .blue-background{
 	background-color: #000080
 }
@@ -8,6 +13,10 @@
 
 .custom-progress{
 	background-color: #BBDEFB
+}
+
+.custom-determinate{
+	background-color: #1976D2
 }
 
 .custom-indeterminate{

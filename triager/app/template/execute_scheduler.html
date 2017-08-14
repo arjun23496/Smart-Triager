@@ -40,11 +40,21 @@
 				<p class="primary-text-color" id="status-box">Initializing...</p>
 			</div>
 			<div class="row">
-				<div id="scheduler_progress" class="custom-progress progress">
+				<div id="main-progress" class="custom-progress progress">
 					<div class="indeterminate blue darken-2"></div>
 				</div>
 	    	</div>
-	    	<div id="output-div" class="z-depth-2" style="overflow-y:auto; height:500px;"></div>
+	    	<div  id="determinate-progress-wrapper">
+	    	<div class="row">
+				<p class="primary-text-color" id="determinate-status-box">Initializing...</p>
+			</div>
+	    	<div class="row">
+				<div class="custom-progress progress">
+					<div id="determinate-progress" class="determinate blue darken-2"></div>
+				</div>
+	    	</div>
+	    	</div>
+	    	<div id="output-div" class="z-depth-2 output-box"></div>
 	    </div>
 
 		<!--Import jQuery before materialize.js-->
