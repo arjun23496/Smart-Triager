@@ -31,6 +31,7 @@ socket.on('system_status', function(data){
 	{
 		$('#status-box').text('Execution Complete')
 		$('#main-progress').hide()
+		$('#continue').removeClass('disabled')
 	}
 	autoscroll()
 	return false

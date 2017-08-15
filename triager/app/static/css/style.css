@@ -1,3 +1,27 @@
+.report-table thead{
+	background-color: #BBDEFB;
+}
+
+.report-table th{
+	border-left: 1px solid #BDBDBD;
+	border-right: 1px solid #BDBDBD;
+	border-top: 1px solid #BDBDBD;
+	border-bottom: 1px solid #BDBDBD; 
+	background-color: #BBDEFB;
+}
+
+.report-table td{
+	border-left: 1px solid #BDBDBD;
+	border-right: 1px solid #BDBDBD;
+	border-top: 1px solid #BDBDBD;
+	border-bottom: 1px solid #BDBDBD;
+	text-align: center;
+}
+
+.report-table{
+	visibility: None;
+}
+
 .output-box{
 	overflow-y:auto;
 	height:400px;

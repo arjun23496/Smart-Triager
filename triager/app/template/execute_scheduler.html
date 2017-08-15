@@ -17,11 +17,11 @@
 			<nav class="blue darken-2">
 			    <div class="nav-wrapper">
 			      <a href="#" class="brand-logo">Smart Ticket Triager</a>
-			      <!-- <ul id="nav-mobile" class="right hide-on-med-and-down">
-			        <li><a href="sass.html">Sass</a></li>
-			        <li><a href="badges.html">Components</a></li>
-			        <li><a href="collapsible.html">JavaScript</a></li>
-			      </ul> -->
+			      <ul id="nav-mobile" class="right hide-on-med-and-down">
+			        <li><a href="/">Upload</a></li>
+			        <li class="active"><a href="/scheduler">Schedule</a></li>
+			        <li><a href="/report">Report [{{date}}]</a></li>
+			      </ul>
 			    </div>
 			</nav>
 		</div>
@@ -34,6 +34,9 @@
 				<div class="form-button btn-large waves-effect waves-light blue darken-2 col s2 left disabled" id="start_scheduler">start_scheduler
 					<i class="material-icons right">power_settings_new</i>
 				</div>
+				<a href="/report" class="form-button btn-large waves-effect waves-light blue darken-2 col s2 right disabled" id="continue">continue
+					<i class="material-icons right">send</i>
+				</a>
 			</div>
 			<div class="row">
 				<p class="text-primary-color">Status:</p>

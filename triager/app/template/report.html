@@ -1,0 +1,110 @@
+<html>
+	<head>
+		<title>Daily Ticket Triager</title>
+		
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/materialize.min.css') }}"  media="screen,projection"/>
+		<!--Import style.css-->
+		<link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}"  media="screen,projection"/>
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+	</head>
+	<body>
+		<div class="navbar-fixed">
+			<nav class="blue darken-2">
+			    <div class="nav-wrapper">
+			      <a href="#" class="brand-logo">Smart Ticket Triager</a>
+			      <ul id="nav-mobile" class="right hide-on-med-and-down">
+			        <li><a href="/">Upload</a></li>
+			        <li><a href="/scheduler">Schedule</a></li>
+			        <li class="active"><a href="/report">Report [{{date}}]</a></li>
+			      </ul>
+			    </div>
+			</nav>
+		</div>
+		<div class="row">
+			<div style="visibility: hidden;" class="col s12">a</div>
+			<div id="main-progress" class="custom-progress progress">
+				<div class="indeterminate blue darken-2"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="container">
+				<meta id="triager-report" data-name="{{triager_report}}">
+				<meta id="ticket-report" data-name="{{ticket_report}}">
+				<meta id="employee-report" data-name="{{employee_report}}">
+				
+				<div class="section">
+					<h5>Triage Summary</h5>
+					<table class="report-table" id="triage_summary_table">
+						<thead>
+							<tr>
+								<th class="center" rowspan="2">Triage Summary Date</th>
+								<th class="center" colspan="4"># of Cases Triaged/Allocated</th>
+								<th class="center" rowspan="2"># of priority deliverables</th>
+								<th class="center" colspan="2">Undelivered Work from Previous Days(Backlog)</th>
+								<th class="center" rowspan="2"># of members available</th>
+								<th class="center" colspan="2"># of New Maps</th>
+							</tr>
+							<tr>
+								<th class="center">New Map</th>
+								<th class="center">PER Map Change</th>
+								<th class="center">Change</th>
+								<th class="center">Research</th>
+								<th class="center">Sev3</th>
+								<th class="center">Sev4</th>
+								<th class="center">B2B</th>
+								<th class="center">B2Bi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="report_date"></td>
+								<td id="n_new_map"></td>
+								<td id="n_map_change"></td>
+								<td id="n_change"></td>
+								<td id="n_research"></td>
+								<td id="n_priority"></td>
+								<td id="n_backlog_sev3"></td>
+								<td id="n_backlog_sev4"></td>
+								<td id="n_members"></td>
+								<td id="n_b2b"></td>
+								<td id="n_b2bi"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="divider"></div>
+				
+				<div class="section">
+					<h5>Allocation Recommendation</h5>
+					<table class="report-table" id="allocation_table">
+						<thead>
+							<th>Resource Name</th>
+							<th>Ticket Number</th>
+							<th>Customer</th>
+							<th>Severity</th>
+							<th>Category</th>
+							<th>Status</th>
+							<th>Triage Recommendation</th>
+							<th>Last Worked By</th>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+		    	<div class="divider"></div>
+		    </div>
+		</div>
+
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static',filename='js/materialize.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static',filename='js/socket.io.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static',filename='js/controllers/report.js') }}"></script>
+
+	</body>
+</html>

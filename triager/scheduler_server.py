@@ -19,7 +19,7 @@ socket_app = Flask(__name__)	#socket_server initialization
 socket_app.config['SECRET_KEY'] = 'secret'
 
 # socketio = SocketIO(socket_app, engineio_logger=True, threaded=True, ping_timeout=600)
-socketio = SocketIO(socket_app, threaded=True, ping_timeout=600)
+socketio = SocketIO(socket_app, threaded=True)
 thread_lock = Lock()
 
 scheduler_status = False
