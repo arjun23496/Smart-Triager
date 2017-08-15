@@ -56,15 +56,14 @@ def execute():
 		cprint("Scheduling teminated", "error", mode=2, socketio=socketio, thread=True)
 		print e
 		cprint(str(e), "error", mode=2, socketio=socketio, thread=True)
+	
 	elapsed = time.time() - start_time
-
 	coutput.cprint("Execution Time: "+str(elapsed)+" seconds", "status_update", mode=2)
-
+	
 	coutput.cprint("Cleaning up database...", "status_update", mode=2)
 	couch_handle.cleanup('triager_tickets')
 
 	coutput.cprint("*** Execution Complete ***", "status_update", mode=2)
-
 	coutput.cprint('scheduler_end','system_status',mode=2)
 
 

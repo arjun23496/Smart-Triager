@@ -14,6 +14,7 @@ import re
 import sys
 import traceback
 import json
+import copy
 
 
 def clean_name_index(x):
@@ -106,12 +107,16 @@ def execute(date_now, debug=True, thread=False, socketio=None):
 	}
 
 	triage_summary_report = {
+		"date": "",
 		"priority_deliverables": 0,
 		"available_members": 0,
 		"number_new_maps": 0,
 		"backlog_report": {},
-		"category_report": {}
+		"category_report": {},
+		"total_allocated": 0
 	}
+
+	triage_summary_report['date'] = date_now['date']+'/'+date_now['month']+'/'+date_now['year']
 
 	#System start
 
@@ -387,6 +392,17 @@ def execute(date_now, debug=True, thread=False, socketio=None):
 		'step': 1
 	}
 
+	ticket_report = {
+		"customer": "",
+		"severity": "",
+		"category": "",
+		"status": "",
+		"triager_recommendation": "",
+		"last_worked_by": ""
+	}
+
+	all_ticket_report = {}
+
 	for tindex,row in ttemp_df.iterrows():
 
 		coutput.cprint("\n--------------------\nAssigning "+t_no, 'status_update', mode=2)
@@ -424,6 +440,11 @@ def execute(date_now, debug=True, thread=False, socketio=None):
 		elif row['category'] == 'S - PER - Map Change':
 			category_report['PER Map Change']+=1
 
+		ticket_report['severity'] = row['severity']
+		ticket_report['category'] = row['category']
+		ticket_report['status'] = row['status']
+
+		all_ticket_report[row['ticket_number']] = copy.deepcopy(ticket_report)
 
 		ticket_dtime = datetime.datetime.strptime(row['action_date'], ticket_dtime_format)
 
@@ -609,6 +630,7 @@ def execute(date_now, debug=True, thread=False, socketio=None):
 	coutput.cprint("Allocation Complete", 'status_update', mode=2)
 	# Utilisation Calculation
 	# print "---------------------Utilization------------------------------"
+	employee_status_report = copy.deepcopy(employee_status)
 	for x in employee_status:
 		coutput.cprint("-----------------------------------------------------", 'status_update', mode=2)
 		coutput.cprint("Name: "+x, 'status_update', mode=2)
@@ -621,8 +643,14 @@ def execute(date_now, debug=True, thread=False, socketio=None):
 			coutput.cprint("Number of tickets assigned: "+str(len(employee_status[x]['tickets'])), 'status_update', mode=2)
 			# print "Utilization: ",utilization,"%"
 			coutput.cprint("Tickets:", 'status_update', mode=2)
-			for x in employee_status[x]['tickets']:
-				coutput.cprint("\t"+x['ticket_number'], 'status_update', mode=2)
+			ticket_list = []
+			for y in employee_status[x]['tickets']:
+				coutput.cprint("\t"+y['ticket_number'], 'status_update', mode=2)
+				ticket_list.append(y['ticket_number'])
+
+			print x
+			print ticket_list
+			employee_status_report[x]['tickets'] = ';'.join(ticket_list)
 
 	for x in employee_status:
 		if employee_status[x]['total_availability'] > 0:
@@ -638,10 +666,21 @@ def execute(date_now, debug=True, thread=False, socketio=None):
 	coutput.cprint("Employees available: "+str(available_employees), 'status_update', mode=2)
 	coutput.cprint("% assigned: "+str((1.0*number_of_assigned/total_tickets)*100)+"%", 'status_update', mode=2)
 
+	coutput.cprint("Creating Reports", 'status_update', mode=2)	
 	triage_summary_report['available_members'] = available_employees
+	triage_summary_report['total_allocated'] = number_of_assigned
 	with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'w') as fp:
-		date_now = json.dump(triager_summary_report, fp)
+		json.dump(triage_summary_report, fp)
+	coutput.cprint("Triage Summary report saved", 'status_update', mode=2)
 
+	with open(os.path.join(os.path.dirname(__file__),'report/ticket_report.json'), 'w') as fp:
+		json.dump(all_ticket_report, fp)
+	coutput.cprint("Allocation Recommendation report saved", 'status_update', mode=2)
+
+	with open(os.path.join(os.path.dirname(__file__),'report/employee_status_report.json'), 'w') as fp:
+		json.dump(employee_status_report, fp)
+	coutput.cprint("Employee Status report saved", 'status_update', mode=2)
+	
 	# print employee_status['Resource_AB']
 	# print employee_status['Resource_DK']
 
