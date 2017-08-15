@@ -2,6 +2,10 @@
 	background-color: #BBDEFB;
 }
 
+.summary_row td{
+	background-color: #ffff00;
+}
+
 .report-table th{
 	border-left: 1px solid #BDBDBD;
 	border-right: 1px solid #BDBDBD;
@@ -19,7 +23,7 @@
 }
 
 .report-table{
-	visibility: None;
+	display: None
 }
 
 .output-box{
