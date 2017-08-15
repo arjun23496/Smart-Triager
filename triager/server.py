@@ -92,7 +92,7 @@ def uploader_api():
 
 	date = date.split(" ");
 	if len(date[0]) == 1:
-		date[0] = "0"+data[0]
+		date[0] = "0"+date[0]
 
 	date[1] = month_map[date[1]]
 
