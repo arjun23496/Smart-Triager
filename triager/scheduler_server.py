@@ -27,16 +27,22 @@ scheduler_status = False
 data_files_status = False
 
 
-def persist_scheduler_status():
+def persist_scheduler_status(coutput=None, date=""):
 	global scheduler_status
 
 	scheduler_status_sav = {
-		"status": "stopped"
+		"status": "stopped",
+		"date": date
 	}
 	if scheduler_status:
 		scheduler_status_sav['status'] = "running"
 	else:
 		scheduler_status_sav['status'] = "stopped"
+
+	try:
+		coutput.cprint(scheduler_status_sav, "scheduler_running_status", mode=2)
+	except Exception:
+		print ''.join(traceback.format_exc())
 
 	with open(os.path.join(os.path.dirname(__file__),'scheduler_status.json'), 'w') as fp:
 		json.dump(scheduler_status_sav, fp)
@@ -65,7 +71,7 @@ def execute():
 	if not status:
 		coutput.cprint('scheduler_error_end','system_status',mode=2)
 		scheduler_status = False
-		persist_scheduler_status()
+		persist_scheduler_status(coutput)
 		return
 
 	try:
@@ -75,7 +81,7 @@ def execute():
 		coutput.cprint("Date File not Found","error", mode=2)
 		coutput.cprint('scheduler_error_end','system_status',mode=2)
 		scheduler_status = False
-		persist_scheduler_status()
+		persist_scheduler_status(coutput)
 		return
 
 	start_time = time.time()
@@ -86,7 +92,7 @@ def execute():
 		coutput.cprint("Scheduling teminated", "error", mode=2)
 		coutput.cprint(''.join(traceback.format_exc()), "error", mode=2)
 		scheduler_status = False
-		persist_scheduler_status()
+		persist_scheduler_status(coutput)
 	finally:
 		elapsed = time.time() - start_time
 		coutput.cprint("Execution Time: "+str(elapsed)+" seconds", "status_update", mode=2)
@@ -97,7 +103,7 @@ def execute():
 		coutput.cprint("*** Execution Complete ***", "status_update", mode=2)
 		coutput.cprint('scheduler_end','system_status',mode=2)
 		scheduler_status = False
-		persist_scheduler_status()
+		persist_scheduler_status(coutput, date=date_now['date']+"/"+date_now['month']+'/'+date_now['year'])
 
 #Socket app endpoints
 @socketio.on('connect')
@@ -128,7 +134,8 @@ def start_scheduler():
 		cprint("scheduler_start", "system_status", mode=2)
 		print "Scheduler Started"
 		scheduler_status=True
-		persist_scheduler_status()
+		coutput = CustomOutput()
+		persist_scheduler_status(coutput)
 
 		# execute_scheduler.execute()
 		thread = socketio.start_background_task(target=execute)
@@ -145,7 +152,8 @@ def thread_complete(data):
 	if data=="thread_complete":
 		global scheduler_status
 		scheduler_status=False
-		persist_scheduler_status()
+		coutput = CustomOutput()
+		persist_scheduler_status(coutput)
 
 
 @socketio.on('ack')
@@ -153,5 +161,6 @@ def acknowledge():
 	# print "ack"
 	pass
 
+coutput = CustomOutput()
 persist_scheduler_status()
 socketio.run(socket_app, debug=True, port=5001);

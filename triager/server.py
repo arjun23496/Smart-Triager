@@ -44,26 +44,26 @@ The index page"(Server Functions)
 @app.route('/')
 @app.route('/upload', methods=["GET"])
 def get_index():
-	try:
-		with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
-			date = json.load(fp)
-			date = date['date']
-	except IOError:
-		date = ""
+	# try:
+	# 	with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
+	# 		date = json.load(fp)
+	# 		date = date['date']
+	# except IOError:
+	# 	date = ""
 	file_list = get_files()
 	print file_list
-	return render_template("index.html", date=date, file_list=file_list)
+	return render_template("index.html", file_list=file_list)
 
 
 @app.route("/scheduler", methods=["GET"])
 def scheduler():
-	try:
-		with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
-			date = json.load(fp)
-			date = date['date']
-	except IOError:
-		date = ""
-	return render_template("execute_scheduler.html", date=date)
+	# try:
+	# 	with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
+	# 		date = json.load(fp)
+	# 		date = date['date']
+	# except IOError:
+	# 	date = ""
+	return render_template("execute_scheduler.html")
 
 
 @app.route("/report", methods=["GET"])
@@ -76,7 +76,6 @@ def reporter():
 	try:
 		with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
 			triager_report = json.load(fp)
-			date = triager_report['date']
 
 		with open(os.path.join(os.path.dirname(__file__),'report/ticket_report.json'), 'rb') as fp:
 			ticket_report = json.load(fp)
@@ -88,11 +87,26 @@ def reporter():
 
 	print triager_report
 
-	return render_template("report.html", date=date, triager_report=triager_report, ticket_report=ticket_report, employee_report=employee_report)
+	return render_template("report.html", triager_report=triager_report, ticket_report=ticket_report, employee_report=employee_report)
 
 """
 REST APIS
 """
+@app.route("/get_scheduler_status", methods=["POST"])
+def get_scheduler_status():
+	scheduler_status = ''
+	with open(os.path.join(os.path.dirname(__file__),'scheduler_status.json'), 'rb') as fp:
+		scheduler_status = json.load(fp)
+	try:
+		with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
+			date = json.load(fp)
+			scheduler_status['date'] = date['date']
+	except IOError:
+		scheduler_status['date'] = ""
+
+	return jsonify(scheduler_status)
+
+
 @app.route("/upload", methods=["POST"])
 def uploader_api():
 

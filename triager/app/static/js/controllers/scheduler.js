@@ -1,4 +1,4 @@
-var socket = io.connect('http://' + document.domain + ':5001');;
+var socket = io.connect('http://' + document.domain + ':5001');
 
 function output(x, mode=1){
 	x = x.replace(/\n/g,'<br>')
@@ -102,6 +102,9 @@ socket.on('disconnect', function() {
 });
 
 $(document).ready(function(){
+
+	get_scheduler_status()
+	listen_scheduler_status()
 
 	$('#start_scheduler').click(function(){
 		socket.emit('start_scheduler')

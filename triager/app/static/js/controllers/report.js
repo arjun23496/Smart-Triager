@@ -52,6 +52,9 @@ function populate_allocation_table(employee_report, ticket_report){
 
 $(document).ready(function(){
 
+	get_scheduler_status()
+	listen_scheduler_status()
+
 	triager_report = $('#triager-report').data()
 	ticket_report = $('#ticket-report').data()
 	employee_report = $('#employee-report').data()
