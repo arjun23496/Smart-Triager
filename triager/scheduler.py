@@ -197,7 +197,6 @@ def execute(date_now, debug=True, thread=False, socketio=None):
 		coutput.cprint("*Utilization Report - Found", 'status_update', mode=2)
 	else:
 		coutput.cprint("*Utilization Report not found", "error", mode=2)
-		status = False
 
 	if os.path.isfile(file_paths['skills_tracker']):
 		coutput.cprint("*Skills Tracker - Found", 'status_update', mode=2)
@@ -255,31 +254,31 @@ def execute(date_now, debug=True, thread=False, socketio=None):
 
 	if os.path.isfile(file_paths['backlog']):
 		coutput.cprint("*Backlog Report - Found", 'status_update', mode=2)
-		blog_report = pd.read_csv(file_paths['backlog'])
+		# blog_report = pd.read_csv(file_paths['backlog'])
 		
-		pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
+		# pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
 		
-		# print blog_report.columns
-		for index,row in blog_report.iterrows():
-			# print row
-			# print row
-			if row.isnull()['Assigned To (CSR)']:
-				continue
+		# # print blog_report.columns
+		# for index,row in blog_report.iterrows():
+		# 	# print row
+		# 	# print row
+		# 	if row.isnull()['Assigned To (CSR)']:
+		# 		continue
 
-			csr_person = re.search(pattern,row['Assigned To (CSR)'])
+		# 	csr_person = re.search(pattern,row['Assigned To (CSR)'])
 
-			if csr_person == None:
-				continue
+		# 	if csr_person == None:
+		# 		continue
 
-			csr_person = csr_person.group(1)
+		# 	csr_person = csr_person.group(1)
 
-			try:
-				employee_status[csr_person]['total_availability'] -= 2
-				if employee_status[csr_person]['total_availability'] < 0:
-					employee_status[csr_person]['total_availability'] = 0
-			except KeyError:
-				if debug:
-					coutput.cprint('No data found for backlog report employee '+csr_person, 'status_update', mode=2)
+		# 	try:
+		# 		employee_status[csr_person]['total_availability'] -= 2
+		# 		if employee_status[csr_person]['total_availability'] < 0:
+		# 			employee_status[csr_person]['total_availability'] = 0
+		# 	except KeyError:
+		# 		if debug:
+		# 			coutput.cprint('No data found for backlog report employee '+csr_person, 'status_update', mode=2)
 
 	else:
 		coutput.cprint("*Backlog Report not found", 'error', mode=2)

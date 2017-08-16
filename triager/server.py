@@ -20,6 +20,7 @@ app.config['ALLOWED_EXTENSIONS'] = set(['csv'])
 #Global Initializations
 date = "6 June, 2017"
 
+
 def get_files():
 	file_list = {
 		"scheduler_date.json": "",

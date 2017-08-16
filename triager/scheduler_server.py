@@ -12,6 +12,7 @@ import time
 import scheduler
 import json
 import os
+import traceback
 
 socket_app = Flask(__name__)	#socket_server initialization
 
@@ -25,7 +26,23 @@ thread_lock = Lock()
 scheduler_status = False
 data_files_status = False
 
+
+def persist_scheduler_status():
+	global scheduler_status
+
+	scheduler_status_sav = {
+		"status": "stopped"
+	}
+	if scheduler_status:
+		scheduler_status_sav['status'] = "running"
+	else:
+		scheduler_status_sav['status'] = "stopped"
+
+	with open(os.path.join(os.path.dirname(__file__),'scheduler_status.json'), 'w') as fp:
+		json.dump(scheduler_status_sav, fp)
+
 def execute():
+	global scheduler_status
 	coutput = CustomOutput(thread=True, socketio=socketio);
 	couch_handle = CouchInterface(output_interface=coutput);
 
@@ -47,6 +64,8 @@ def execute():
 
 	if not status:
 		coutput.cprint('scheduler_error_end','system_status',mode=2)
+		scheduler_status = False
+		persist_scheduler_status()
 		return
 
 	try:
@@ -55,6 +74,8 @@ def execute():
 	except IOError:
 		coutput.cprint("Date File not Found","error", mode=2)
 		coutput.cprint('scheduler_error_end','system_status',mode=2)
+		scheduler_status = False
+		persist_scheduler_status()
 		return
 
 	start_time = time.time()
@@ -62,18 +83,21 @@ def execute():
 	try:
 		scheduler.execute(date_now, thread=True, socketio=socketio)
 	except Exception as e:
-		coutput.cprint("Scheduling teminated", "error", mode=2, socketio=socketio, thread=True)
-		print e
-		coutput.cprint(str(e), "error", mode=2, socketio=socketio, thread=True)
-	
-	elapsed = time.time() - start_time
-	coutput.cprint("Execution Time: "+str(elapsed)+" seconds", "status_update", mode=2)
-	
-	coutput.cprint("Cleaning up database...", "status_update", mode=2)
-	couch_handle.cleanup('triager_tickets')
+		coutput.cprint("Scheduling teminated", "error", mode=2)
+		coutput.cprint(''.join(traceback.format_exc()), "error", mode=2)
+		scheduler_status = False
+		persist_scheduler_status()
+	finally:
+		elapsed = time.time() - start_time
+		coutput.cprint("Execution Time: "+str(elapsed)+" seconds", "status_update", mode=2)
+		
+		coutput.cprint("Cleaning up database...", "status_update", mode=2)
+		couch_handle.cleanup('triager_tickets')
 
-	coutput.cprint("*** Execution Complete ***", "status_update", mode=2)
-	coutput.cprint('scheduler_end','system_status',mode=2)
+		coutput.cprint("*** Execution Complete ***", "status_update", mode=2)
+		coutput.cprint('scheduler_end','system_status',mode=2)
+		scheduler_status = False
+		persist_scheduler_status()
 
 #Socket app endpoints
 @socketio.on('connect')
@@ -98,21 +122,22 @@ def start_scheduler():
 
 	global scheduler_status
 
+	print scheduler_status
+
 	if not scheduler_status:
 		cprint("scheduler_start", "system_status", mode=2)
 		print "Scheduler Started"
 		scheduler_status=True
+		persist_scheduler_status()
 
 		# execute_scheduler.execute()
 		thread = socketio.start_background_task(target=execute)
 		
 		# 	sthread.start()
-
-		scheduler_status=False
-		cprint("Scheduler Execution Complete", "system_status", mode=2)
+		# cprint("Scheduler Execution Complete", "system_status", mode=2)
 	else:
 		print "Scheduler already running"
-		cprint("Scheduler Already Running...", "system_status", mode=2)
+		cprint("scheduler_running", "system_status", mode=2)
 
 
 @socketio.on('system_status')
@@ -120,6 +145,7 @@ def thread_complete(data):
 	if data=="thread_complete":
 		global scheduler_status
 		scheduler_status=False
+		persist_scheduler_status()
 
 
 @socketio.on('ack')
@@ -127,5 +153,5 @@ def acknowledge():
 	# print "ack"
 	pass
 
-
+persist_scheduler_status()
 socketio.run(socket_app, debug=True, port=5001);

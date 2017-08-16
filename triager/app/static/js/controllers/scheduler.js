@@ -1,12 +1,16 @@
 var socket = io.connect('http://' + document.domain + ':5001');;
 
 function output(x, mode=1){
+	x = x.replace(/\n/g,'<br>')
 	console.log(x)
 	if(mode==1){
 		$('#output-div').append("<code>"+x+"</code><br>");
 	}
 	if(mode==2){
 		$('#output-div').append("<code style='color: red;'>"+x+"</code><br>");	
+	}
+	if(mode==3){
+		$('#output-div').append("<code style='color: #1976D2;'>"+x+"</code><br>");
 	}
 }
 
@@ -15,7 +19,7 @@ function autoscroll(){
 }
 
 socket.on('connect', function() {
-	output('Connected')
+	output('Connected',mode=3)
 	autoscroll()    	
 	socket.emit('ack')
 	$('#main-progress').hide()
@@ -24,10 +28,15 @@ socket.on('connect', function() {
 
 
 socket.on('system_status', function(data){
-	output("System: "+data)
+	output("System: "+data, mode=3)
 	if(data=="scheduler_start")
 	{
 		$('#main-progress').show()
+	}
+
+	if(data=="scheduler_running")
+	{
+		Materialize.toast('Scheduler already running', 8000)
 	}
 
 	if(data=="scheduler_error_end")
@@ -84,7 +93,7 @@ socket.on('status_progress', function(data){
 
 
 socket.on('disconnect', function() {
-	output('Connection Closed')
+	output('Connection Closed', mode="2")
 	$('#start_scheduler').removeClass('disabled');
 	$('#status-box').text('Execution Complete')
 	$('#main-progress').hide()
