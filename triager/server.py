@@ -25,17 +25,23 @@ The index page"(Server Functions)
 @app.route('/')
 @app.route('/upload', methods=["GET"])
 def get_index():
-	with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
-		date = json.load(fp)
-		date = date['date']
+	try:
+		with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
+			date = json.load(fp)
+			date = date['date']
+	except IOError:
+		date = ""
 	return render_template("index.html", date=date)
 
 
 @app.route("/scheduler", methods=["GET"])
 def scheduler():
-	with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
-		date = json.load(fp)
-		date = date['date']
+	try:
+		with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
+			date = json.load(fp)
+			date = date['date']
+	except IOError:
+		date = ""
 	return render_template("execute_scheduler.html", date=date)
 
 
@@ -46,15 +52,20 @@ def reporter():
 	ticket_report = {}
 	employee_report = {}
 	
-	with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
-		triager_report = json.load(fp)
-		date = triager_report['date']
+	try:
+		with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
+			triager_report = json.load(fp)
+			date = triager_report['date']
 
-	with open(os.path.join(os.path.dirname(__file__),'report/ticket_report.json'), 'rb') as fp:
-		ticket_report = json.load(fp)
+		with open(os.path.join(os.path.dirname(__file__),'report/ticket_report.json'), 'rb') as fp:
+			ticket_report = json.load(fp)
 
-	with open(os.path.join(os.path.dirname(__file__),'report/employee_status_report.json'), 'rb') as fp:
-		employee_report = json.load(fp)
+		with open(os.path.join(os.path.dirname(__file__),'report/employee_status_report.json'), 'rb') as fp:
+			employee_report = json.load(fp)
+	except IOError:
+		pass
+
+	print triager_report
 
 	return render_template("report.html", date=date, triager_report=triager_report, ticket_report=ticket_report, employee_report=employee_report)
 
@@ -92,7 +103,7 @@ def uploader_api():
 
 	date = date.split(" ");
 	if len(date[0]) == 1:
-		date[0] = "0"+date[0]
+		date[0] = "0"+date_sav[0]
 
 	date[1] = month_map[date[1]]
 

@@ -60,23 +60,30 @@ function populate_allocation_table(employee_report, ticket_report){
 
 
 $(document).ready(function(){
-	triager_report = $('#triager-report').data()
-	ticket_report = $('#ticket-report').data()
-	employee_report = $('#employee-report').data()
+
+	if(triager_report==undefined || ticket_report==undefined || employee_report==undefined)
+	{
+		Materialize.toast("No Reports Found","8000")
+	}
+	else{
+		triager_report = $('#triager-report').data()
+		ticket_report = $('#ticket-report').data()
+		employee_report = $('#employee-report').data()
+		
+		triager_report = sanitize_json(triager_report["name"])
+		ticket_report = sanitize_json(ticket_report['name'])
+		employee_report = sanitize_json(employee_report['name'])
+
+		console.log(triager_report)
+		console.log(ticket_report)
+		console.log(employee_report)
+
+		populate_triage_report(triager_report)
+		$('#triage_summary_table').show()
+
+		populate_allocation_table(employee_report, ticket_report)
+		$('#allocation_table').show()	
+	}
 	
-	triager_report = sanitize_json(triager_report["name"])
-	ticket_report = sanitize_json(ticket_report['name'])
-	employee_report = sanitize_json(employee_report['name'])
-
-	console.log(triager_report)
-	console.log(ticket_report)
-	console.log(employee_report)
-
-	populate_triage_report(triager_report)
-	$('#triage_summary_table').show()
-
-	populate_allocation_table(employee_report, ticket_report)
-	$('#allocation_table').show()
-
 	$('#main-progress').hide()
 });
