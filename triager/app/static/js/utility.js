@@ -38,7 +38,13 @@ function get_scheduler_status()
 function listen_scheduler_status(){
 	var socket = io.connect('http://' + document.domain + ':5001')
 
+	socket.on('connect', function(){
+		console.log('connected')
+		get_scheduler_status()
+	});
+
 	socket.on('scheduler_running_status', function(data){
+		console.log(data)
 		$('#scheduler_status_span').html("["+data['status']+"]")
 		if(data['date']!="" && data['date']!=undefined)
 		{
@@ -54,4 +60,9 @@ function listen_scheduler_status(){
 		}
 		
 	});
+
+	socket.on('disconnect', function(){
+		console.log('disconnected')
+	});
+
 }
