@@ -6,49 +6,59 @@ def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1] in set(['csv'])
 
 
-def upload(app,request,response_object):
+def upload(app, request, response_object):
 
 	file = request.files['ticket_list']
+	
+	path = os.path.join(app.config['UPLOAD_FOLDER'], "ticket_list.csv")
 	if file and allowed_file(file.filename):
-		path = os.path.join(app.config['UPLOAD_FOLDER'], "ticket_list.csv")
 		file.save(path)
 		os.chmod(path,0775)
+		response_object['data'] += ';Ticket List Uploaded'
 	else:
-		response_object['status'] = 500
-		response_object['data'] = 'Error in Ticket List file'
-		return jsonify(response_object)
-
+		if not os.path.isfile(path):
+			response_object['status'] = 500
+			response_object['data'] += ';Error in Ticket List file'
+		else:
+			response_object['data'] += ';Ticket List Not Uploaded. Using existing...'
+		
 	file = request.files['skills_tracker']
 	if file and allowed_file(file.filename):
 		path = os.path.join(app.config['UPLOAD_FOLDER'], "skills_tracker.csv")
 		file.save(path)
 		os.chmod(path,0775)
+		response_object['data'] += ';Skills Tracker Uploaded'
 	else:
-		response_object['status'] = 500
-		response_object['data'] = 'Error in skills tracker file'
-		return jsonify(response_object)
-
+		if not os.path.isfile(path):
+			response_object['status'] = 500
+			response_object['data'] += ';Error in skills tracker file'
+		else:
+			response_object['data'] += ';Skills Tracker Not Uploaded. Using existing...'
+		
 	file = request.files['vacation_planner']
 	if file and allowed_file(file.filename):
 		path = os.path.join(app.config['UPLOAD_FOLDER'], "vacation_plan.csv")
 		file.save(path)
 		os.chmod(path,0775)
+		response_object['data'] += ';Vacation Plan Uploaded'
 	else:
-		response_object['status'] = 500
-		response_object['data'] = 'Error in Vacation Planner file'
-		return jsonify(response_object)
-
+		if not os.path.isfile(path):
+			response_object['status'] = 500
+			response_object['data'] += ';Error in Vacation Planner file'
+		else:
+			response_object['data'] += ';Vacation Planner Not Uploaded. Using existing...'
+		
 	file = request.files['backlog']
 	if file and allowed_file(file.filename):
 		path = os.path.join(app.config['UPLOAD_FOLDER'], "backlog.csv")
 		file.save(path)
 		os.chmod(path,0775)
+		response_object['data'] += ';Backlog Uploaded'
 	else:
-		response_object['status'] = 500
-		response_object['data'] = 'Error in Backlog/Pending Cases file'
-		return jsonify(response_object)
+		if not os.path.isfile(path):
+			response_object['status'] = 500
+			response_object['data'] += ';Error in Backlog/Pending Cases file'
+		else:
+			response_object['data'] += ';Backlog Not Uploaded. Using existing...'
 
-	response_object['status'] = 200
-	response_object['data'] = 'Upload succesfully Completed'
-
-	return jsonify(response_object)
+	return response_object

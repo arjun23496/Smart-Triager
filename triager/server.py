@@ -4,6 +4,7 @@ from flask_socketio import SocketIO, emit, disconnect
 import numpy
 import os
 import json
+import datetime
 
 #API imports
 import api.uploader as uploader
@@ -19,6 +20,23 @@ app.config['ALLOWED_EXTENSIONS'] = set(['csv'])
 #Global Initializations
 date = "6 June, 2017"
 
+def get_files():
+	file_list = {
+		"scheduler_date.json": "",
+		"ticket_list.csv": "",
+		"vacation_plan.csv": "",
+		"skills_tracker.csv": "",
+		"backlog.csv": ""
+	}
+
+	for key in file_list:
+		path = os.path.join(app.config['UPLOAD_FOLDER'], key)
+		if os.path.isfile(path):
+			file_list[key] = datetime.datetime.fromtimestamp(int(os.path.getmtime(path))).strftime('%Y-%m-%d %H:%M:%S')
+
+	return file_list
+
+
 """
 The index page"(Server Functions)
 """
@@ -31,7 +49,9 @@ def get_index():
 			date = date['date']
 	except IOError:
 		date = ""
-	return render_template("index.html", date=date)
+	file_list = get_files()
+	print file_list
+	return render_template("index.html", date=date, file_list=file_list)
 
 
 @app.route("/scheduler", methods=["GET"])
@@ -92,36 +112,49 @@ def uploader_api():
 
 	response_object = {
 		'status': 200,
-		'data': ''
+		'data': '',
+		'file_list': {}
 	}
 
 	global date
 	date = request.form['date']
 
 	if date == None or date == "":
-		return jsonify(response_object)
+		# response_object['status'] = 500
+		if not os.path.isfile(os.path.join(app.config['UPLOAD_FOLDER'], "scheduler_date.json")):
+			response_object['status'] = 500
+			response_object['data'] = "Date not detected"
+		else:
+			response_object['data'] = "Date not Uploaded. Using existing..."
+		# return jsonify(response_object)
+	else:
+		date = date.split(" ");
+		if len(date[0]) == 1:
+			date[0] = "0"+date[0]
 
-	date = date.split(" ");
-	if len(date[0]) == 1:
-		date[0] = "0"+date[0]
+		date[1] = month_map[date[1]]
 
-	date[1] = month_map[date[1]]
+		print date
 
-	print date
+		date_sav = {
+			"year": date[2],
+			"date": date[0],
+			"month": date[1]
+		}
 
-	date_sav = {
-		"year": date[2],
-		"date": date[0],
-		"month": date[1]
-	}
-
-	with open(os.path.join(os.path.dirname(__file__),'data/scheduler_date.json'), 'w') as fp:
-		json.dump(date_sav, fp)
-
-	response_object['status'] = 500
-	response_object['data'] = "Invalid date"
+		try:
+			with open(os.path.join(os.path.dirname(__file__),'data/scheduler_date.json'), 'w') as fp:
+				json.dump(date_sav, fp)
+			response_object['data'] = "Date Uploaded"
+		except IOError:
+			response_object['status'] = 500
+			response_object['data'] += ";Error Uploading Date"
 
 	res = uploader.upload(app,request,response_object)
-	return res
+	
+	res['file_list'] = get_files()
+
+	print res
+	return jsonify(res)
 
 app.run(debug=True, use_reloader=False)

@@ -23,7 +23,7 @@ socketio = SocketIO(socket_app, threaded=True)
 thread_lock = Lock()
 
 scheduler_status = False
-
+data_files_status = False
 
 def execute():
 	coutput = CustomOutput(thread=True, socketio=socketio);
@@ -43,19 +43,28 @@ def execute():
 	tkt = Tickets()
 
 	cprint("Uploading csv tickets", "status_update", mode=2, socketio=socketio, thread=True)
-	tkt.upload_tickets_csv(coutput=coutput)
+	status = tkt.upload_tickets_csv(coutput=coutput)
 
-	with open(os.path.join(os.path.dirname(__file__),'data/scheduler_date.json'), 'rb') as fp:
-		date_now = json.load(fp)
-	
+	if not status:
+		coutput.cprint('scheduler_error_end','system_status',mode=2)
+		return
+
+	try:
+		with open(os.path.join(os.path.dirname(__file__),'data/scheduler_date.json'), 'rb') as fp:
+			date_now = json.load(fp)
+	except IOError:
+		coutput.cprint("Date File not Found","error", mode=2)
+		coutput.cprint('scheduler_error_end','system_status',mode=2)
+		return
+
 	start_time = time.time()
 
 	try:
 		scheduler.execute(date_now, thread=True, socketio=socketio)
 	except Exception as e:
-		cprint("Scheduling teminated", "error", mode=2, socketio=socketio, thread=True)
+		coutput.cprint("Scheduling teminated", "error", mode=2, socketio=socketio, thread=True)
 		print e
-		cprint(str(e), "error", mode=2, socketio=socketio, thread=True)
+		coutput.cprint(str(e), "error", mode=2, socketio=socketio, thread=True)
 	
 	elapsed = time.time() - start_time
 	coutput.cprint("Execution Time: "+str(elapsed)+" seconds", "status_update", mode=2)
@@ -65,8 +74,6 @@ def execute():
 
 	coutput.cprint("*** Execution Complete ***", "status_update", mode=2)
 	coutput.cprint('scheduler_end','system_status',mode=2)
-
-
 
 #Socket app endpoints
 @socketio.on('connect')

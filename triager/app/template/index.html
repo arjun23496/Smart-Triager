@@ -12,6 +12,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	</head>
 	<body>
+		<meta id="file_list" data-name="{{file_list}}">
 		<div class="navbar-fixed">
 			<nav class="blue darken-2">
 			    <div class="nav-wrapper">
@@ -107,12 +108,17 @@
 					    <i class="material-icons right">send</i>
 					</a>
 		    	</div>
+		    	<div class="row" id="data_folder">
+				<div class="collection with-header" id="file_list_display">
+				</div>
+		    	</div>
 		    </form>
 		</div>    
 
 		<!--Import jQuery before materialize.js-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="{{ url_for('static',filename='js/materialize.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static',filename='js/utility.js') }}"></script>
 		<script type="text/javascript" src="{{ url_for('static',filename='js/controllers/main.js') }}"></script>
 
 	</body>

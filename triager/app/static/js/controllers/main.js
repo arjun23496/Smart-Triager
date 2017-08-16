@@ -1,16 +1,32 @@
-$(document).ready(function(){
-	$('#upload_progress').hide()
+function update_file_list(file_list)
+{
+	var thtml = '<div class="collection-header"><h4>Data Folder</h4></div>'
+	thtml+='<div class="collection-item"><b>NAME</b><span class="right"><b>DATE MODIFIED</b></span></div>'
 	
-	$('.datepicker').pickadate({
-	    selectMonths: true, // Creates a dropdown to control month
-	    selectYears: 15, // Creates a dropdown of 15 years to control year,
-	    today: 'Today',
-	    clear: 'Clear',
-	    close: 'Ok',
-	    closeOnSelect: false // Close upon selecting a date,
-	  });
+	var add_status = false
+	for(x in file_list)
+	{
+		if(file_list[x]!="")
+		{
+			add_status=true
+			thtml+='<a class="collection-item">'+x+'<span class="right">'+file_list[x]+'</span></a>'
+		}
+	}
 
-});
+	if(!add_status)
+		thtml += '<div class="collection-item">No Files Found</div>'
+
+	$('#file_list_display').html(thtml);
+}
+
+
+function notify(mesg){
+	mesg = mesg.split(';')
+	for(x in mesg)
+	{
+		Materialize.toast(mesg[x], 8000)
+	}
+}
 
 
 $('form#upload_documents').submit(function(){
@@ -25,14 +41,19 @@ $('form#upload_documents').submit(function(){
 			// console.log("success")
 			// console.log(data)
 			// console.log(data['data'])
-			Materialize.toast(data['data'],8000);
+			notify(data['data'])
 			$('#upload_progress').hide();
 
 			console.log(data['status'])
 			if(data['status'] == "200"){
-				$('#upload_files').addClass('disabled');
+				// $('#upload_files').addClass('disabled');
 				$('#continue').removeClass('disabled');
 			}
+			if(data['status'] == "500"){
+				notify('Multiple Files Missing. Unable to Continue')
+			}
+
+			update_file_list(data['file_list'])
 		},
 		error: function(data){
 			Materialize.toast('Server Error',8000);
@@ -44,4 +65,25 @@ $('form#upload_documents').submit(function(){
 	});
 
 	return false
+});
+
+
+$(document).ready(function(){
+	
+	
+	$('.datepicker').pickadate({
+	    selectMonths: true, // Creates a dropdown to control month
+	    selectYears: 15, // Creates a dropdown of 15 years to control year,
+	    today: 'Today',
+	    clear: 'Clear',
+	    close: 'Ok',
+	    closeOnSelect: false // Close upon selecting a date,
+	  });
+
+	file_list = $('#file_list').data()
+	file_list = sanitize_json(file_list['name'])
+
+	update_file_list(file_list)
+	
+	$('#upload_progress').hide()
 });

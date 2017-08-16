@@ -72,7 +72,7 @@ def execute(date_now, debug=True, thread=False, socketio=None):
 	half_day_legend = ['H','C']
 
 	file_paths = {
-		"backlog": "./data/backlog_report.csv",
+		"backlog": "./data/backlog.csv",
 		"utilization": "./data/utilization.csv",
 		"skills_tracker": "./data/skills_tracker.csv",
 		"vacation_plan": "./data/vacation_plan.csv"
@@ -196,7 +196,7 @@ def execute(date_now, debug=True, thread=False, socketio=None):
 	if os.path.isfile(file_paths['utilization']):
 		coutput.cprint("*Utilization Report - Found", 'status_update', mode=2)
 	else:
-		coutput.cprint("*Utilization Report not found", 'status_update', mode=2)
+		coutput.cprint("*Utilization Report not found", "error", mode=2)
 		status = False
 
 	if os.path.isfile(file_paths['skills_tracker']):
@@ -250,7 +250,7 @@ def execute(date_now, debug=True, thread=False, socketio=None):
 
 		coutput.cprint("	Vacation Plan Read - Complete ", 'status_update', mode=2)
 	else:
-		coutput.cprint("*Vacation Plan not found", 'status_update', mode=2)
+		coutput.cprint("*Vacation Plan not found", 'error', mode=2)
 		status = False
 
 	if os.path.isfile(file_paths['backlog']):
@@ -282,9 +282,11 @@ def execute(date_now, debug=True, thread=False, socketio=None):
 					coutput.cprint('No data found for backlog report employee '+csr_person, 'status_update', mode=2)
 
 	else:
-		coutput.cprint("*Backlog Report not found", 'status_update', mode=2)
+		coutput.cprint("*Backlog Report not found", 'error', mode=2)
 		status = False
 
+	if not status:
+		return
 
 	coutput.cprint("---------------Processing-------------", 'status_update', mode=2)
 

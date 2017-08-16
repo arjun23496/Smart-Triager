@@ -16,7 +16,12 @@ class Tickets:
 	    return s.get_data()
 
 	def upload_tickets_csv(self, file_path="data/ticket_list.csv", upload=True, coutput=None):
-		df = pd.read_csv(file_path)
+		try:
+			df = pd.read_csv(file_path)
+		except IOError:
+			coutput.cprint("Ticket List not found", "error", mode=2)
+			return False
+
 		document = []
 		template = []
 
@@ -60,7 +65,7 @@ class Tickets:
 			coutput.cprint(str(n_success)+" document successfully uploaded", "status_update", mode=2)
 			coutput.cprint(str(n_failed)+" documents failed!!", "status_update", mode=2)
 
-		return document
+		return True
 
 	def upload_tickets_xlsx(self, file_path="data/Ticket_list.xlsx", worksheet="Tickets in Queue with History", upload=True):
 		from openpyxl import load_workbook

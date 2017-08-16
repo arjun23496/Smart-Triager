@@ -2,15 +2,6 @@ var triager_report;
 var ticket_report;
 var employee_report;
 
-function sanitize_json(x)
-{
-	x = x.replace(/u/g,'')
-	x = x.replace(/'/g,'"')
-	x = JSON.parse(x)
-
-	return x	
-}
-
 function populate_triage_report(triager_report)
 {
 	$('#report_date').text(triager_report['date'])
@@ -61,14 +52,17 @@ function populate_allocation_table(employee_report, ticket_report){
 
 $(document).ready(function(){
 
-	if(triager_report==undefined || ticket_report==undefined || employee_report==undefined)
+	triager_report = $('#triager-report').data()
+	ticket_report = $('#ticket-report').data()
+	employee_report = $('#employee-report').data()
+
+	console.log(triager_report)
+
+	if(triager_report=="{}" || ticket_report=="{}" || employee_report=="{}")
 	{
 		Materialize.toast("No Reports Found","8000")
 	}
 	else{
-		triager_report = $('#triager-report').data()
-		ticket_report = $('#ticket-report').data()
-		employee_report = $('#employee-report').data()
 		
 		triager_report = sanitize_json(triager_report["name"])
 		ticket_report = sanitize_json(ticket_report['name'])

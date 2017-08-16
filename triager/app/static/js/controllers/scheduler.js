@@ -1,9 +1,12 @@
 var socket = io.connect('http://' + document.domain + ':5001');;
 
 function output(x, mode=1){
+	console.log(x)
 	if(mode==1){
-		console.log(x)
 		$('#output-div').append("<code>"+x+"</code><br>");
+	}
+	if(mode==2){
+		$('#output-div').append("<code style='color: red;'>"+x+"</code><br>");	
 	}
 }
 
@@ -27,6 +30,12 @@ socket.on('system_status', function(data){
 		$('#main-progress').show()
 	}
 
+	if(data=="scheduler_error_end")
+	{
+		$('#status-box').text('Scheduler Terminated with errors')
+		$('#main-progress').hide()
+	}
+
 	if(data=="scheduler_end")
 	{
 		$('#status-box').text('Execution Complete')
@@ -48,6 +57,9 @@ socket.on('status_update', function(data){
 	return false;
 });
 
+socket.on('error', function(data){
+	output(data, mode=2)
+});
 
 socket.on('status_progress', function(data){
 	console.log(data)
