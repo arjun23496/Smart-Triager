@@ -27,7 +27,7 @@ class CustomOutput:
 		self.socketio=socketio
 
 
-	def cprint(self, val, signal="", mode=1):
+	def cprint(self, val, signal="", mode=1, show_error=False):
 		if mode==1:
 			print val
 		elif mode==2:
@@ -48,6 +48,7 @@ class CustomOutput:
 					try:
 						emit(signal, val, broadcast=True)
 					except Exception:
-						print ''.join(traceback.format_exc())
+						if show_error:
+							print ''.join(traceback.format_exc())
 				gevent.sleep(0)
 			# print signal," : ",val

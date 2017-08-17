@@ -1,7 +1,10 @@
 function sanitize_json(x)
 {
-	x = x.replace(/u/g,'')
+	x = x.replace(/False/g,'false')
+	x = x.replace(/True/g,'true')
+	x = x.replace(/u'/g,'"')
 	x = x.replace(/'/g,'"')
+	
 	x = JSON.parse(x)
 
 	return x	

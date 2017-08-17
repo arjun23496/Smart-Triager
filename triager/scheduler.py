@@ -162,6 +162,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 	# print pd.unique(df['ticket_number'])
 
 	for index,row in df.iterrows():
+
 		temp = {}
 		temp = row
 		if row['triage_recommendation'] == None:
@@ -366,13 +367,28 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		else:
 			return status_priority[1]
 
+	def severity_prior(x):
+		priority = {
+			"Sev 1": 1,
+			"Sev 2": 2,
+			"Sev 3": 3,
+			"Sev 4": 4
+		}
+		return priority[x]
+
+
 	if debug:
 		coutput.cprint("Assigning priority", 'status_update', mode=output_mode)
 
 	df_nr = df.copy()
-	df_nr['status'] = df_nr['status'].apply(filter_prior)
+	df_nr['status_sort'] = df_nr['status']
+	df_nr['severity_sort'] = df_nr['severity']
+	df_nr['status_sort'] = df_nr['status_sort'].apply(filter_prior)
+	df_nr['severity_sort'] = df_nr['severity_sort'].apply(severity_prior)
 
-	df_nr[df['status'] != 'Closed']
+	df_nr['status_sort'] = df_nr['status_sort']*10 + df_nr['severity_sort']
+
+	# df_nr = df_nr[df['status'] != 'Closed']
 
 	#Ticket Assigning priority setting
 
@@ -441,7 +457,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		ttemp_df = ttemp_df.append(pd.DataFrame([row], columns=df_nr.columns))
 		# print t_no
 
-	ttemp_df = ttemp_df.sort_values('status')
+	ttemp_df = ttemp_df.sort_values('status_sort')
 
 	sort_df = pd.DataFrame([], columns=df_nr.columns)
 
@@ -463,6 +479,8 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 	for tindex,row in ttemp_df.iterrows():
 
 		coutput.cprint("\n--------------------\nAssigning "+t_no, 'status_update', mode=output_mode)
+
+		print row['severity']
 
 		index+=1
 		progress_res['index']=index
@@ -498,6 +516,8 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			category_report['PER Map Change']+=1
 
 		all_ticket_report[row['ticket_number']] = copy.deepcopy(ticket_report)
+
+		print row
 
 		ticket_dtime = datetime.datetime.strptime(row['action_date'], ticket_dtime_format)
 

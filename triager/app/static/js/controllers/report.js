@@ -10,6 +10,10 @@ function populate_triage_report(triager_report)
 	$('#n_change').text(triager_report['category_report']['Change'])
 	$('#n_research').text(triager_report['category_report']['Research'])
 	$('#n_priority').text(triager_report['priority_deliverables'])
+	$('#n_backlog_sev1').text(triager_report['backlog_report']['Sev 1'])
+	$('#n_backlog_sev2').text(triager_report['backlog_report']['Sev 2'])
+	$('#n_backlog_sev3').text(triager_report['backlog_report']['Sev 3'])
+	$('#n_backlog_sev4').text(triager_report['backlog_report']['Sev 4'])
 	$('#n_members').text(triager_report['available_members'])
 }
 
@@ -30,16 +34,29 @@ function populate_allocation_table(employee_report, ticket_report){
 				x=ticket_list[ticket]
 				if(i!=0)
 					thtml+="<tr>"
-				
-				thtml+="<td>"+x+"</td>"
-				thtml+="<td></td>"
-				thtml+="<td>"+ticket_report[x]['severity']+"</td>"
-				thtml+="<td>"+ticket_report[x]['category']+"</td>"
-				thtml+="<td></td>"
-				thtml+="<td>"+ticket_report[x]['triager_recommendation']+"</td>"
-				thtml+="<td>"+ticket_report[x]['last_worked_by']+"</td>"
-				thtml+="</tr>"
-				
+				console.log(ticket_report[x]['backlog'])
+				if(ticket_report[x]['backlog'])
+				{
+					thtml+="<td class='backlog-row'>"+x+"</td>"
+					thtml+="<td class='backlog-row'></td>"
+					thtml+="<td class='backlog-row'>"+ticket_report[x]['severity']+"</td>"
+					thtml+="<td class='backlog-row'>"+ticket_report[x]['category']+"</td>"
+					thtml+="<td class='backlog-row'>"+ticket_report[x]['status']+"</td>"
+					thtml+="<td class='backlog-row' style='text-align: left;'>"+ticket_report[x]['triage_recommendation']+"</td>"
+					thtml+="<td class='backlog-row'>"+ticket_report[x]['last_worked_by']+"</td>"
+					thtml+="</tr>"
+				}
+				else
+				{
+					thtml+="<td>"+x+"</td>"
+					thtml+="<td></td>"
+					thtml+="<td>"+ticket_report[x]['severity']+"</td>"
+					thtml+="<td>"+ticket_report[x]['category']+"</td>"
+					thtml+="<td>"+ticket_report[x]['status']+"</td>"
+					thtml+="<td style='text-align: left;'>"+ticket_report[x]['triage_recommendation']+"</td>"
+					thtml+="<td>"+ticket_report[x]['last_worked_by']+"</td>"
+					thtml+="</tr>"	
+				}
 				i+=1;
 			}
 			thtml+='<tr class="summary_row"><td colspan=8>Total - '+ticket_list.length+' Tickets</td></tr>'
