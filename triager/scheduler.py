@@ -164,6 +164,10 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 	for index,row in df.iterrows():
 		temp = {}
 		temp = row
+		if row['triage_recommendation'] == None:
+			df.set_value(index, 'triage_recommendation', "")
+			row['triage_recommendation'] = ""
+
 		if row['new_queue']=='' or pd.isnull(row['new_queue']):
 			temp['new_queue']=transformations.new_value_imputer(df,index,row['ticket_number'])
 			df.set_value(index, 'new queue', temp['new_queue'])
@@ -180,8 +184,9 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 				coutput.cprint("Imputing Category", 'status_update', mode=output_mode)
 			temp['category']=transformations.category_imputer(df,index,row['ticket_number'],row['action_date'],ticket_dtime_format)
 			df.set_value(index, 'category', temp['category'])
-			# triage_reco = row['triage_recommendation']
-			# triage_reco += "; Category "
+			triage_reco = row['triage_recommendation']
+			triage_reco += "Category determined by triager. "
+			df.set_value(index, 'triage_recommendation', triage_reco)
 			tempcat = temp['category']
 			if debug:
 				coutput.cprint("New Category: "+temp['category'], 'status_update', mode=output_mode)
@@ -192,6 +197,10 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 				coutput.cprint("Imputing Severity", 'status_update', mode=output_mode)
 			temp['severity']=transformations.severity_imputer(df,index)
 			df.set_value(index, 'severity', temp['severity'])
+
+			triage_reco = row['triage_recommendation']
+			triage_reco += "Severity determined by triager. "
+			df.set_value(index, 'triage_recommendation', triage_reco)
 			if debug:
 				coutput.cprint("New Severity: "+temp['severity'], 'status_update', mode=output_mode)
 
@@ -300,6 +309,8 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 			try:
 				employee_status[csr_person]
+				if employee_status[csr_person]['total_availability'] <= 0:
+					ticket_report['triage_recommendation'] = csr_person+" is on leave. Please reassign."
 			except KeyError:
 				employee_status[csr_person] = {}
 				employee_status[csr_person]['tickets'] = []
@@ -486,11 +497,6 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		elif row['category'] == 'S - PER - Map Change':
 			category_report['PER Map Change']+=1
 
-		ticket_report['severity'] = row['severity']
-		ticket_report['category'] = row['category']
-		ticket_report['status'] = row['status']
-		ticket_report['backlog'] = False
-
 		all_ticket_report[row['ticket_number']] = copy.deepcopy(ticket_report)
 
 		ticket_dtime = datetime.datetime.strptime(row['action_date'], ticket_dtime_format)
@@ -530,6 +536,10 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 				if employee_status[employee]['total_availability'] > 0:
 					if debug:
 						coutput.cprint("assigned directly to "+employee, 'status_update', mode=output_mode)
+					triage_reco = row['triage_recommendation']
+					triage_reco += "Assigned directly to employee. "
+					row['triage_recommendation'] = triage_reco
+					
 					row['backlog'] = False
 					employee_status[employee]['tickets'].append(row)
 					employee_status[employee]['usage']+=category_time_requirements[ticket_category]
@@ -599,6 +609,9 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			if not t:
 				try:
 					if employee_status[employee]['total_availability'] > 0:
+						triage_reco = row['triage_recommendation']
+						triage_reco += "Assigned using ticket history. "
+						row['triage_recommendation'] = triage_reco
 						if debug:
 							coutput.cprint("assigned from history to "+employee, 'status_update', mode=output_mode)
 						row['backlog'] = False
@@ -625,6 +638,10 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 			if debug:
 				coutput.cprint("Skill Required: "+req_skill, 'status_update', mode=output_mode)
+
+			triage_reco = row['triage_recommendation']
+			triage_reco += "Skill: "+req_skill+". "
+			row['triage_recommendation'] = triage_reco
 
 			##Scheduler---------------
 
@@ -660,6 +677,9 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			else:
 				row['backlog'] = False
 				employee_status[minemployee]['tickets'].append(row)
+				triage_reco = row['triage_recommendation']
+				triage_reco += "Assigned using default scheduler model. "
+				row['triage_recommendation'] = triage_reco
 				coutput.cprint("Assigned to employee "+minemployee, 'status_update', mode=output_mode)
 				assigned = True
 
@@ -673,6 +693,12 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			unassigned_tickets.append(row['ticket_number'])
 		else:
 			number_of_assigned += 1
+
+		ticket_report['severity'] = row['severity']
+		ticket_report['category'] = row['category']
+		ticket_report['status'] = row['status']
+		ticket_report['backlog'] = False
+		ticket_report['triage_recommendation'] = row['triage_recommendation']
 		coutput.cprint("--------------------", 'status_update', mode=output_mode)
 
 	triage_summary_report['category_report'] = category_report

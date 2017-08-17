@@ -54,22 +54,22 @@ import time
 
 ######################################### Transformer testing
 
-couch_handle = CouchInterface()
+# couch_handle = CouchInterface()
 
-try:
-	print "Creating temporary database..."
-	couch_handle.create_database()
-except Exception:
-	print "Retrying..."
-	couch_handle.cleanup('triager_tickets')
-	couch_handle.create_database()
+# try:
+# 	print "Creating temporary database..."
+# 	couch_handle.create_database()
+# except Exception:
+# 	print "Retrying..."
+# 	couch_handle.cleanup('triager_tickets')
+# 	couch_handle.create_database()
 
-tkt = Tickets()
+# tkt = Tickets()
 
-print "uploading csv tickets"
+# print "uploading csv tickets"
 
-coutput = CustomOutput()
-tkt.upload_tickets_csv(coutput=coutput, output_mode=1)
+# coutput = CustomOutput()
+# tkt.upload_tickets_csv(coutput=coutput, output_mode=1)
 
 date_now = {
 		"year": "2017",
