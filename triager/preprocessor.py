@@ -15,12 +15,14 @@ class Tickets:
 	    s.feed(html)
 	    return s.get_data()
 
-	def upload_tickets_csv(self, file_path="data/ticket_list.csv", upload=True, coutput=None):
+	def upload_tickets_csv(self, file_path="data/ticket_list.csv", upload=True, coutput=None, output_mode=2):
 		try:
 			df = pd.read_csv(file_path)
 		except IOError:
-			coutput.cprint("Ticket List not found", "error", mode=2)
+			coutput.cprint("Ticket List not found", "error", mode=output_mode)
 			return False
+
+		omitted_fields = ["SLA Start Date", "Date Last Modified"]
 
 		document = []
 		template = []
@@ -29,12 +31,13 @@ class Tickets:
 			doc = {}
 			temp = Ticket()
 			for y in mapping.csv_mapping:
-				if x[1][y] == None or pd.isnull(x[1][y]):
-					doc[mapping.csv_mapping[y]] = ''
-					temp[mapping.csv_mapping[y]] = ''
-				else:
-					doc[mapping.csv_mapping[y]] = x[1][y]
-					temp[mapping.csv_mapping[y]] = x[1][y]
+				if y not in omitted_fields:
+					if x[1][y] == None or pd.isnull(x[1][y]):
+						doc[mapping.csv_mapping[y]] = ''
+						temp[mapping.csv_mapping[y]] = ''
+					else:
+						doc[mapping.csv_mapping[y]] = x[1][y]
+						temp[mapping.csv_mapping[y]] = x[1][y]
 
 			temp['action']
 			temp['comments'] = self.strip_tags(temp['comments'])
@@ -50,6 +53,7 @@ class Tickets:
 			doc['alert_comments'] = temp['alert_comments']
 			doc['comments'] = temp['comments']
 			doc['alert_comments'] = temp['alert_comments']
+			doc['triage_recommendation'] = ""
 
 			document.append(temp)
 			template.append(doc)
@@ -57,13 +61,13 @@ class Tickets:
 		if upload:
 			dbinter = CouchInterface(output_interface=coutput)
 
-			coutput.cprint("Uploading "+str(len(document))+" tickets to database", "status_update", mode=2)
+			coutput.cprint("Uploading "+str(len(document))+" tickets to database", "status_update", mode=output_mode)
 			n_success = dbinter.add_documents(document)
 			n_failed = len(template)-n_success
-			coutput.cprint("Upload Complete", "status_update", mode=2)
-			coutput.cprint(str(len(template))+"documents processed", "status_update", mode=2)
-			coutput.cprint(str(n_success)+" document successfully uploaded", "status_update", mode=2)
-			coutput.cprint(str(n_failed)+" documents failed!!", "status_update", mode=2)
+			coutput.cprint("Upload Complete", "status_update", mode=output_mode)
+			coutput.cprint(str(len(template))+"documents processed", "status_update", mode=output_mode)
+			coutput.cprint(str(n_success)+" document successfully uploaded", "status_update", mode=output_mode)
+			coutput.cprint(str(n_failed)+" documents failed!!", "status_update", mode=output_mode)
 
 		return True
 

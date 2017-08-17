@@ -1,5 +1,6 @@
 from flask_socketio import emit
 import gevent
+import traceback
 
 def cprint(self, val, signal="", mode=1, socketio=None, thread=False):
 		if mode==1:
@@ -33,7 +34,10 @@ class CustomOutput:
 			if self.thread:
 				self.socketio.emit(signal, val, broadcast=True)
 			else:
-				emit(signal, val, broadcast=True)
+				try:
+					emit(signal, val, broadcast=True)
+				except Exception:
+					print ''.join(traceback.format_exc())
 			gevent.sleep(0)
 			print signal," : ",val
 		elif mode==3:
@@ -41,6 +45,9 @@ class CustomOutput:
 				if self.thread:
 					self.socketio.emit(signal, val, broadcast=True)
 				else:
-					emit(signal, val, broadcast=True)
+					try:
+						emit(signal, val, broadcast=True)
+					except Exception:
+						print ''.join(traceback.format_exc())
 				gevent.sleep(0)
 			# print signal," : ",val

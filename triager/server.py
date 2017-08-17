@@ -172,4 +172,4 @@ def uploader_api():
 	print res
 	return jsonify(res)
 
-app.run(debug=True, use_reloader=False)
+app.run(debug=True, use_reloader=False, host="0.0.0.0")

@@ -4,6 +4,7 @@ function update_file_list(file_list)
 	thtml+='<div class="collection-item"><b>NAME</b><span class="right"><b>DATE MODIFIED</b></span></div>'
 	
 	var add_status = false
+	var missing_status = false
 	for(x in file_list)
 	{
 		if(file_list[x]!="")
@@ -11,10 +12,16 @@ function update_file_list(file_list)
 			add_status=true
 			thtml+='<a class="collection-item">'+x+'<span class="right">'+file_list[x]+'</span></a>'
 		}
+		else{
+			missing_status = true
+		}
 	}
 
 	if(!add_status)
 		thtml += '<div class="collection-item">No Files Found</div>'
+
+	if(!missing_status)
+		$('#continue').removeClass('disabled')
 
 	$('#file_list_display').html(thtml);
 }
@@ -72,6 +79,8 @@ $(document).ready(function(){
 	
 	get_scheduler_status()
 	listen_scheduler_status()
+
+	$(".button-collapse").sideNav();
 	
 	$('.datepicker').pickadate({
 	    selectMonths: true, // Creates a dropdown to control month
