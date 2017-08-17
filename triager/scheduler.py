@@ -5,6 +5,7 @@ from utility.custom_output import CustomOutput
 from utility.custom_output import cprint
 from mappings.Ticket import csv_mapping
 from openpyxl import load_workbook
+from datetime import date, timedelta
 
 import transformations
 
@@ -27,6 +28,16 @@ def clean_name_index(x):
 	x = x.strip()
 	x = re.sub(' +',' ',x)
 	return x
+
+
+def get_sla_timeline(start_date, end_date):
+	fromdate = start_date.date()
+	todate = date(int(end_date["year"]), int(end_date["month"]), int(end_date["date"]))
+	daygenerator = (fromdate + timedelta(x + 1) for x in xrange((todate - fromdate).days))
+
+	week_days = sum(1 for day in daygenerator if day.weekday() < 5)
+	return week_days
+
 
 def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
@@ -325,6 +336,24 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 			dict_obj['backlog'] = True
 			employee_status[csr_person]['tickets'].append(copy.deepcopy(dict_obj))
+
+			backlog_dtime_format = "%m/%d/%Y %H:%M"
+
+			backlog_dtime = datetime.datetime.strptime(row['date_last_modified'], backlog_dtime_format)
+			days = get_sla_timeline(backlog_dtime, date_now)
+
+			sla = False
+			if (row['severity'] == 'Sev 1' or row['severity'] == 'Sev 2') and days > 1:
+				sla = True
+
+			if (row['severity'] == 'Sev 3') and days > 3:
+				sla = True
+
+			if (row['severity'] == 'Sev 4') and days > 4:
+				sla = True
+
+			if sla:
+				ticket_report['triage_recommendation'] += "Ticket was assigned on "+str(backlog_dtime.date())+", this is approaching SLA timelines. Immediate Action Required. "
 
 			ticket_report['severity'] = row['severity']
 			ticket_report['customer'] = row['account_name']
@@ -692,7 +721,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		ticket_report['backlog'] = False
 		ticket_report['triage_recommendation'] = row['triage_recommendation']
 		all_ticket_report[row['ticket_number']] = copy.deepcopy(ticket_report)
-		
+
 		coutput.cprint("--------------------", 'status_update', mode=output_mode)
 
 	triage_summary_report['category_report'] = category_report
