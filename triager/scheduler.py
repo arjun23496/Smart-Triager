@@ -424,7 +424,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		coutput.cprint("Sort by priority complete", 'status_update', mode=output_mode)
 
 	all_ticket_no = pd.unique(df[df['status'] != 'Closed']['ticket_number'])
-	all_ticket_no = pd.unique(df['ticket_number'])
+	# all_ticket_no = pd.unique(df['ticket_number'])
 	total_tickets = len(all_ticket_no)
 	number_of_assigned = 0
 
