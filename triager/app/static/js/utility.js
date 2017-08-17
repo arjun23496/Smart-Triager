@@ -1,10 +1,12 @@
 function sanitize_json(x)
 {
+	console.log(x)
 	x = x.replace(/False/g,'false')
 	x = x.replace(/True/g,'true')
 	x = x.replace(/u'/g,'"')
 	x = x.replace(/'/g,'"')
 	
+	console.log(x)
 	x = JSON.parse(x)
 
 	return x	

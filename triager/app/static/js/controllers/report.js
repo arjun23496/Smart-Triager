@@ -38,7 +38,7 @@ function populate_allocation_table(employee_report, ticket_report){
 				if(ticket_report[x]['backlog'])
 				{
 					thtml+="<td class='backlog-row'>"+x+"</td>"
-					thtml+="<td class='backlog-row'></td>"
+					thtml+="<td class='backlog-row'>"+ticket_report[x]['customer']+"</td>"
 					thtml+="<td class='backlog-row'>"+ticket_report[x]['severity']+"</td>"
 					thtml+="<td class='backlog-row'>"+ticket_report[x]['category']+"</td>"
 					thtml+="<td class='backlog-row'>"+ticket_report[x]['status']+"</td>"
@@ -49,7 +49,7 @@ function populate_allocation_table(employee_report, ticket_report){
 				else
 				{
 					thtml+="<td>"+x+"</td>"
-					thtml+="<td></td>"
+					thtml+="<td>"+ticket_report[x]['customer']+"</td>"
 					thtml+="<td>"+ticket_report[x]['severity']+"</td>"
 					thtml+="<td>"+ticket_report[x]['category']+"</td>"
 					thtml+="<td>"+ticket_report[x]['status']+"</td>"

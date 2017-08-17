@@ -132,6 +132,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		"backlog": False
 	}
 
+	backlog_assigned_tickets = []
 	all_ticket_report = {}
 
 	#System start
@@ -289,14 +290,10 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		xindex = 0
 		blog_columns = []
 		for x in blog_report.columns:
-			print x
-			print blog_report.columns[xindex]
 			blog_columns.append(csv_mapping[x])
 			xindex+=1
 		blog_report.columns = blog_columns
 		for index,row in blog_report.iterrows():
-			# print row
-			# print row
 			if row.isnull()['assigned_to_csr']:
 				continue
 
@@ -307,16 +304,20 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 			csr_person = csr_person.group(1)
 			print csr_person
+			print row['ticket_number']
 
 			try:
 				employee_status[csr_person]
-				if employee_status[csr_person]['total_availability'] <= 0:
-					ticket_report['triage_recommendation'] = csr_person+" is on leave. Please reassign."
+				if employee_status[csr_person]['total_availability'] == 0:
+					ticket_report['triage_recommendation'] = csr_person+" is on leave. "
+				else:
+					backlog_assigned_tickets.append(row['ticket_number'])
 			except KeyError:
 				employee_status[csr_person] = {}
 				employee_status[csr_person]['tickets'] = []
 				employee_status[csr_person]['usage'] = -1
 				employee_status[csr_person]['total_availability'] = -1
+				backlog_assigned_tickets.append(row['ticket_number'])
 			
 			dict_obj = {}
 			for x in blog_columns:
@@ -326,8 +327,10 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			employee_status[csr_person]['tickets'].append(copy.deepcopy(dict_obj))
 
 			ticket_report['severity'] = row['severity']
-			# ticket_report['category'] = row['category']
+			ticket_report['customer'] = row['account_name']
 			ticket_report['status'] = row['status']
+			ticket_report['last_worked_by'] = csr_person
+			# ticket_report['category'] = row['category']
 			ticket_report['backlog'] = True
 
 			all_ticket_report[row['ticket_number']] = copy.deepcopy(ticket_report)
@@ -480,28 +483,9 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 		coutput.cprint("\n--------------------\nAssigning "+t_no, 'status_update', mode=output_mode)
 
-		print row['severity']
-
 		index+=1
 		progress_res['index']=index
 		coutput.cprint(progress_res, 'status_progress', mode=3)
-
-		# df_temp_new = df_nr[df_nr['ticket_number'] == t_no]
-
-		# row = {}
-		# maxdate = ""
-
-		# for tindex, trow in df_temp_new.iterrows():
-		# 	# print tindex
-		# 	if tindex == 0 or maxdate == "":
-		# 		maxdate = datetime.datetime.strptime(trow['action_date'], ticket_dtime_format)
-		# 		row = trow
-		# 	else:
-		# 		tdate = datetime.datetime.strptime(trow['action_date'], ticket_dtime_format)
-
-		# 		if maxdate < tdate:
-		# 			maxdate = tdate
-		# 			row = trow
 
 		if row['severity'] == "Sev 2" or row['severity'] == "Sev 1":
 			triage_summary_report['priority_deliverables']+=1
@@ -515,26 +499,45 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		elif row['category'] == 'S - PER - Map Change':
 			category_report['PER Map Change']+=1
 
-		all_ticket_report[row['ticket_number']] = copy.deepcopy(ticket_report)
-
-		print row
-
 		ticket_dtime = datetime.datetime.strptime(row['action_date'], ticket_dtime_format)
 
-		# mult_ticket = False
+		## Get last worked employee for report and scheduler
+		maxdtime = 0
+		last_worked_employee = ''
+		tpattern = re.compile(r'.*\[.*\] (.*)')
+		temp_df = pd.DataFrame(couch_handle.document_by_key('ticket_number',row['ticket_number']))
+		# print temp_df
+		for index1,row1 in temp_df.iterrows():
+			# if row1['action_date'][:10]==date_param:
+			# 	break
 
-		# if row['ticket_number'] in completed_tickets:
-		# 	continue
+			temp_dtime = datetime.datetime.strptime(row1['action_date'],ticket_dtime_format)
 
-		# for index1,row1 in df_nr.iterrows():
-		# 	if row1['ticket_number'] == row['ticket_number']:
-		# 		temp_dt = datetime.datetime.strptime(row1['action_date'], ticket_dtime_format)
-		# 		if temp_dt > ticket_dtime:
-		# 			mult_ticket = True
-		# 			break
+			# print "tempdtime ",temp_dtime
+			# print "emp ",row1['performed_by_csr']
 
-		# if mult_ticket:
-		# 	continue
+			if temp_dtime == None or row1['performed_by_csr'] == '':
+				continue
+
+			pre_max = False
+
+			if temp_dtime == ticket_dtime:
+				break
+			elif maxdtime == 0 and (row1['performed_by_csr'] != '' or row1['performed_by_csr'] != None) :
+				maxdtime = temp_dtime
+				pre_max = True
+			elif temp_dtime > maxdtime and (row1['performed_by_csr'] != '' or row1['performed_by_csr'] != None):
+				maxdtime = temp_dtime
+				pre_max = True
+
+			if pre_max:
+				# print "maximising to prev"
+				csr_person = re.search(tpattern,row1['performed_by_csr'])
+				# print csr_person
+				if csr_person!=None:
+					last_worked_employee = csr_person.group(1)
+
+		## end of get last worked employee
 
 		assigned = False
 		ticket_category = row['category']
@@ -570,47 +573,13 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 				if debug:
 					coutput.cprint("WARNING: No data found for "+employee+". Reassigning ticket", 'status_update', mode=output_mode)
 
-		maxdtime = 0
-
 		if not assigned:
 			#Assign to particular csr based on availability and ticket history
 			
 			if debug:
 				coutput.cprint("Trying to assign to employee from ticket history", 'status_update', mode=output_mode)
 
-			employee = ''
-			tpattern = re.compile(r'.*\[.*\] (.*)')
-			temp_df = pd.DataFrame(couch_handle.document_by_key('ticket_number',row['ticket_number']))
-			# print temp_df
-			for index1,row1 in temp_df.iterrows():
-				# if row1['action_date'][:10]==date_param:
-				# 	break
-
-				temp_dtime = datetime.datetime.strptime(row1['action_date'],ticket_dtime_format)
-
-				# print "tempdtime ",temp_dtime
-				# print "emp ",row1['performed_by_csr']
-
-				if temp_dtime == None or row1['performed_by_csr'] == '':
-					continue
-
-				pre_max = False
-
-				if temp_dtime == ticket_dtime:
-					break
-				elif maxdtime == 0 and (row1['performed_by_csr'] != '' or row1['performed_by_csr'] != None) :
-					maxdtime = temp_dtime
-					pre_max = True
-				elif temp_dtime > maxdtime and (row1['performed_by_csr'] != '' or row1['performed_by_csr'] != None):
-					maxdtime = temp_dtime
-					pre_max = True
-
-				if pre_max:
-					# print "maximising to prev"
-					csr_person = re.search(tpattern,row1['performed_by_csr'])
-					# print csr_person
-					if csr_person!=None:
-						employee = csr_person.group(1)
+			employee = last_worked_employee
 			
 			t = False
 
@@ -714,11 +683,16 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		else:
 			number_of_assigned += 1
 
+
 		ticket_report['severity'] = row['severity']
 		ticket_report['category'] = row['category']
+		ticket_report['customer'] = row['account_name']
 		ticket_report['status'] = row['status']
+		ticket_report['last_worked_by'] = last_worked_employee
 		ticket_report['backlog'] = False
 		ticket_report['triage_recommendation'] = row['triage_recommendation']
+		all_ticket_report[row['ticket_number']] = copy.deepcopy(ticket_report)
+		
 		coutput.cprint("--------------------", 'status_update', mode=output_mode)
 
 	triage_summary_report['category_report'] = category_report
