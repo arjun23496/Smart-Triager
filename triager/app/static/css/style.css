@@ -35,6 +35,7 @@ td,th{
 	border-top: 1px solid #BDBDBD;
 	border-bottom: 1px solid #BDBDBD; 
 	background-color: #BBDEFB;
+	padding: 5;
 }
 
 .report-table td{
