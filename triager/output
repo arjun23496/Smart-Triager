@@ -1,5 +1,5 @@
 Executing scheduler
-date: 2017-07-06
+date: 2017-08-18
 self.coutput
 None
 Retrieving documents from db...
@@ -341,15 +341,16 @@ Arranging according to priority
 Sort by priority complete
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13178606
 ticket number: 5377-13178606
 Trying to assign to employee from ticket history
 Assiging to Resource_DS
 assigned from history to Resource_DS
+[u'5', u'1', u'1', u'.5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13333875
 ticket number: 5377-13333875
 Trying to assign to employee from ticket history
 Assiging to Resource_DM
@@ -358,10 +359,11 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_AKS
+[u'.5', u'.5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13311630
 ticket number: 5377-13311630
 Trying to assign to employee from ticket history
 Assiging to Resource_TK
@@ -370,10 +372,11 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_SVK
+[u'1', u'.5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13089649
 ticket number: 5377-13089649
 Trying to assign to employee from ticket history
 Assiging to Resource_BKS
@@ -383,10 +386,11 @@ Skill Required: XML
 WARNING: Employee 'Resource_A' not found in vacation planner
 WARNING: Employee 'Resource_AB' not found in vacation planner
 Assigned to employee Resource_NP
+[u'3.5', u'14.5', u'8.5', u'8.5', u'1', u'9.5', u'.8', u'.8', u'2']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13245670
 ticket number: 5377-13245670
 Trying to assign to employee from ticket history
 Assiging to Resource_LC
@@ -395,11 +399,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_DK
+[u'.5', u'1', u'3', u'3']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13126338
 ticket number: 5377-13126338
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -407,12 +414,15 @@ Trying default scheduler model
 Skill Required: XML
 WARNING: Employee 'Resource_A' not found in vacation planner
 WARNING: Employee 'Resource_AB' not found in vacation planner
-Assigned to employee Resource_SR
+Assigned to employee Resource_NK
+[u'3.5', u'2', u'1', u'1', u'3', u'1', u'2', u'2.5', u'1.5', u'1']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13104307
 ticket number: 5377-13104307
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to Resource_CK
 Employee not present in vacation planner Resource_CK
@@ -420,11 +430,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_RC
+[u'1.5', u'5', u'2.2', u'2', u'2.5', u'1', u'7', u'.6', u'1', u'6.5', u'.5', u'1', u'.5', u'1', u'1', u'1.1', u'2.5', u'1']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13095530
 ticket number: 5377-13095530
+Trying to assing directly to S-MAP-NA
+WARNING: No data found for S-MAP-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to Resource_CA
 Employee not present in vacation planner Resource_CA
@@ -432,12 +445,15 @@ Trying default scheduler model
 Skill Required: XML
 WARNING: Employee 'Resource_A' not found in vacation planner
 WARNING: Employee 'Resource_AB' not found in vacation planner
-Assigned to employee Resource_NP
+Assigned to employee Resource_SR
+[u'4.25', u'2.5', u'5.5', u'2.5', u'2', u'1.5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13298405
 ticket number: 5377-13298405
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to Resource_ER
 Employee not present in vacation planner Resource_ER
@@ -445,11 +461,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_RMK
+[u'3', u'1.5', u'.5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13331793
 ticket number: 5377-13331793
+Trying to assing directly to S-PER-IN
+WARNING: No data found for S-PER-IN. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -457,11 +476,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_SRB
+[u'1']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13328586
 ticket number: 5377-13328586
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -469,11 +491,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_SK
+[u'5.5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13337469
 ticket number: 5377-13337469
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -481,11 +506,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_SD
+[u'1']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13336676
 ticket number: 5377-13336676
+Trying to assing directly to S-MAP-NA
+WARNING: No data found for S-MAP-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to Resource_CA
 Employee not present in vacation planner Resource_CA
@@ -493,11 +521,14 @@ Trying default scheduler model
 Skill Required: ROSETTANET
 WARNING: Employee 'Resource_AB' not found in vacation planner
 Assigned to employee Resource_DK
+[u'.8']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13333137
 ticket number: 5377-13333137
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -505,11 +536,30 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_SJ
+[u'3.5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13314146
 ticket number: 5377-13314146
+Trying to assing directly to S-PER-IN
+WARNING: No data found for S-PER-IN. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to 
+Employee not present in vacation planner 
+Trying default scheduler model
+Skill Required: XML
+WARNING: Employee 'Resource_A' not found in vacation planner
+WARNING: Employee 'Resource_AB' not found in vacation planner
+Assigned to employee Resource_NP
+[u'8.5']
+--------------------
+
+--------------------
+Assigning 5377-13317510
+ticket number: 5377-13317510
+Trying to assing directly to S-CS-IN
+WARNING: No data found for S-CS-IN. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -518,23 +568,11 @@ Skill Required: XML
 WARNING: Employee 'Resource_A' not found in vacation planner
 WARNING: Employee 'Resource_AB' not found in vacation planner
 Assigned to employee Resource_YM
+[u'2.5', u'.75']
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-13317510
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: XML
-WARNING: Employee 'Resource_A' not found in vacation planner
-WARNING: Employee 'Resource_AB' not found in vacation planner
-Assigned to employee Resource_AKS
---------------------
-
---------------------
-Assigning 5377-13340604
+Assigning 5377-13318566
 ticket number: 5377-13318566
 Trying to assign to employee from ticket history
 Assiging to Resource_CB
@@ -543,11 +581,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_SSP
+[u'3', u'1.5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13319724
 ticket number: 5377-13319724
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to Resource_SF
 Employee not present in vacation planner Resource_SF
@@ -555,11 +596,14 @@ Trying default scheduler model
 Skill Required: ROSETTANET
 WARNING: Employee 'Resource_AB' not found in vacation planner
 Assigned to employee Resource_DK
+[u'3.5', u'3.2']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13341369
 ticket number: 5377-13341369
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -567,11 +611,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_SKM
+[]
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13333771
 ticket number: 5377-13333771
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -579,11 +626,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_RKM
+[u'3']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13333002
 ticket number: 5377-13333002
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -591,12 +641,15 @@ Trying default scheduler model
 Skill Required: XML
 WARNING: Employee 'Resource_A' not found in vacation planner
 WARNING: Employee 'Resource_AB' not found in vacation planner
-Assigned to employee Resource_SY
+Assigned to employee Resource_AKS
+[u'2']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13326713
 ticket number: 5377-13326713
+Trying to assing directly to S-CS-IN
+WARNING: No data found for S-CS-IN. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -604,11 +657,14 @@ Trying default scheduler model
 Skill Required: ROSETTANET
 WARNING: Employee 'Resource_AB' not found in vacation planner
 Assigned to employee Resource_DK
+[u'2']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13334630
 ticket number: 5377-13334630
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to Resource_SC
 Employee not present in vacation planner Resource_SC
@@ -616,11 +672,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_PRG
+[u'1.7', u'2.5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13339040
 ticket number: 5377-13339040
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to Resource_GW
 Employee not present in vacation planner Resource_GW
@@ -628,11 +687,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_BK...
+[u'1']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13332718
 ticket number: 5377-13332718
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -640,19 +702,23 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_KS
+[u'.5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13327560
 ticket number: 5377-13327560
 Trying to assign to employee from ticket history
 Assiging to Resource_SRB
 assigned from history to Resource_SRB
+[u'1.25']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13327635
 ticket number: 5377-13327635
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -660,11 +726,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_JVR
+[u'3']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13339045
 ticket number: 5377-13339045
+Trying to assing directly to S-MAP-NA
+WARNING: No data found for S-MAP-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to Resource_SC
 Employee not present in vacation planner Resource_SC
@@ -672,11 +741,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_JKL
+[u'1.7']
 --------------------
 
 --------------------
 Assigning 5377-13340604
 ticket number: 5377-13340604
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -684,11 +756,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_HBS
+[]
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13337711
 ticket number: 5377-13337711
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -696,11 +771,14 @@ Trying default scheduler model
 Skill Required: Logistics
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_NP
+[]
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13341378
 ticket number: 5377-13341378
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -708,11 +786,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_AJ
+[]
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13341325
 ticket number: 5377-13341325
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -720,11 +801,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_AK
+[]
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13341186
 ticket number: 5377-13341186
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -732,11 +816,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_AR
+[]
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13340736
 ticket number: 5377-13340736
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to Resource_GW
 Employee not present in vacation planner Resource_GW
@@ -744,11 +831,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_AD
+[u'.8']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13340578
 ticket number: 5377-13340578
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to Resource_BW
 Employee not present in vacation planner Resource_BW
@@ -756,11 +846,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_SVK
+[]
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13340579
 ticket number: 5377-13340579
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -768,164 +861,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_DS
+[]
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13048396
 ticket number: 5377-13048396
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: XML
-WARNING: Employee 'Resource_A' not found in vacation planner
-WARNING: Employee 'Resource_AB' not found in vacation planner
-Assigned to employee Resource_SR
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13120012
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: AS2
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_AKS
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13340644
-Trying to assign to employee from ticket history
-Assiging to Resource_SC
-Employee not present in vacation planner Resource_SC
-Trying default scheduler model
-Skill Required: XML
-WARNING: Employee 'Resource_A' not found in vacation planner
-WARNING: Employee 'Resource_AB' not found in vacation planner
-Assigned to employee Resource_YM
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13338689
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: Sterling Integrator (SI)
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_RC
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13333611
-Trying to assign to employee from ticket history
-Assiging to Resource_LH
-Employee not present in vacation planner Resource_LH
-Trying default scheduler model
-Skill Required: Sterling Integrator (SI)
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_RMK
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13340319
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: Sterling Integrator (SI)
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_SK
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13339801
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: Sterling Integrator (SI)
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_SD
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13273282
-Trying to assign to employee from ticket history
-Assiging to Resource_DM
-Employee not present in vacation planner Resource_DM
-Trying default scheduler model
-Skill Required: Sterling Integrator (SI)
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_SJ
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13339775
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: Sterling Integrator (SI)
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_SSP
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13284729
-Trying to assing directly to Resource_AR
-assigned directly to Resource_AR
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13291444
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: Sterling Integrator (SI)
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_SKM
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13333342
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: Sterling Integrator (SI)
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_RKM
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13340424
-Trying to assign to employee from ticket history
-Assiging to Resource_LH
-Employee not present in vacation planner Resource_LH
-Trying default scheduler model
-Skill Required: Sterling Integrator (SI)
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_SP
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13339768
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -934,11 +877,191 @@ Skill Required: XML
 WARNING: Employee 'Resource_A' not found in vacation planner
 WARNING: Employee 'Resource_AB' not found in vacation planner
 Assigned to employee Resource_SY
+[u'6', u'.l5', u'13', u'1', u'1', u'1', u'3', u'1', u'1', u'6']
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-13339098
+Assigning 5377-13120012
+ticket number: 5377-13120012
+Trying to assing directly to S-CS-IN
+WARNING: No data found for S-CS-IN. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to 
+Employee not present in vacation planner 
+Trying default scheduler model
+Skill Required: AS2
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_AKS
+[u'1.5', u'1', u'1.5']
+--------------------
+
+--------------------
+Assigning 5377-13340644
+ticket number: 5377-13340644
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to Resource_SC
+Employee not present in vacation planner Resource_SC
+Trying default scheduler model
+Skill Required: XML
+WARNING: Employee 'Resource_A' not found in vacation planner
+WARNING: Employee 'Resource_AB' not found in vacation planner
+Assigned to employee Resource_NK
+[u'.5', u'1.2']
+--------------------
+
+--------------------
+Assigning 5377-13338689
+ticket number: 5377-13338689
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to 
+Employee not present in vacation planner 
+Trying default scheduler model
+Skill Required: Sterling Integrator (SI)
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_RC
+[]
+--------------------
+
+--------------------
+Assigning 5377-13333611
+ticket number: 5377-13333611
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to Resource_LH
+Employee not present in vacation planner Resource_LH
+Trying default scheduler model
+Skill Required: Sterling Integrator (SI)
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_RMK
+[u'1.5', u'1.5']
+--------------------
+
+--------------------
+Assigning 5377-13340319
+ticket number: 5377-13340319
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to 
+Employee not present in vacation planner 
+Trying default scheduler model
+Skill Required: Sterling Integrator (SI)
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_SK
+[]
+--------------------
+
+--------------------
+Assigning 5377-13339801
+ticket number: 5377-13339801
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to 
+Employee not present in vacation planner 
+Trying default scheduler model
+Skill Required: Sterling Integrator (SI)
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_SD
+[]
+--------------------
+
+--------------------
+Assigning 5377-13273282
+ticket number: 5377-13273282
+Trying to assing directly to S-MAP-NA
+WARNING: No data found for S-MAP-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to Resource_DM
+Employee not present in vacation planner Resource_DM
+Trying default scheduler model
+Skill Required: Sterling Integrator (SI)
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_SJ
+[u'1.5', u'2', u'.75', u'1']
+--------------------
+
+--------------------
+Assigning 5377-13339775
+ticket number: 5377-13339775
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to 
+Employee not present in vacation planner 
+Trying default scheduler model
+Skill Required: Sterling Integrator (SI)
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_SSP
+[]
+--------------------
+
+--------------------
+Assigning 5377-13284729
+ticket number: 5377-13284729
+Trying to assing directly to S-MAP-IN
+WARNING: No data found for S-MAP-IN. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to Resource_AR
+assigned from history to Resource_AR
+[u'2.5', u'10']
+--------------------
+
+--------------------
+Assigning 5377-13291444
+ticket number: 5377-13291444
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to 
+Employee not present in vacation planner 
+Trying default scheduler model
+Skill Required: Sterling Integrator (SI)
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_SKM
+[u'.5', u'.5']
+--------------------
+
+--------------------
+Assigning 5377-13333342
+ticket number: 5377-13333342
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to 
+Employee not present in vacation planner 
+Trying default scheduler model
+Skill Required: Sterling Integrator (SI)
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_RKM
+[]
+--------------------
+
+--------------------
+Assigning 5377-13340424
+ticket number: 5377-13340424
+Trying to assing directly to S-CS-NA
+WARNING: No data found for S-CS-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to Resource_LH
+Employee not present in vacation planner Resource_LH
+Trying default scheduler model
+Skill Required: Sterling Integrator (SI)
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_SR
+[u'.7']
+--------------------
+
+--------------------
+Assigning 5377-13339768
+ticket number: 5377-13339768
+Trying to assing directly to S-PER-IN
+WARNING: No data found for S-PER-IN. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -946,12 +1069,46 @@ Trying default scheduler model
 Skill Required: XML
 WARNING: Employee 'Resource_A' not found in vacation planner
 WARNING: Employee 'Resource_AB' not found in vacation planner
-Assigned to employee Resource_SR
+Assigned to employee Resource_YM
+[]
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13339098
+ticket number: 5377-13339098
+Trying to assing directly to S-PER-IN
+WARNING: No data found for S-PER-IN. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to 
+Employee not present in vacation planner 
+Trying default scheduler model
+Skill Required: XML
+WARNING: Employee 'Resource_A' not found in vacation planner
+WARNING: Employee 'Resource_AB' not found in vacation planner
+Assigned to employee Resource_SY
+[]
+--------------------
+
+--------------------
+Assigning 5377-13340640
 ticket number: 5377-13340640
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to 
+Employee not present in vacation planner 
+Trying default scheduler model
+Skill Required: Sterling Integrator (SI)
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_SP
+[]
+--------------------
+
+--------------------
+Assigning 5377-12097474
+ticket number: 5377-12097474
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -959,11 +1116,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_PRG
+[u'3', u'1', u'6', u'1', u'5', u'5', u'4', u'4']
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-12097474
+Assigning 5377-13327493
+ticket number: 5377-13327493
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -971,11 +1131,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_BK...
+[]
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-13327493
+Assigning 5377-12097487
+ticket number: 5377-12097487
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -983,11 +1146,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_KS
+[u'.5', u'4', u'2', u'1', u'4', u'1.5', u'3', u'2']
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-12097487
+Assigning 5377-12239494
+ticket number: 5377-12239494
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -995,11 +1161,46 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_JVR
+[u'3', u'10', u'2', u'1', u'3', u'2', u'2', u'5', u'1.5', u'2', u'1.5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-12239494
+Assigning 5377-12389221
+ticket number: 5377-12389221
+Trying to assing directly to S-MAP-IN
+WARNING: No data found for S-MAP-IN. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to Resource_VBG
+Employee not present in vacation planner Resource_VBG
+Trying default scheduler model
+Skill Required: XML
+WARNING: Employee 'Resource_A' not found in vacation planner
+WARNING: Employee 'Resource_AB' not found in vacation planner
+Assigned to employee Resource_NK
+[u'1.5', u'1', u'10.5', u'2', u'1.5', u'2.5', u'1', u'3.5', u'20.5', u'.5', u'9', u'2', u'5', u'3.5', u'4', u'0.5']
+--------------------
+
+--------------------
+Assigning 5377-12389282
+ticket number: 5377-12389282
+Trying to assing directly to S-MAP-IN
+WARNING: No data found for S-MAP-IN. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to Resource_VBG
+Employee not present in vacation planner Resource_VBG
+Trying default scheduler model
+Skill Required: XML
+WARNING: Employee 'Resource_A' not found in vacation planner
+WARNING: Employee 'Resource_AB' not found in vacation planner
+Assigned to employee Resource_SR
+[u'3', u'3', u'.5', u'1', u'0.5']
+--------------------
+
+--------------------
+Assigning 5377-12424152
+ticket number: 5377-12424152
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -1007,37 +1208,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_JB
+[u'1', u'3', u'2', u'.7', u'1.3', u'1.5', u'1', u'.58', u'1.5', u'2']
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-12389221
-Trying to assing directly to Resource_NP
-assigned directly to Resource_NP
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-12389282
-Trying to assing directly to Resource_NP
-assigned directly to Resource_NP
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-12424152
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: Sterling Integrator (SI)
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_JKL
---------------------
-
---------------------
-Assigning 5377-13340604
+Assigning 5377-12626199
 ticket number: 5377-12626199
+Trying to assing directly to S-PER-IN
+WARNING: No data found for S-PER-IN. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -1046,11 +1224,29 @@ Skill Required: XML
 WARNING: Employee 'Resource_A' not found in vacation planner
 WARNING: Employee 'Resource_AB' not found in vacation planner
 Assigned to employee Resource_SVK
+[u'1.75', u'2', u'10', u'2', u'5.5', u'2']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13187779
 ticket number: 5377-13187779
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to 
+Employee not present in vacation planner 
+Trying default scheduler model
+Skill Required: Sterling Integrator (SI)
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_JKL
+[u'4', u'1']
+--------------------
+
+--------------------
+Assigning 5377-13218805
+ticket number: 5377-13218805
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -1058,11 +1254,40 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_HBS
+[u'2.5', u'2', u'2']
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-13218805
+Assigning 5377-13247712
+ticket number: 5377-13247712
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to Resource_GW
+Employee not present in vacation planner Resource_GW
+Trying default scheduler model
+Skill Required: AS2
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_AKS
+[u'.25', u'3', u'1.2']
+--------------------
+
+--------------------
+Assigning 5377-13255215
+ticket number: 5377-13255215
+Trying to assing directly to S-MAP-IN
+WARNING: No data found for S-MAP-IN. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to Resource_SVK
+assigned from history to Resource_SVK
+[u'1', u'1', u'3']
+--------------------
+
+--------------------
+Assigning 5377-13265067
+ticket number: 5377-13265067
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -1070,30 +1295,44 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_AJ
+[u'1']
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-13247712
+Assigning 5377-13265301
+ticket number: 5377-13265301
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
-Assiging to Resource_GW
-Employee not present in vacation planner Resource_GW
+Assiging to 
+Employee not present in vacation planner 
+Trying default scheduler model
+Skill Required: AS2
+WARNING: Employee 'Resource_A' not found in vacation planner
+Assigned to employee Resource_YM
+[]
+--------------------
+
+--------------------
+Assigning 5377-13275941
+ticket number: 5377-13275941
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
+Trying to assign to employee from ticket history
+Assiging to 
+Employee not present in vacation planner 
 Trying default scheduler model
 Skill Required: AS2
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_AKS
+[]
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-13255215
-Trying to assing directly to Resource_SVK
-assigned directly to Resource_SVK
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13265067
+Assigning 5377-13301656
+ticket number: 5377-13301656
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -1101,35 +1340,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_AK
+[u'5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-13265301
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: AS2
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_YM
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13275941
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: AS2
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_AKS
---------------------
-
---------------------
-Assigning 5377-13340604
-ticket number: 5377-13301656
+Assigning 5377-13301691
+ticket number: 5377-13301691
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -1137,11 +1355,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_AD
+[u'.3']
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-13301691
+Assigning 5377-13305722
+ticket number: 5377-13305722
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -1149,11 +1370,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_SS
+[u'2.5', u'6']
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-13305722
+Assigning 5377-13305728
+ticket number: 5377-13305728
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -1161,11 +1385,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_VM
+[u'2.5', u'2.5']
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-13305728
+Assigning 5377-13305736
+ticket number: 5377-13305736
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -1173,23 +1400,14 @@ Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_YD
+[]
 --------------------
 
 --------------------
-Assigning 5377-13340604
-ticket number: 5377-13305736
-Trying to assign to employee from ticket history
-Assiging to 
-Employee not present in vacation planner 
-Trying default scheduler model
-Skill Required: Sterling Integrator (SI)
-WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_DS
---------------------
-
---------------------
-Assigning 5377-13340604
+Assigning 5377-13307196
 ticket number: 5377-13307196
+Trying to assing directly to S-PROV
+WARNING: No data found for S-PROV. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -1197,23 +1415,29 @@ Trying default scheduler model
 Skill Required: AS2
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_DK
+[u'3.15']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13307765
 ticket number: 5377-13307765
+Trying to assing directly to S-PER-IN
+WARNING: No data found for S-PER-IN. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to Resource_TK
 Employee not present in vacation planner Resource_TK
 Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_RC
+Assigned to employee Resource_DS
+[u'.5', u'1']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13323436
 ticket number: 5377-13323436
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
@@ -1221,23 +1445,29 @@ Trying default scheduler model
 Skill Required: AS2
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_YM
+[u'.75']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13330665
 ticket number: 5377-13330665
+Trying to assing directly to S-PER-NA
+WARNING: No data found for S-PER-NA. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to 
 Employee not present in vacation planner 
 Trying default scheduler model
 Skill Required: Sterling Integrator (SI)
 WARNING: Employee 'Resource_A' not found in vacation planner
-Assigned to employee Resource_RMK
+Assigned to employee Resource_RC
+[u'1']
 --------------------
 
 --------------------
-Assigning 5377-13340604
+Assigning 5377-13322770
 ticket number: 5377-13322770
+Trying to assing directly to S-PER-IN
+WARNING: No data found for S-PER-IN. Reassigning ticket
 Trying to assign to employee from ticket history
 Assiging to Resource_GW
 Employee not present in vacation planner Resource_GW
@@ -1245,6 +1475,7 @@ Trying default scheduler model
 Skill Required: FTP
 WARNING: Employee 'Resource_A' not found in vacation planner
 Assigned to employee Resource_AKS
+[u'.7']
 --------------------
 Allocation Complete
 -----------------------------------------------------
@@ -1252,54 +1483,42 @@ Name: Resource_JVR
 Number of tickets assigned: 2
 Tickets:
 	5377-13327635
-	5377-12097487
-Resource_JVR
-[u'5377-13327635', u'5377-12097487']
+	5377-12239494
 -----------------------------------------------------
 Name: Resource_SKM
 Number of tickets assigned: 2
 Tickets:
 	5377-13341369
 	5377-13291444
-Resource_SKM
-[u'5377-13341369', u'5377-13291444']
 -----------------------------------------------------
 Name: Resource_DS
 Number of tickets assigned: 3
 Tickets:
 	5377-13178606
 	5377-13340579
-	5377-13305736
-Resource_DS
-[u'5377-13178606', u'5377-13340579', u'5377-13305736']
+	5377-13307765
 -----------------------------------------------------
 Name: Resource_AKS
 Number of tickets assigned: 6
 Tickets:
 	5377-13333875
-	5377-13317510
+	5377-13333002
 	5377-13120012
 	5377-13247712
 	5377-13275941
 	5377-13322770
-Resource_AKS
-[u'5377-13333875', u'5377-13317510', u'5377-13120012', u'5377-13247712', u'5377-13275941', u'5377-13322770']
 -----------------------------------------------------
 Name: Resource_BK...
 Number of tickets assigned: 2
 Tickets:
 	5377-13339040
-	5377-12097474
-Resource_BK...
-[u'5377-13339040', u'5377-12097474']
+	5377-13327493
 -----------------------------------------------------
 Name: Resource_SSP
 Number of tickets assigned: 2
 Tickets:
 	5377-13318566
 	5377-13339775
-Resource_SSP
-[u'5377-13318566', u'5377-13339775']
 -----------------------------------------------------
 Name: Resource_DK
 Number of tickets assigned: 5
@@ -1309,109 +1528,91 @@ Tickets:
 	5377-13319724
 	5377-13326713
 	5377-13307196
-Resource_DK
-[u'5377-13245670', u'5377-13336676', u'5377-13319724', u'5377-13326713', u'5377-13307196']
 -----------------------------------------------------
 Name: Resource_SK
 Number of tickets assigned: 2
 Tickets:
 	5377-13328586
 	5377-13340319
-Resource_SK
-[u'5377-13328586', u'5377-13340319']
 -----------------------------------------------------
 Name: Resource_SJ
 Number of tickets assigned: 2
 Tickets:
 	5377-13333137
 	5377-13273282
-Resource_SJ
-[u'5377-13333137', u'5377-13273282']
 -----------------------------------------------------
 Name: Resource_SD
 Number of tickets assigned: 2
 Tickets:
 	5377-13337469
 	5377-13339801
-Resource_SD
-[u'5377-13337469', u'5377-13339801']
+-----------------------------------------------------
+Name: Unassigned
+Number of tickets assigned: 0
+Tickets:
 -----------------------------------------------------
 Name: Resource_SY
 Number of tickets assigned: 3
 Tickets:
 	5377-13442782
-	5377-13333002
-	5377-13339768
-Resource_SY
-['5377-13442782', u'5377-13333002', u'5377-13339768']
+	5377-13048396
+	5377-13339098
 -----------------------------------------------------
 Name: Resource_YD
 Number of tickets assigned: 2
 Tickets:
 	5377-13439025
-	5377-13305728
-Resource_YD
-['5377-13439025', u'5377-13305728']
+	5377-13305736
 -----------------------------------------------------
 Name: Resource_JB
 Number of tickets assigned: 2
 Tickets:
 	5377-13448828
-	5377-12239494
-Resource_JB
-['5377-13448828', u'5377-12239494']
+	5377-12424152
 -----------------------------------------------------
 Name: Resource_NK
-Employee not available
+Number of tickets assigned: 3
+Tickets:
+	5377-13126338
+	5377-13340644
+	5377-12389221
 -----------------------------------------------------
 Name: Resource_SS
 Number of tickets assigned: 2
 Tickets:
 	5377-13366202
-	5377-13301691
-Resource_SS
-['5377-13366202', u'5377-13301691']
+	5377-13305722
 -----------------------------------------------------
 Name: Resource_SR
 Number of tickets assigned: 3
 Tickets:
-	5377-13126338
-	5377-13048396
-	5377-13339098
-Resource_SR
-[u'5377-13126338', u'5377-13048396', u'5377-13339098']
+	5377-13095530
+	5377-13340424
+	5377-12389282
 -----------------------------------------------------
 Name: Resource_AR
 Number of tickets assigned: 2
 Tickets:
 	5377-13341186
 	5377-13284729
-Resource_AR
-[u'5377-13341186', u'5377-13284729']
 -----------------------------------------------------
 Name: Resource_AK
 Number of tickets assigned: 2
 Tickets:
 	5377-13341325
-	5377-13265067
-Resource_AK
-[u'5377-13341325', u'5377-13265067']
+	5377-13301656
 -----------------------------------------------------
 Name: Resource_AJ
 Number of tickets assigned: 2
 Tickets:
 	5377-13341378
-	5377-13218805
-Resource_AJ
-[u'5377-13341378', u'5377-13218805']
+	5377-13265067
 -----------------------------------------------------
 Name: Resource_SRB
 Number of tickets assigned: 2
 Tickets:
 	5377-13331793
 	5377-13327560
-Resource_SRB
-[u'5377-13331793', u'5377-13327560']
 -----------------------------------------------------
 Name: Resource_SVK
 Number of tickets assigned: 4
@@ -1420,132 +1621,102 @@ Tickets:
 	5377-13340578
 	5377-12626199
 	5377-13255215
-Resource_SVK
-[u'5377-13311630', u'5377-13340578', u'5377-12626199', u'5377-13255215']
 -----------------------------------------------------
 Name: Resource_PRG
 Number of tickets assigned: 2
 Tickets:
 	5377-13334630
-	5377-13340640
-Resource_PRG
-[u'5377-13334630', u'5377-13340640']
+	5377-12097474
 -----------------------------------------------------
 Name: Resource_AD
 Number of tickets assigned: 2
 Tickets:
 	5377-13340736
-	5377-13301656
-Resource_AD
-[u'5377-13340736', u'5377-13301656']
+	5377-13301691
 -----------------------------------------------------
 Name: Resource_RC
 Number of tickets assigned: 3
 Tickets:
 	5377-13104307
 	5377-13338689
-	5377-13307765
-Resource_RC
-[u'5377-13104307', u'5377-13338689', u'5377-13307765']
+	5377-13330665
 -----------------------------------------------------
 Name: Resource_HBS
 Number of tickets assigned: 2
 Tickets:
 	5377-13340604
-	5377-13187779
-Resource_HBS
-[u'5377-13340604', u'5377-13187779']
+	5377-13218805
 -----------------------------------------------------
 Name: Resource_NP
-Number of tickets assigned: 5
+Number of tickets assigned: 3
 Tickets:
 	5377-13089649
-	5377-13095530
+	5377-13314146
 	5377-13337711
-	5377-12389221
-	5377-12389282
-Resource_NP
-[u'5377-13089649', u'5377-13095530', u'5377-13337711', u'5377-12389221', u'5377-12389282']
 -----------------------------------------------------
 Name: Resource_RKM
 Number of tickets assigned: 2
 Tickets:
 	5377-13333771
 	5377-13333342
-Resource_RKM
-[u'5377-13333771', u'5377-13333342']
 -----------------------------------------------------
 Name: Resource_RJ
 Number of tickets assigned: 2
 Tickets:
 	5377-13432859
 	5377-13446147
-Resource_RJ
-['5377-13432859', '5377-13446147']
 -----------------------------------------------------
 Name: Resource_RMK
-Number of tickets assigned: 3
+Number of tickets assigned: 2
 Tickets:
 	5377-13298405
 	5377-13333611
-	5377-13330665
-Resource_RMK
-[u'5377-13298405', u'5377-13333611', u'5377-13330665']
 -----------------------------------------------------
 Name: Resource_JKL
 Number of tickets assigned: 2
 Tickets:
 	5377-13339045
-	5377-12424152
-Resource_JKL
-[u'5377-13339045', u'5377-12424152']
+	5377-13187779
 -----------------------------------------------------
 Name: Resource_SP
 Number of tickets assigned: 2
 Tickets:
 	5377-13446476
-	5377-13340424
-Resource_SP
-['5377-13446476', u'5377-13340424']
+	5377-13340640
 -----------------------------------------------------
 Name: Resource_VM
 Number of tickets assigned: 2
 Tickets:
 	5377-12776937
-	5377-13305722
-Resource_VM
-['5377-12776937', u'5377-13305722']
+	5377-13305728
 -----------------------------------------------------
 Name: Resource_YM
 Number of tickets assigned: 5
 Tickets:
 	5377-13447919
-	5377-13314146
-	5377-13340644
+	5377-13317510
+	5377-13339768
 	5377-13265301
 	5377-13323436
-Resource_YM
-['5377-13447919', u'5377-13314146', u'5377-13340644', u'5377-13265301', u'5377-13323436']
 -----------------------------------------------------
 Name: Resource_KS
 Number of tickets assigned: 2
 Tickets:
 	5377-13332718
-	5377-13327493
-Resource_KS
-[u'5377-13332718', u'5377-13327493']
+	5377-12097487
 Unassigned Tickets
 []
 -----------------System Status-------------------
 Total tickets: 77
 Tickets assigned: 77
-Total employees: 34
-Employees available: 32
+Total employees: 35
+Employees available: 33
 % assigned: 100.0%
 Creating Reports
 Triage Summary report saved
 Allocation Recommendation report saved
 Employee Status report saved
-Execution Time:  19.7582669258  seconds
-Cleaning up database...
-*** Execution Complete ***
+High Iterations report saved
+Creating xlsx report
+xls report created
+Execution Time:  20.241904974  seconds

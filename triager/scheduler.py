@@ -150,6 +150,17 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		"backlog": False
 	}
 
+	high_iteration_report = {}
+
+	high_iteration_ticket = {
+		"customer": "",
+		"severity": "",
+		"category": "",
+		"assigned_to": "",
+		"additional_info_1": "",
+		"additional_info_2": ""
+	}
+
 	backlog_assigned_tickets = []
 	all_ticket_report = {}
 
@@ -526,7 +537,8 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 	for tindex,row in ttemp_df.iterrows():
 
-		coutput.cprint("\n--------------------\nAssigning "+t_no, 'status_update', mode=output_mode)
+		assigned_to_employee = ""
+		coutput.cprint("\n--------------------\nAssigning "+row['ticket_number'], 'status_update', mode=output_mode)
 
 		index+=1
 		progress_res['index']=index
@@ -610,6 +622,8 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 				if employee_status[employee]['total_availability'] > 0:
 					if debug:
 						coutput.cprint("assigned directly to "+employee, 'status_update', mode=output_mode)
+
+					assigned_to_employee = employee
 					triage_reco = row['triage_recommendation']
 					triage_reco += "Assigned directly to employee. "
 					row['triage_recommendation'] = triage_reco
@@ -654,6 +668,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 						row['triage_recommendation'] = triage_reco
 						if debug:
 							coutput.cprint("assigned from history to "+employee, 'status_update', mode=output_mode)
+						assigned_to_employee = employee
 						row['backlog'] = False
 						employee_status[employee]['tickets'].append(row)
 						employee_status[employee]['usage']+=category_time_requirements[ticket_category]
@@ -723,6 +738,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 				triage_reco += "Assigned using default scheduler model. "
 				row['triage_recommendation'] = triage_reco
 				coutput.cprint("Assigned to employee "+minemployee, 'status_update', mode=output_mode)
+				assigned_to_employee = minemployee
 				assigned = True
 
 		completed_tickets.append(row['ticket_number'])
@@ -736,6 +752,34 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			employee_status['Unassigned']['tickets'].append(row)
 		else:
 			number_of_assigned += 1
+
+		text = row['additional_info_1'].replace('(','[')
+		text = text.replace(')',']')
+
+		pattern = re.compile(r'\[([^]]*)\]')
+
+		result = re.findall(pattern, text)
+
+		print result
+
+		high_iteration = False
+		for x in result:
+			test_val = float(x)
+			if row['category'] == 'S - PER - New Map' and test_val>5:
+				high_iteration = True
+				break
+			if row['category'] == 'S - Map Change' and test_val>3:
+				high_iteration = True
+				break
+
+		if high_iteration:
+			high_iteration_ticket['customer'] = row['account_name']
+			high_iteration_ticket['severity'] = row['severity']
+			high_iteration_ticket['category'] = row['category']
+			high_iteration_ticket['assigned_to'] = assigned_to_employee
+			high_iteration_ticket['additional_info_1'] = row['additional_info_1']
+			high_iteration_ticket['additional_info_2'] = row['additional_info_2']
+			high_iteration_report[row['ticket_number']] = copy.deepcopy(high_iteration_ticket)
 
 
 		ticket_report['severity'] = row['severity']
@@ -802,6 +846,10 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 	with open(os.path.join(os.path.dirname(__file__),'report/employee_status_report.json'), 'w') as fp:
 		json.dump(employee_status_report, fp)
 	coutput.cprint("Employee Status report saved", 'status_update', mode=output_mode)
+
+	with open(os.path.join(os.path.dirname(__file__),'report/high_iterations_report.json'), 'w') as fp:
+		json.dump(high_iteration_report, fp)
+	coutput.cprint("High Iterations report saved", 'status_update', mode=output_mode)
 
 	coutput.cprint("Creating xlsx report", 'status_update', mode=output_mode)
 	try:
