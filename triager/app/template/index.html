@@ -13,23 +13,25 @@
 	</head>
 	<body>
 		<meta id="file_list" data-name="{{file_list}}">
-		<div class="navbar-fixed">
+		<div class="navbar">
 			<nav class="blue darken-2">
 			    <div class="nav-wrapper">
-			      <a href="#" class="brand-logo">Smart Ticket Triager</a>
-			      <!-- <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a> -->
+			      <a href="#" class="brand-logo">Smart <span class="hide-on-med-and-down">Ticket </span>Triager</a> 
 			      <ul id="nav-mobile" class="right hide-on-med-and-down">
 			        <li class="active"><a href="/">Upload</a></li>
 			        <li><a href="/scheduler">Schedule <span id="scheduler_status_span"></span></a></li>
 			        <li><a href="/report">Report <span id="report_date_span"></span></a></li>
 			      </ul>
-			      <!-- <ul id="mobile-menu" class="side-nav">
-			        <li class="active"><a href="/">Upload</a></li>
-			        <li><a href="/scheduler">Schedule <span id="scheduler_status_span"></span></a></li>
-			        <li><a href="/report">Report <span id="report_date_span"></span></a></li>
-			      </ul>
-			    </div> -->
+
+			      <a data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+
+			    </div>
 			</nav>
+			<ul id="mobile-menu" class="side-nav">
+		        <li class="active"><a href="/">Upload</a></li>
+		        <li><a href="/scheduler">Schedule <span id="scheduler_status_span"></span></a></li>
+		        <li><a href="/report">Report <span id="report_date_span"></span></a></li>
+		    </ul>
 		</div>
 
 		<div class="row">
@@ -47,8 +49,8 @@
 		        </div>
 		      </div>
 		      <div class="row">
-		        <div class="file-field input-field col s6">
-			      <div class="form-button btn blue col s5">
+		        <div class="file-field input-field col l6 s12">
+			      <div class="form-button btn blue col s8 l5">
 			        <span>Ticket List</span>
 			        <input type="file" id="ticket_list" name="ticket_list" multiple>
 			      </div>
@@ -56,8 +58,8 @@
 			        <input class="file-path validate" type="text" placeholder="Upload the ticket list file in csv">
 			      </div>
 			    </div>
-		        <div class="file-field input-field col s6">
-			      <div class="form-button btn blue col s5">
+		        <div class="file-field input-field col l6 s12">
+			      <div class="form-button btn blue col s8 l5">
 			        <span>Skills Tracker</span>
 			        <input type="file" multiple name="skills_tracker">
 			      </div>
@@ -68,8 +70,8 @@
 		      </div>
 		      
 		      <div class="row">
-		        <div class="file-field input-field col s6">
-			      <div class="form-button btn blue col s5">
+		        <div class="file-field input-field col l6 s12">
+			      <div class="form-button btn blue col s8 l5">
 			        <span>Vacation Planner</span>
 			        <input type="file" multiple name="vacation_planner">
 			      </div>
@@ -77,8 +79,8 @@
 			        <input class="file-path validate" type="text" placeholder="Upload the vacation planner file in csv">
 			      </div>
 			    </div>
-			    <div class="file-field input-field col s6">
-			      <div class="form-button btn blue col s5">
+			    <div class="file-field input-field col l6 s12">
+			      <div class="form-button btn blue col s8 l5">
 			        <span>Backlog/Peding Cases</span>
 			        <input type="file" multiple name="backlog">
 			      </div>

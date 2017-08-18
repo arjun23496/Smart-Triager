@@ -16,15 +16,22 @@
 		<div class="navbar-fixed">
 			<nav class="blue darken-2">
 			    <div class="nav-wrapper">
-			      <a href="#" class="brand-logo">Smart Ticket Triager</a>
+			      <a href="#" class="brand-logo">Smart <span class="hide-on-med-and-down">Ticket </span>Triager</a>
 			      <ul id="nav-mobile" class="right hide-on-med-and-down">
 			        <li><a href="/">Upload</a></li>
 			        <li class="active"><a href="/scheduler">Schedule <span id="scheduler_status_span"></span></a></li>
 			        <li><a href="/report">Report <span id="report_date_span"></span></a></li>
 			      </ul>
+			      <a data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
 			    </div>
 			</nav>
 		</div>
+
+		<ul id="mobile-menu" class="side-nav">
+	        <li class="active"><a href="/">Upload</a></li>
+	        <li><a href="/scheduler">Schedule <span id="scheduler_status_span"></span></a></li>
+	        <li><a href="/report">Report <span id="report_date_span"></span></a></li>
+	    </ul>
 
 		<div class="container">
 			<div class="row">

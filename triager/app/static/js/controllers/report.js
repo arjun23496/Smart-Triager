@@ -116,6 +116,7 @@ function populate_allocation_table(employee_report, ticket_report){
 
 $(document).ready(function(){
 
+	startup()
 	get_scheduler_status()
 	listen_scheduler_status()
 

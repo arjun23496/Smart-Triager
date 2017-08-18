@@ -103,6 +103,7 @@ socket.on('disconnect', function() {
 
 $(document).ready(function(){
 
+	startup()
 	get_scheduler_status()
 	listen_scheduler_status()
 

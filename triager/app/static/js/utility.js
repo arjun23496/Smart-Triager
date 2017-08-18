@@ -1,3 +1,8 @@
+function startup()
+{
+	$(".button-collapse").sideNav();
+}
+
 function sanitize_json(x)
 {
 	x = x.replace(/False/g,'false')

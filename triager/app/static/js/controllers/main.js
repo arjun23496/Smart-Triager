@@ -77,10 +77,9 @@ $('form#upload_documents').submit(function(){
 
 $(document).ready(function(){
 	
+	startup()
 	get_scheduler_status()
 	listen_scheduler_status()
-
-	$(".button-collapse").sideNav();
 	
 	$('.datepicker').pickadate({
 	    selectMonths: true, // Creates a dropdown to control month
