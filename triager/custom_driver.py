@@ -3,6 +3,7 @@ from preprocessor import Tickets
 from utility.CouchInterface import CouchInterface
 from utility.custom_output import CustomOutput
 from sklearn.externals import joblib
+from report_generator import generate_xlsx_reports
 
 import category_learner
 import severity_learner
@@ -79,17 +80,15 @@ date_now = {
 
 start_time = time.time()
 
-# try:
 scheduler.execute(date_now, output_mode=1)
-# except Exception as e:
-	# print "Scheduling Terminated"
-	# print e
 
 elapsed = time.time() - start_time
 
 print "Execution Time: ",elapsed," seconds"
 
-print "Cleaning up database..."
-# couch_handle.cleanup('triager_tickets')
+# print "Cleaning up database..."
+# # couch_handle.cleanup('triager_tickets')
 
-print "*** Execution Complete ***"
+# print "*** Execution Complete ***"
+
+# generate_reports()

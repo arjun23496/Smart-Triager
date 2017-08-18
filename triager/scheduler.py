@@ -6,6 +6,7 @@ from utility.custom_output import cprint
 from mappings.Ticket import csv_mapping
 from openpyxl import load_workbook
 from datetime import date, timedelta
+from report_generator import generate_xlsx_reports
 
 import transformations
 
@@ -801,6 +802,14 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 	with open(os.path.join(os.path.dirname(__file__),'report/employee_status_report.json'), 'w') as fp:
 		json.dump(employee_status_report, fp)
 	coutput.cprint("Employee Status report saved", 'status_update', mode=output_mode)
+
+	coutput.cprint("Creating xlsx report", 'status_update', mode=output_mode)
+	try:
+		generate_xlsx_reports()
+		coutput.cprint("xls report created", 'status_update', mode=output_mode)
+	except Exception:
+		coutput.cprint(''.join(traceback.format_exc()), 'error', mode=output_mode)
+		coutput.cprint("Unable to create xls report", 'error', mode=output_mode)
 	
 	# print employee_status['Resource_AB']
 	# print employee_status['Resource_DK']

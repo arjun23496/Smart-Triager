@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask import render_template
 from flask_socketio import SocketIO, emit, disconnect
 import numpy
@@ -89,9 +89,22 @@ def reporter():
 
 	return render_template("report.html", triager_report=triager_report, ticket_report=ticket_report, employee_report=employee_report)
 
+
+@app.route("/get_excel_report", methods=["GET"])
+def get_excel_file():
+	path = os.path.join(os.path.dirname(__file__),'report/report.xlsx')
+	
+	if os.path.isfile(path):
+		with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
+			date = json.load(fp)
+			date = date['date']
+		return send_file(path, as_attachment=True, attachment_filename="Triager_Report - "+date+".xlsx")
+	else:
+		return "Report not found"
 """
 REST APIS
 """
+
 @app.route("/get_scheduler_status", methods=["POST"])
 def get_scheduler_status():
 	scheduler_status = ''
