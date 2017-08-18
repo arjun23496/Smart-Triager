@@ -1,12 +1,10 @@
 function sanitize_json(x)
 {
-	console.log(x)
 	x = x.replace(/False/g,'false')
 	x = x.replace(/True/g,'true')
 	x = x.replace(/u'/g,'"')
 	x = x.replace(/'/g,'"')
-	
-	console.log(x)
+
 	x = JSON.parse(x)
 
 	return x	
@@ -49,7 +47,7 @@ function listen_scheduler_status(){
 	});
 
 	socket.on('scheduler_running_status', function(data){
-		console.log(data)
+		// console.log(data)
 		$('#scheduler_status_span').html("["+data['status']+"]")
 		if(data['date']!="" && data['date']!=undefined)
 		{

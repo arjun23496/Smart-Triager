@@ -24,10 +24,12 @@ function populate_allocation_table(employee_report, ticket_report){
 	var tbody = $('#allocation_table_body')
 	for(employee in employee_report)
 	{
+		if(employee == "Unassigned")
+			continue
+
 		thtml = ""
 		if(employee_report[employee]['tickets'].length > 0)
 		{
-			console.log(employee_report[employee]['tickets'])
 			ticket_list = employee_report[employee]['tickets'].split(';')
 			
 			thtml = "<tr><td rowspan="+ticket_list.length+"\>"+employee+"</td>"
@@ -38,7 +40,6 @@ function populate_allocation_table(employee_report, ticket_report){
 				x=ticket_list[ticket]
 				if(i!=0)
 					thtml+="<tr>"
-				console.log(ticket_report[x]['backlog'])
 				if(ticket_report[x]['backlog'])
 				{
 					thtml+="<td class='backlog-row'>"+x+"</td>"
@@ -68,6 +69,48 @@ function populate_allocation_table(employee_report, ticket_report){
 
 		tbody.append(thtml);
 	}
+
+	if(employee_report["Unassigned"]['tickets'].length > 0)
+	{
+		ticket_list = employee_report["Unassigned"]['tickets'].split(';')
+
+		thtml += "<tr><td rowspan="+ticket_list.length+"\>Unassigned</td>"
+
+		var i=0;
+		var x;
+		for(ticket in ticket_list)
+		{
+			x=ticket_list[ticket]
+			if(i!=0)
+				thtml+="<tr>"
+			if(ticket_report[x]['backlog'])
+			{
+				thtml+="<td class='backlog-row'>"+x+"</td>"
+				thtml+="<td class='backlog-row'>"+ticket_report[x]['customer']+"</td>"
+				thtml+="<td class='backlog-row'>"+ticket_report[x]['severity']+"</td>"
+				thtml+="<td class='backlog-row'>"+ticket_report[x]['category']+"</td>"
+				thtml+="<td class='backlog-row'>"+ticket_report[x]['status']+"</td>"
+				thtml+="<td class='backlog-row' style='text-align: left;'>"+ticket_report[x]['triage_recommendation']+"</td>"
+				thtml+="<td class='backlog-row'>"+ticket_report[x]['last_worked_by']+"</td>"
+				thtml+="</tr>"
+			}
+			else
+			{
+				thtml+="<td>"+x+"</td>"
+				thtml+="<td>"+ticket_report[x]['customer']+"</td>"
+				thtml+="<td>"+ticket_report[x]['severity']+"</td>"
+				thtml+="<td>"+ticket_report[x]['category']+"</td>"
+				thtml+="<td>"+ticket_report[x]['status']+"</td>"
+				thtml+="<td style='text-align: left;'>"+ticket_report[x]['triage_recommendation']+"</td>"
+				thtml+="<td>"+ticket_report[x]['last_worked_by']+"</td>"
+				thtml+="</tr>"	
+			}
+			i+=1;
+		}
+		thtml+='<tr class="summary_row"><td colspan=8>Total - '+ticket_list.length+' Tickets</td></tr>'
+
+		tbody.append(thtml);
+	}
 }
 
 
@@ -80,8 +123,6 @@ $(document).ready(function(){
 	ticket_report = $('#ticket-report').data()
 	employee_report = $('#employee-report').data()
 
-	console.log(triager_report)
-
 	if(triager_report=="{}" || ticket_report=="{}" || employee_report=="{}")
 	{
 		Materialize.toast("No Reports Found","8000")
@@ -92,9 +133,9 @@ $(document).ready(function(){
 		ticket_report = sanitize_json(ticket_report['name'])
 		employee_report = sanitize_json(employee_report['name'])
 
-		console.log(triager_report)
-		console.log(ticket_report)
-		console.log(employee_report)
+		// console.log(triager_report)
+		// console.log(ticket_report)
+		// console.log(employee_report)
 
 		populate_triage_report(triager_report)
 		$('#triage_summary_table').show()

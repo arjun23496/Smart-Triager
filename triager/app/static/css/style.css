@@ -11,12 +11,17 @@ a.collection-item{
 	color: #2196F3 !important;
 }
 
+td,th{
+	cursor: default;
+}
+
 .report-table thead{
 	background-color: #BBDEFB;
 }
 
 .summary_row td{
 	background-color: #ffff00;
+	padding: 5;
 }
 
 .report-table th{
@@ -33,6 +38,7 @@ a.collection-item{
 	border-top: 1px solid #BDBDBD;
 	border-bottom: 1px solid #BDBDBD;
 	text-align: center;
+	padding: 5;
 }
 
 .report-table{
