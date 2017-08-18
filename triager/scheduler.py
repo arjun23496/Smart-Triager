@@ -771,15 +771,11 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			coutput.cprint("\t"+y['ticket_number'], 'status_update', mode=output_mode)
 			ticket_list.append(y['ticket_number'])
 
-		print x
-		print ticket_list
 		employee_status_report[x]['tickets'] = ';'.join(ticket_list)
 
 	for x in employee_status:
 		if employee_status[x]['total_availability'] > 0:
 			available_employees+=1
-
-	print employee_status_report
 
 	coutput.cprint("Unassigned Tickets", 'status_update', mode=output_mode)
 	coutput.cprint(str(unassigned_tickets), 'status_update', mode=output_mode)
