@@ -15,6 +15,9 @@ function populate_triage_report(triager_report)
 	$('#n_backlog_sev3').text(triager_report['backlog_report']['Sev 3'])
 	$('#n_backlog_sev4').text(triager_report['backlog_report']['Sev 4'])
 	$('#n_members').text(triager_report['available_members'])
+	$('#n_b2b').text(triager_report['new_map_report']['b2b'])
+	$('#n_b2bi').text(triager_report['new_map_report']['b2bi'])
+	$('#n_allocated').text(triager_report['total_allocated'])
 }
 
 function populate_allocation_table(employee_report, ticket_report){
@@ -26,6 +29,7 @@ function populate_allocation_table(employee_report, ticket_report){
 		{
 			console.log(employee_report[employee]['tickets'])
 			ticket_list = employee_report[employee]['tickets'].split(';')
+			
 			thtml = "<tr><td rowspan="+ticket_list.length+"\>"+employee+"</td>"
 
 			var i=0;

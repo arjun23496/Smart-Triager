@@ -80,6 +80,8 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		'S - PER - Map Change': 6		#4-6
 	}
 
+	b2bi_services = [ 'B2B Services (Hosted Translations)' ]
+
 	not_available_legend = ['N','V','E','O','S','C']
 	half_day_legend = ['H','C']
 
@@ -127,7 +129,11 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		"number_new_maps": 0,
 		"backlog_report": {},
 		"category_report": {},
-		"total_allocated": 0
+		"total_allocated": 0,
+		"new_map_report": {
+			"b2b": 0,
+			"b2bi": 0
+		}
 	}
 
 	triage_summary_report['date'] = date_now['date']+'/'+date_now['month']+'/'+date_now['year']
@@ -288,6 +294,13 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 				employee_status[row[' [o] = Owner']]['usage'] = 0
 
 		coutput.cprint("	Vacation Plan Read - Complete ", 'status_update', mode=output_mode)
+		
+		#For unassigned cases
+		employee_status['Unassigned'] = {}
+		employee_status['Unassigned']['tickets'] = []
+		employee_status['Unassigned']['total_availability'] = -1
+		employee_status['Unassigned']['usage'] = -1
+		
 	else:
 		coutput.cprint("*Vacation Plan not found", 'error', mode=output_mode)
 		status = False
@@ -316,6 +329,8 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			csr_person = csr_person.group(1)
 			print csr_person
 			print row['ticket_number']
+
+			ticket_report['triage_recommendation'] = ""
 
 			try:
 				employee_status[csr_person]
@@ -525,6 +540,12 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			category_report['Research']+=1
 		elif row['category'] == 'S - PER - New Map':
 			category_report['New Map']+=1
+			triage_summary_report['number_new_maps']+=1
+
+			if row['service_offering'] in b2bi_services:
+				triage_summary_report['new_map_report']['b2bi'] += 1
+			else:
+				triage_summary_report['new_map_report']['b2b'] += 1
 		elif row['category'] == 'S - PER - Map Change':
 			category_report['PER Map Change']+=1
 
@@ -692,6 +713,8 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			if local_availability ==0:
 				if debug:
 					coutput.cprint("No employee available to assign...", 'status_update', mode=output_mode)
+				triage_reco += "No employee available to assign. "
+				row['triage_recommendation'] = triage_reco
 			else:
 				row['backlog'] = False
 				employee_status[minemployee]['tickets'].append(row)
@@ -709,6 +732,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			if debug:
 				coutput.cprint("Unable to assign ticket", 'status_update', mode=output_mode)
 			unassigned_tickets.append(row['ticket_number'])
+			employee_status['Unassigned']['tickets'].append(row)
 		else:
 			number_of_assigned += 1
 
@@ -739,21 +763,23 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			utilization = 100.0*employee_status[x]['usage']/employee_status[x]['total_availability']
 			# print "Availability: ",employee_status[x]['total_availability']
 			# print "Usage: ",employee_status[x]['usage']
-			coutput.cprint("Number of tickets assigned: "+str(len(employee_status[x]['tickets'])), 'status_update', mode=output_mode)
-			# print "Utilization: ",utilization,"%"
-			coutput.cprint("Tickets:", 'status_update', mode=output_mode)
-			ticket_list = []
-			for y in employee_status[x]['tickets']:
-				coutput.cprint("\t"+y['ticket_number'], 'status_update', mode=output_mode)
-				ticket_list.append(y['ticket_number'])
+		coutput.cprint("Number of tickets assigned: "+str(len(employee_status[x]['tickets'])), 'status_update', mode=output_mode)
+		# print "Utilization: ",utilization,"%"
+		coutput.cprint("Tickets:", 'status_update', mode=output_mode)
+		ticket_list = []
+		for y in employee_status[x]['tickets']:
+			coutput.cprint("\t"+y['ticket_number'], 'status_update', mode=output_mode)
+			ticket_list.append(y['ticket_number'])
 
-			print x
-			print ticket_list
-			employee_status_report[x]['tickets'] = ';'.join(ticket_list)
+		print x
+		print ticket_list
+		employee_status_report[x]['tickets'] = ';'.join(ticket_list)
 
 	for x in employee_status:
 		if employee_status[x]['total_availability'] > 0:
 			available_employees+=1
+
+	print employee_status_report
 
 	coutput.cprint("Unassigned Tickets", 'status_update', mode=output_mode)
 	coutput.cprint(str(unassigned_tickets), 'status_update', mode=output_mode)
@@ -767,7 +793,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 	coutput.cprint("Creating Reports", 'status_update', mode=output_mode)	
 	triage_summary_report['available_members'] = available_employees
-	triage_summary_report['total_allocated'] = number_of_assigned
+	triage_summary_report['total_allocated'] = total_tickets
 	with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'w') as fp:
 		json.dump(triage_summary_report, fp)
 	coutput.cprint("Triage Summary report saved", 'status_update', mode=output_mode)
