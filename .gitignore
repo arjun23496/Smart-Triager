@@ -92,6 +92,9 @@ ENV/
 # database test files
 triager/data
 
+#report files
+triager/report
+
 #watson data
 retrieved_data/
 
