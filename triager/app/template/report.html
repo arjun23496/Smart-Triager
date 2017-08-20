@@ -44,6 +44,7 @@
 				<meta id="triager-report" data-name="{{triager_report}}">
 				<meta id="ticket-report" data-name="{{ticket_report}}">
 				<meta id="employee-report" data-name="{{employee_report}}">
+				<meta id="high-iterations-report" data-name="{{high_iterations_report}}">
 				
 				<!-- <div class="row">
 					<a href="/get_excel_report" class="form-button btn-large waves-effect waves-light blue col s1 right darken-2" id="start_scheduler">download excel report
@@ -114,6 +115,24 @@
 							<th>Last Worked By</th>
 						</thead>
 						<tbody id="allocation_table_body">
+						</tbody>
+					</table>
+				</div>
+		    	<div class="divider"></div>
+
+		    	<div class="section">
+					<h5>High Iterations</h5>
+					<table class="report-table highlight" id="iterations_table">
+						<thead>
+							<th>Ticket Number</th>
+							<th>Customer</th>
+							<th>Severity</th>
+							<th>Category</th>
+							<th>Assigned To</th>
+							<th>Additional Info 1</th>
+							<th>Additional Info 2</th>
+						</thead>
+						<tbody id="iterations_table_body">
 						</tbody>
 					</table>
 				</div>

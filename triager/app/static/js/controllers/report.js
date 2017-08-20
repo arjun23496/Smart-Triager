@@ -20,6 +20,26 @@ function populate_triage_report(triager_report)
 	$('#n_allocated').text(triager_report['total_allocated'])
 }
 
+
+function populate_high_iterations_report(report)
+{
+	thtml = ""
+	for(ticket in report)
+	{
+		thtml+="<tr>"
+		thtml+="<td>"+ticket+"</td>"
+		thtml+="<td>"+report[ticket]['customer']+"</td>"
+		thtml+="<td>"+report[ticket]['severity']+"</td>"
+		thtml+="<td>"+report[ticket]['category']+"</td>"
+		thtml+="<td>"+report[ticket]['assigned_to']+"</td>"
+		thtml+="<td style='text-align: left'>"+report[ticket]['additional_info_1']+"</td>"
+		thtml+="<td style='text-align: left'>"+report[ticket]['additional_info_2']+"</td>"
+		thtml+="</tr>"
+	}
+	$('#iterations_table').append(thtml)
+}
+
+
 function populate_allocation_table(employee_report, ticket_report){
 	var tbody = $('#allocation_table_body')
 	for(employee in employee_report)
@@ -123,8 +143,9 @@ $(document).ready(function(){
 	triager_report = $('#triager-report').data()
 	ticket_report = $('#ticket-report').data()
 	employee_report = $('#employee-report').data()
+	high_iterations_report = $('#high-iterations-report').data()
 
-	if(triager_report=="{}" || ticket_report=="{}" || employee_report=="{}")
+	if(triager_report=="{}" || ticket_report=="{}" || employee_report=="{}" || !triager_report || !ticket_report || !employee_report)
 	{
 		Materialize.toast("No Reports Found","8000")
 	}
@@ -133,6 +154,7 @@ $(document).ready(function(){
 		triager_report = sanitize_json(triager_report["name"])
 		ticket_report = sanitize_json(ticket_report['name'])
 		employee_report = sanitize_json(employee_report['name'])
+		high_iterations_report = sanitize_json(high_iterations_report['name'])
 
 		// console.log(triager_report)
 		// console.log(ticket_report)
@@ -142,7 +164,10 @@ $(document).ready(function(){
 		$('#triage_summary_table').show()
 
 		populate_allocation_table(employee_report, ticket_report)
-		$('#allocation_table').show()	
+		$('#allocation_table').show()
+
+		populate_high_iterations_report(high_iterations_report)
+		$('#iterations_table').show()
 	}
 	
 	$('#main-progress').hide()

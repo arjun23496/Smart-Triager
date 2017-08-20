@@ -72,6 +72,7 @@ def reporter():
 	triager_report = {}
 	ticket_report = {}
 	employee_report = {}
+	high_iterations_report = {}
 	
 	try:
 		with open(os.path.join(os.path.dirname(__file__),'report/triager_summary_report.json'), 'rb') as fp:
@@ -82,12 +83,15 @@ def reporter():
 
 		with open(os.path.join(os.path.dirname(__file__),'report/employee_status_report.json'), 'rb') as fp:
 			employee_report = json.load(fp)
+
+		with open(os.path.join(os.path.dirname(__file__),'report/high_iterations_report.json'), 'rb') as fp:
+			high_iterations_report = json.load(fp)
 	except IOError:
 		pass
 
 	print triager_report
 
-	return render_template("report.html", triager_report=triager_report, ticket_report=ticket_report, employee_report=employee_report)
+	return render_template("report.html", triager_report=triager_report, ticket_report=ticket_report, employee_report=employee_report, high_iterations_report=high_iterations_report)
 
 
 @app.route("/get_excel_report", methods=["GET"])

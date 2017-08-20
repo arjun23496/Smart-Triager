@@ -32,11 +32,89 @@ def generate_xlsx_reports():
 	report_ws = wb.active
 	report_ws.title = "Triage Summary"
 	report_ws = wb.create_sheet("Allocation Recommendation")
+	report_ws = wb.create_sheet("High Iterations")
 
 	generate_triage_summary_report(wb)
 	generate_allocation_report(wb)
+	generate_high_iterations_report(wb)
 
 	wb.save(os.path.join(os.path.dirname(__file__),'report/report.xlsx'))
+
+
+def generate_high_iterations_report(wb):
+	report = {}
+	
+	with open(os.path.join(os.path.dirname(__file__),'report/high_iterations_report.json'), 'rb') as fp:
+		report = json.load(fp)
+	
+	report_ws = wb['High Iterations']
+	
+	#Format header
+	report_ws.row_dimensions[1].height = 20
+
+	#Format header
+	report_ws.column_dimensions['A'].width = 16
+	report_ws.column_dimensions['B'].width = 16
+	report_ws.column_dimensions['C'].width = 16
+	report_ws.column_dimensions['D'].width = 16
+	report_ws.column_dimensions['E'].width = 16
+	report_ws.column_dimensions['F'].width = 85
+	report_ws.column_dimensions['G'].width = 30
+
+	thin = Side(border_style="thin", color="000000")
+
+	#Styles
+	style = {
+		"alignment": None,
+		"fill": None,
+		"font": None,
+		"border": None
+	}
+
+	header_style = copy.deepcopy(style)
+	header_style['alignment'] = Alignment(horizontal='center', vertical="center", wrap_text=True)
+	header_style['fill'] = PatternFill("solid", fgColor="BBDEFB")
+	header_style['font'] = Font(bold=True)
+	header_style['border'] = Border(top=thin, bottom=thin, left=thin, right=thin)
+
+	content_style = copy.deepcopy(style)
+	header_style['alignment'] = Alignment(horizontal='center', vertical="center", wrap_text=True)
+
+	header_row = [ 
+					'Ticket_Number',
+					'Customer',
+					'Severity',
+					'Category',
+					'Assigned To',
+					'Additional Info 1',
+					'Additional Info 2'
+				]
+	add_row(report_ws, 1, header_row, style=header_style)
+
+	row_index = 2
+	for ticket in report:
+
+		if len(report[ticket]['additional_info_1']) > 80:
+					report_ws.row_dimensions[row_index].height = 40
+
+		row = [
+			ticket,
+			report[ticket]['customer'],
+			report[ticket]['severity'],
+			report[ticket]['category'],
+			report[ticket]['assigned_to']
+		]
+
+		add_row(report_ws, row_index, row, style=content_style)
+
+		content_style['alignment'] = Alignment(horizontal='left', vertical="center", wrap_text=True)
+		row = [
+			report[ticket]['additional_info_1'],
+			report[ticket]['additional_info_2']
+		]
+
+		add_row(report_ws, row_index, row, style=content_style, start_index=5)
+		row_index+=1
 
 
 def generate_allocation_report(wb):
