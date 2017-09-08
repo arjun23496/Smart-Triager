@@ -517,44 +517,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 	pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
 	# for index,row in df_nr.iterrows():
 
-	#Sorting according to severity
-
 	ttemp_df = normalize_dataset(df_nr, all_ticket_no, ticket_dtime_format).copy()
-
-	# ttemp_df = pd.DataFrame([], columns=df_nr.columns)
-
-	# for t_no in all_ticket_no:
-
-	# 	df_temp_new = df_nr[df_nr['ticket_number'] == t_no]
-
-	# 	row = {}
-	# 	maxdate = ""
-
-	# 	for tindex, trow in df_temp_new.iterrows():
-	# 		# print tindex
-	# 		if tindex == 0 or maxdate == "":
-	# 			maxdate = datetime.datetime.strptime(trow['action_date'], ticket_dtime_format)
-	# 			row = trow
-	# 		else:
-	# 			tdate = datetime.datetime.strptime(trow['action_date'], ticket_dtime_format)
-
-	# 			if maxdate < tdate:
-	# 				maxdate = tdate
-	# 				row = trow
-
-	# 	ttemp_df = ttemp_df.append(pd.DataFrame([row], columns=df_nr.columns))
-	# 	# print t_no
-
-	# print ttemp_df
-	# return
-
-	# ttemp_df = ttemp_df.sort_values('status_sort')
-
-	# sort_df = pd.DataFrame([], columns=df_nr.columns)
-
-	# sort_df = sort_df.append(ttemp_df)
-	# for x in level1_val:
-	# 	sort_df = sort_df.append(ttemp_df[ttemp_df[priority_setting[0]] == x].sort_values(priority_setting[1]))
 
 	scheduler_pointer = {}
 	unassigned_tickets = []
@@ -569,8 +532,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 	ttemp_df = ttemp_df[ttemp_df['status'] == "New"]
 
-	# print ttemp_df
-	# return
+	ttemp_df = ttemp_df.sort_values('status_sort')
 
 	for tindex,row in ttemp_df.iterrows():
 
