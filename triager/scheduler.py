@@ -40,6 +40,34 @@ def get_sla_timeline(start_date, end_date):
 	return week_days
 
 
+def normalize_dataset(df_nr, all_ticket_no, ticket_dtime_format, date_col='action_date'):
+
+	ttemp_df = pd.DataFrame([], columns=df_nr.columns)
+
+	for t_no in all_ticket_no:
+
+		df_temp_new = df_nr[df_nr['ticket_number'] == t_no]
+
+		row = {}
+		maxdate = ""
+
+		for tindex, trow in df_temp_new.iterrows():
+			# print tindex
+			if tindex == 0 or maxdate == "":
+				maxdate = datetime.datetime.strptime(trow[date_col], ticket_dtime_format)
+				row = trow
+			else:
+				tdate = datetime.datetime.strptime(trow[date_col], ticket_dtime_format)
+
+				if maxdate < tdate:
+					maxdate = tdate
+					row = trow
+
+		ttemp_df = ttemp_df.append(pd.DataFrame([row], columns=df_nr.columns))
+
+	return ttemp_df
+
+
 def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 	# TODO: Change in production
@@ -322,13 +350,19 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		blog_report = pd.read_csv(file_paths['backlog'], header=2)
 		
 		pattern = re.compile(r'.*\[S-MAP-IN\] (.*)')
-		
+		backlog_dtime_format = "%m/%d/%Y %H:%M"
+
 		xindex = 0
 		blog_columns = []
 		for x in blog_report.columns:
 			blog_columns.append(csv_mapping[x])
 			xindex+=1
 		blog_report.columns = blog_columns
+
+		blog_ticket_numbers = pd.unique(blog_report['ticket_number'])
+
+		blog_report = normalize_dataset(blog_report, blog_ticket_numbers, backlog_dtime_format, date_col='sla_start_date').copy()
+
 		for index,row in blog_report.iterrows():
 			if row.isnull()['assigned_to_csr']:
 				continue
@@ -339,8 +373,8 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 				continue
 
 			csr_person = csr_person.group(1)
-			print csr_person
-			print row['ticket_number']
+			# print csr_person
+			# print row['ticket_number']
 
 			ticket_report['triage_recommendation'] = ""
 
@@ -364,9 +398,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 			dict_obj['backlog'] = True
 			employee_status[csr_person]['tickets'].append(copy.deepcopy(dict_obj))
 
-			backlog_dtime_format = "%m/%d/%Y %H:%M"
-
-			backlog_dtime = datetime.datetime.strptime(row['date_last_modified'], backlog_dtime_format)
+			backlog_dtime = datetime.datetime.strptime(row['sla_start_date'], backlog_dtime_format)
 			days = get_sla_timeline(backlog_dtime, date_now)
 
 			sla = False
@@ -477,7 +509,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 	if debug:
 		coutput.cprint("Sort by priority complete", 'status_update', mode=output_mode)
 
-	all_ticket_no = pd.unique(df[df['status'] != 'Closed']['ticket_number'])
+	all_ticket_no = pd.unique(df[df['status'] == 'New']['ticket_number'])
 	# all_ticket_no = pd.unique(df['ticket_number'])
 	total_tickets = len(all_ticket_no)
 	number_of_assigned = 0
@@ -487,31 +519,36 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 	#Sorting according to severity
 
-	ttemp_df = pd.DataFrame([], columns=df_nr.columns)
+	ttemp_df = normalize_dataset(df_nr, all_ticket_no, ticket_dtime_format).copy()
 
-	for t_no in all_ticket_no:
+	# ttemp_df = pd.DataFrame([], columns=df_nr.columns)
 
-		df_temp_new = df_nr[df_nr['ticket_number'] == t_no]
+	# for t_no in all_ticket_no:
 
-		row = {}
-		maxdate = ""
+	# 	df_temp_new = df_nr[df_nr['ticket_number'] == t_no]
 
-		for tindex, trow in df_temp_new.iterrows():
-			# print tindex
-			if tindex == 0 or maxdate == "":
-				maxdate = datetime.datetime.strptime(trow['action_date'], ticket_dtime_format)
-				row = trow
-			else:
-				tdate = datetime.datetime.strptime(trow['action_date'], ticket_dtime_format)
+	# 	row = {}
+	# 	maxdate = ""
 
-				if maxdate < tdate:
-					maxdate = tdate
-					row = trow
+	# 	for tindex, trow in df_temp_new.iterrows():
+	# 		# print tindex
+	# 		if tindex == 0 or maxdate == "":
+	# 			maxdate = datetime.datetime.strptime(trow['action_date'], ticket_dtime_format)
+	# 			row = trow
+	# 		else:
+	# 			tdate = datetime.datetime.strptime(trow['action_date'], ticket_dtime_format)
 
-		ttemp_df = ttemp_df.append(pd.DataFrame([row], columns=df_nr.columns))
-		# print t_no
+	# 			if maxdate < tdate:
+	# 				maxdate = tdate
+	# 				row = trow
 
-	ttemp_df = ttemp_df.sort_values('status_sort')
+	# 	ttemp_df = ttemp_df.append(pd.DataFrame([row], columns=df_nr.columns))
+	# 	# print t_no
+
+	# print ttemp_df
+	# return
+
+	# ttemp_df = ttemp_df.sort_values('status_sort')
 
 	# sort_df = pd.DataFrame([], columns=df_nr.columns)
 
@@ -827,6 +864,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 	coutput.cprint("-----------------System Status-------------------", 'status_update', mode=output_mode)
 	coutput.cprint("Total tickets: "+str(total_tickets), 'status_update', mode=output_mode)
+	# coutput.cprint("Tickets available to triage: "+str(no_triage_tickets), 'status_update', mode=output_mode)
 	coutput.cprint("Tickets assigned: "+str(number_of_assigned), 'status_update', mode=output_mode)
 	coutput.cprint("Total employees: "+str(len(employee_status)), 'status_update', mode=output_mode)
 	coutput.cprint("Employees available: "+str(available_employees), 'status_update', mode=output_mode)
