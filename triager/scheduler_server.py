@@ -46,7 +46,7 @@ def persist_scheduler_status(coutput=None, date=""):
 
 	with open(os.path.join(os.path.dirname(__file__),'scheduler_status.json'), 'w') as fp:
 		json.dump(scheduler_status_sav, fp)
-
+		
 def execute():
 	global scheduler_status
 	coutput = CustomOutput(thread=True, socketio=socketio);
@@ -104,6 +104,7 @@ def execute():
 		coutput.cprint('scheduler_end','system_status',mode=2)
 		scheduler_status = False
 		persist_scheduler_status(coutput, date=date_now['date']+"/"+date_now['month']+'/'+date_now['year'])
+
 
 #Socket app endpoints
 @socketio.on('connect')

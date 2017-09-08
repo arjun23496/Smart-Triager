@@ -458,11 +458,6 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		coutput.cprint("Arranging according to priority", 'status_update', mode=output_mode)
 
 	# df_nr.sort_values(priority_setting[0])
-	
-	if priority_setting[0] == 'status':
-		level1_val = status_priority
-	else:
-		level1_val = ['Sev 1','Sev 2','Sev 3','Sev 4']
 
 	temp_df = pd.DataFrame([], columns=df_nr.columns)
 
@@ -518,13 +513,13 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 	ttemp_df = ttemp_df.sort_values('status_sort')
 
-	sort_df = pd.DataFrame([], columns=df_nr.columns)
+	# sort_df = pd.DataFrame([], columns=df_nr.columns)
 
-	for x in level1_val:
-		sort_df = sort_df.append(ttemp_df[ttemp_df[priority_setting[0]] == x].sort_values(priority_setting[1]))
+	# sort_df = sort_df.append(ttemp_df)
+	# for x in level1_val:
+	# 	sort_df = sort_df.append(ttemp_df[ttemp_df[priority_setting[0]] == x].sort_values(priority_setting[1]))
 
 	scheduler_pointer = {}
-
 	unassigned_tickets = []
 
 	index = 0
@@ -534,6 +529,11 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 		'index': 0,
 		'step': 1
 	}
+
+	ttemp_df = ttemp_df[ttemp_df['status'] == "New"]
+
+	# print ttemp_df
+	# return
 
 	for tindex,row in ttemp_df.iterrows():
 
