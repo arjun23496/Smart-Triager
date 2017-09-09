@@ -92,9 +92,15 @@ ENV/
 # database test files
 triager/data
 
+#report files
+triager/report
+
 #watson data
 retrieved_data/
 
 #predictors
 predictors/category/*.pkl
 predictors/severity/*.pkl
+
+#bower dependencies
+app/bower_components

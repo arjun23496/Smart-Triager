@@ -16,6 +16,8 @@
 
 # Initial Data Setup
 
+- Create a folder report in triager folder if it does not exist already.
+- Create a folder data in triager folder if it does not exist already.
 - All the required data files are to be stored in the folder triager/data
 - The data files should have the following names.
 	- ```Ticket_list.csv``` \- List of tickets
@@ -34,4 +36,10 @@
 - Go to the triager directory
 - Run the driver script ```python driver.py```
 
-**NOTE: The date is presently manually fed to the system. The date setting can be found in ```triager/driver.py``` line:54**
+#Running The Server
+
+- In the triager directory ```python server.py```
+- While the script is running in new tab run ```python scheduler_server.py```
+- In the browser navigate to ```localhost:5000```
+
+~~**NOTE: The date is presently manually fed to the system. The date setting can be found in ```triager/driver.py``` line:54**~~

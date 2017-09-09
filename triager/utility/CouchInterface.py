@@ -1,18 +1,23 @@
+from custom_output import cprint
+
 import couchdb
 import json
 import progressbar
-import sys  
+import sys
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
 
 class CouchInterface:
 
-	def __init__(self,address='http://admin:arjun23496@localhost:5984/'):
+	def __init__(self,address='http://admin:arjun23496@localhost:5984/', output_interface=None):
+		self.coutput = output_interface
+		print "self.coutput"
+		print self.coutput
 		try:
 			self.handle = couchdb.Server(address)
 		except Exception:
-			print "!!!!!! Connection to database Failed !!!!!!"
+			self.coutput.cprint("!!!!!! Connection to database Failed !!!!!!", "error", mode=2)
 
 	def create_database(self, dbname='triager_tickets'):
 		self.handle.create(dbname)
@@ -21,28 +26,33 @@ class CouchInterface:
 		try:
 			db = self.handle[dbname]
 		except Exception:
-			print "!!!!!! Database "+dbname+" not detected !!!!!!"
+			self.coutput.cprint("!!!!!! Database "+dbname+" not detected !!!!!!", "error", mode=2)
 
-		print "Uploading "+str(len(document))+" document(s).."
+		self.coutput.cprint("Uploading "+str(len(document))+" document(s)..", "status_update", mode=2)
 
 		bar = progressbar.ProgressBar(maxval=len(document), widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 		success = 0
 
+		progress_result={
+			'message': 'Upload Progress',
+			'max': len(document),
+			'index': 0,
+			'step': 10
+		}
+
 		bar.start()
 		for x in range(0,len(document)):
-			# doc = json.dumps(document[x])
-			# doc = json.loads(doc)
-
 			try:
-				# doc_id, doc_rev = db.save(doc)
 				document[x].store(db)
 				success=success+1
 			except Exception as detail:
-				print detail
-				print "document index "+str(x)+" failed"
+				self.coutput.cprint(str(detail), "error", mode=2)
+				self.coutput.cprint("document index "+str(x)+" failed", "error", mode=2)
 				return success
 
 			bar.update(x+1)
+			progress_result['index'] = x+1
+			self.coutput.cprint(progress_result, "status_progress", mode=3)
 		
 		bar.finish()
 

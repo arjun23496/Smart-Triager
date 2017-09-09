@@ -1,5 +1,7 @@
 from utility.MLStripper import MLStripper
 from utility.CouchInterface import CouchInterface 
+from utility.custom_output import cprint
+from utility.custom_output import CustomOutput
 from mappings.Ticket import Ticket
 from datetime import datetime
 
@@ -13,11 +15,15 @@ class Tickets:
 	    s.feed(html)
 	    return s.get_data()
 
-	def upload_tickets_csv(self, file_path="data/Ticket_list.csv", upload=True):
-		df = pd.read_csv(file_path)
-		# print df.describe()
-		# print df.columns
-		# print mapping.csv_mapping
+	def upload_tickets_csv(self, file_path="data/ticket_list.csv", upload=True, coutput=None, output_mode=2):
+		try:
+			df = pd.read_csv(file_path)
+		except IOError:
+			coutput.cprint("Ticket List not found", "error", mode=output_mode)
+			return False
+
+		omitted_fields = ["SLA Start Date", "Date Last Modified"]
+
 		document = []
 		template = []
 
@@ -25,12 +31,13 @@ class Tickets:
 			doc = {}
 			temp = Ticket()
 			for y in mapping.csv_mapping:
-				if x[1][y] == None or pd.isnull(x[1][y]):
-					doc[mapping.csv_mapping[y]] = ''
-					temp[mapping.csv_mapping[y]] = ''
-				else:
-					doc[mapping.csv_mapping[y]] = x[1][y]
-					temp[mapping.csv_mapping[y]] = x[1][y]
+				if y not in omitted_fields:
+					if x[1][y] == None or pd.isnull(x[1][y]):
+						doc[mapping.csv_mapping[y]] = ''
+						temp[mapping.csv_mapping[y]] = ''
+					else:
+						doc[mapping.csv_mapping[y]] = x[1][y]
+						temp[mapping.csv_mapping[y]] = x[1][y]
 
 			temp['action']
 			temp['comments'] = self.strip_tags(temp['comments'])
@@ -46,23 +53,23 @@ class Tickets:
 			doc['alert_comments'] = temp['alert_comments']
 			doc['comments'] = temp['comments']
 			doc['alert_comments'] = temp['alert_comments']
-			# print datetime.strptime(temp['action_date'])
+			doc['triage_recommendation'] = ""
 
 			document.append(temp)
 			template.append(doc)
 
 		if upload:
-			dbinter = CouchInterface()
+			dbinter = CouchInterface(output_interface=coutput)
 
-			print "Uploading "+str(len(document))+" tickets to database"
+			coutput.cprint("Uploading "+str(len(document))+" tickets to database", "status_update", mode=output_mode)
 			n_success = dbinter.add_documents(document)
 			n_failed = len(template)-n_success
-			print "Upload Complete"
-			print str(len(template))+" documents processed"
-			print str(n_success)+" document successfully uploaded"
-			print str(n_failed)+" documents failed!!"
+			coutput.cprint("Upload Complete", "status_update", mode=output_mode)
+			coutput.cprint(str(len(template))+"documents processed", "status_update", mode=output_mode)
+			coutput.cprint(str(n_success)+" document successfully uploaded", "status_update", mode=output_mode)
+			coutput.cprint(str(n_failed)+" documents failed!!", "status_update", mode=output_mode)
 
-		return document
+		return True
 
 	def upload_tickets_xlsx(self, file_path="data/Ticket_list.xlsx", worksheet="Tickets in Queue with History", upload=True):
 		from openpyxl import load_workbook

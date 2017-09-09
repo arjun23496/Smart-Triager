@@ -1,0 +1,78 @@
+<html>
+	<head>
+		<title>Daily Ticket Triager</title>
+		
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/materialize.min.css') }}"  media="screen,projection"/>
+		<!--Import style.css-->
+		<link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}"  media="screen,projection"/>
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+	</head>
+	<body>
+		<div class="navbar-fixed">
+			<nav class="blue darken-2">
+			    <div class="nav-wrapper">
+			      <a href="#" class="brand-logo"><span class="hide-on-med-and-down">Cognitive Triage Advisor</span><span class="hide-on-large-only">Triager</span></a>
+			      <ul id="nav-mobile" class="right hide-on-med-and-down">
+			        <li><a href="/">Upload</a></li>
+			        <li class="active"><a href="/scheduler">Schedule <span id="scheduler_status_span"></span></a></li>
+			        <li><a href="/report">Report <span id="report_date_span"></span></a></li>
+			      </ul>
+			      <a data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+			    </div>
+			</nav>
+		</div>
+
+		<ul id="mobile-menu" class="side-nav">
+	        <li><a href="/">Upload</a></li>
+	        <li class="active"><a href="/scheduler">Schedule <span id="scheduler_status_span"></span></a></li>
+	        <li><a href="/report">Report <span id="report_date_span"></span></a></li>
+	    </ul>
+
+		<div class="container">
+			<div class="row">
+				<h3 class="center">Scheduler</h3>
+			</div>
+			<div class="row">
+				<div class="form-button btn-large waves-effect waves-light blue darken-2 col s2 left disabled" id="start_scheduler">start scheduler
+					<i class="material-icons right">power_settings_new</i>
+				</div>
+				<a href="/report" class="form-button btn-large waves-effect waves-light blue darken-2 col s2 right disabled" id="continue">continue
+					<i class="material-icons right">send</i>
+				</a>
+			</div>
+			<div class="row">
+				<p class="text-primary-color">Status:</p>
+				<p class="primary-text-color" id="status-box">Initializing...</p>
+			</div>
+			<div class="row">
+				<div id="main-progress" class="custom-progress progress">
+					<div class="indeterminate blue darken-2"></div>
+				</div>
+	    	</div>
+	    	<div  id="determinate-progress-wrapper">
+	    	<div class="row">
+				<p class="primary-text-color" id="determinate-status-box">Initializing...</p>
+			</div>
+	    	<div class="row">
+				<div class="custom-progress progress">
+					<div id="determinate-progress" class="determinate blue darken-2"></div>
+				</div>
+	    	</div>
+	    	</div>
+	    	<div id="output-div" class="z-depth-2 output-box"></div>
+	    </div>
+
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static',filename='js/materialize.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static',filename='js/socket.io.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static',filename='js/utility.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static',filename='js/controllers/scheduler.js') }}"></script>
+
+	</body>
+</html>

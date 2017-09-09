@@ -21,6 +21,7 @@ class Ticket(Document):
 	alert_indicator = TextField()
 	alert_comments = TextField()
 	detail = TextField()
+	triage_recommendation = TextField()
 	assigned = BooleanField(default=False)
 
 csv_mapping = {
@@ -42,5 +43,7 @@ csv_mapping = {
     "Summary": "summary",
     "Additional Info 1": "additional_info_1",
     "Additional Info 2": "additional_info_2",
-    "Comments": "comments"
+    "Comments": "comments",
+    "SLA Start Date": "sla_start_date",
+    "Date Last Modified": "date_last_modified"
 }

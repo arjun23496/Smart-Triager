@@ -1,0 +1,109 @@
+.download-button-fab{
+	position: fixed;
+	margin-left: 88%;
+}
+
+.backlog-row{
+	color: red;
+}
+
+#report-div{
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+a.collection-item{
+	color: #2196F3 !important;
+}
+
+td,th{
+	cursor: default;
+}
+
+.report-table thead{
+	background-color: #BBDEFB;
+}
+
+.summary_row td{
+	background-color: #ffff00;
+	padding: 5;
+}
+
+.report-table th{
+	border-left: 1px solid #BDBDBD;
+	border-right: 1px solid #BDBDBD;
+	border-top: 1px solid #BDBDBD;
+	border-bottom: 1px solid #BDBDBD; 
+	background-color: #BBDEFB;
+	padding: 5;
+}
+
+.report-table td{
+	border-left: 1px solid #BDBDBD;
+	border-right: 1px solid #BDBDBD;
+	border-top: 1px solid #BDBDBD;
+	border-bottom: 1px solid #BDBDBD;
+	text-align: center;
+	padding: 5;
+}
+
+.report-table{
+	display: None
+}
+
+.output-box{
+	overflow-y:auto;
+	height:400px;
+}
+
+.blue-background{
+	background-color: #000080
+}
+
+.form-button{
+	min-width: 28%
+}
+
+.custom-progress{
+	background-color: #BBDEFB
+}
+
+.custom-determinate{
+	background-color: #1976D2
+}
+
+.custom-indeterminate{
+	background-color: #1976D2
+}
+
+.dark-primary-color{ 
+	background: #1976D2; 
+}
+
+.default-primary-color{ 
+	background: #2196F3; 
+}
+
+.light-primary-color{ 
+	background: #BBDEFB; 
+}
+
+.text-primary-color{ 
+	color: #FFFFFF; 
+}
+
+.accent-color{ 
+	background: #9E9E9E; 
+}
+
+.primary-text-color{ 
+	color: #212121; 
+}
+
+.secondary-text-color{
+	color: #757575;
+}
+
+.divider-color{ 
+	border-color: #BDBDBD; 
+}

@@ -1,0 +1,152 @@
+<html>
+	<head>
+		<title>Daily Ticket Triager</title>
+		
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/materialize.min.css') }}"  media="screen,projection"/>
+		<!--Import style.css-->
+		<link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}"  media="screen,projection"/>
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+	</head>
+	<body>
+		<div class="navbar-fixed">
+			<nav class="blue darken-2">
+			    <div class="nav-wrapper">
+			      <a href="#" class="brand-logo"><span class="hide-on-med-and-down">Cognitive Triage Advisor</span><span class="hide-on-large-only">Triager</span></a>
+			      <ul id="nav-mobile" class="right hide-on-med-and-down">
+			        <li><a href="/">Upload</a></li>
+			        <li><a href="/scheduler">Schedule <span id="scheduler_status_span"></span></a></li>
+			        <li class="active"><a href="/report">Report <span id="report_date_span"></span></a></li>
+			      </ul>
+			      <a data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+			    </div>
+			</nav>
+		</div>
+
+		<ul id="mobile-menu" class="side-nav">
+	        <li><a href="/">Upload</a></li>
+	        <li><a href="/scheduler">Schedule <span id="scheduler_status_span"></span></a></li>
+	        <li class="active"><a href="/report">Report <span id="report_date_span"></span></a></li>
+	    </ul>
+
+		<div class="row">
+			<div style="visibility: hidden;" class="col s12">a</div>
+			<div id="main-progress" class="custom-progress progress">
+				<div class="indeterminate blue darken-2"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div id="report-div">
+				<meta id="triager-report" data-name="{{triager_report}}">
+				<meta id="ticket-report" data-name="{{ticket_report}}">
+				<meta id="employee-report" data-name="{{employee_report}}">
+				<meta id="high-iterations-report" data-name="{{high_iterations_report}}">
+				
+				<!-- <div class="row">
+					<a href="/get_excel_report" class="form-button btn-large waves-effect waves-light blue col s1 right darken-2" id="start_scheduler">download excel report
+						<i class="material-icons right">save</i>
+					</a>
+				</div> -->
+				<a href= "/get_excel_report" class="download-button-fab btn-floating btn-large waves-effect waves-light blue darken-2 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Download Excel Report file"><i class="material-icons">file_download</i></a>
+				<div class="row">
+					<h3 class="center">Report</h3>
+				</div>
+				<div class="section">
+					<h5>Triage Summary</h5>
+					<table class="report-table highlight" id="triage_summary_table">
+						<thead>
+							<tr>
+								<th class="center" rowspan="2">Triage Summary Date</th>
+								<th class="center hide-on-med-and-down" colspan="4"># of Cases Triaged/Allocated = <span id="n_allocated"></span></th>
+								<th class="center" rowspan="2"># of priority deliverables</th>
+								<th class="center hide-on-med-and-down" colspan="4">Undelivered Work from Previous Days(Backlog)</th>
+								<th class="center" rowspan="2"># of members available</th>
+								<th class="center hide-on-med-and-down" colspan="2"># of New Maps</th>
+							</tr>
+							<tr>
+								<th class="center">New Map</th>
+								<th class="center">PER Map Change</th>
+								<th class="center">Change</th>
+								<th class="center">Research</th>
+								<th class="center">Sev1</th>
+								<th class="center">Sev2</th>
+								<th class="center">Sev3</th>
+								<th class="center">Sev4</th>
+								<th class="center">B2B</th>
+								<th class="center">B2Bi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="report_date"></td>
+								<td id="n_new_map"></td>
+								<td id="n_map_change"></td>
+								<td id="n_change"></td>
+								<td id="n_research"></td>
+								<td id="n_priority"></td>
+								<td id="n_backlog_sev1"></td>
+								<td id="n_backlog_sev2"></td>
+								<td id="n_backlog_sev3"></td>
+								<td id="n_backlog_sev4"></td>
+								<td id="n_members"></td>
+								<td id="n_b2b"></td>
+								<td id="n_b2bi"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="divider"></div>
+				
+				<div class="section">
+					<h5>Allocation Recommendation</h5>
+					<table class="report-table highlight" id="allocation_table">
+						<thead>
+							<th>Resource Name</th>
+							<th>Ticket Number</th>
+							<th>Customer</th>
+							<th>Severity</th>
+							<th>Category</th>
+							<th>Old Category</th>
+							<th>Status</th>
+							<th>Triage Recommendation</th>
+							<th>Last Worked By</th>
+						</thead>
+						<tbody id="allocation_table_body">
+						</tbody>
+					</table>
+				</div>
+		    	<div class="divider"></div>
+
+		    	<div class="section">
+					<h5>High Iterations</h5>
+					<table class="report-table highlight" id="iterations_table">
+						<thead>
+							<th>Ticket Number</th>
+							<th>Customer</th>
+							<th>Severity</th>
+							<th>Category</th>
+							<th>Assigned To</th>
+							<th>Additional Info 1</th>
+							<th>Additional Info 2</th>
+						</thead>
+						<tbody id="iterations_table_body">
+						</tbody>
+					</table>
+				</div>
+		    	<div class="divider"></div>
+		    </div>
+		</div>
+
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static',filename='js/materialize.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static',filename='js/socket.io.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static',filename='js/utility.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static',filename='js/controllers/report.js') }}"></script>
+
+	</body>
+</html>
