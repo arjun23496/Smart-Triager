@@ -66,6 +66,7 @@ function populate_allocation_table(employee_report, ticket_report){
 					thtml+="<td class='backlog-row'>"+ticket_report[x]['customer']+"</td>"
 					thtml+="<td class='backlog-row'>"+ticket_report[x]['severity']+"</td>"
 					thtml+="<td class='backlog-row'>"+ticket_report[x]['category']+"</td>"
+					thtml+="<td class='backlog-row'>"+ticket_report[x]['old_category']+"</td>"
 					thtml+="<td class='backlog-row'>"+ticket_report[x]['status']+"</td>"
 					thtml+="<td class='backlog-row' style='text-align: left;'>"+ticket_report[x]['triage_recommendation']+"</td>"
 					thtml+="<td class='backlog-row'>"+ticket_report[x]['last_worked_by']+"</td>"
@@ -77,6 +78,7 @@ function populate_allocation_table(employee_report, ticket_report){
 					thtml+="<td>"+ticket_report[x]['customer']+"</td>"
 					thtml+="<td>"+ticket_report[x]['severity']+"</td>"
 					thtml+="<td>"+ticket_report[x]['category']+"</td>"
+					thtml+="<td>"+ticket_report[x]['old_category']+"</td>"
 					thtml+="<td>"+ticket_report[x]['status']+"</td>"
 					thtml+="<td style='text-align: left;'>"+ticket_report[x]['triage_recommendation']+"</td>"
 					thtml+="<td>"+ticket_report[x]['last_worked_by']+"</td>"
@@ -84,7 +86,7 @@ function populate_allocation_table(employee_report, ticket_report){
 				}
 				i+=1;
 			}
-			thtml+='<tr class="summary_row"><td colspan=8>Total - '+ticket_list.length+' Tickets</td></tr>'
+			thtml+='<tr class="summary_row"><td colspan=9>Total - '+ticket_list.length+' Tickets</td></tr>'
 		}
 
 		tbody.append(thtml);
@@ -109,6 +111,7 @@ function populate_allocation_table(employee_report, ticket_report){
 				thtml+="<td class='backlog-row'>"+ticket_report[x]['customer']+"</td>"
 				thtml+="<td class='backlog-row'>"+ticket_report[x]['severity']+"</td>"
 				thtml+="<td class='backlog-row'>"+ticket_report[x]['category']+"</td>"
+				thtml+="<td class='backlog-row'>"+ticket_report[x]['old_category']+"</td>"
 				thtml+="<td class='backlog-row'>"+ticket_report[x]['status']+"</td>"
 				thtml+="<td class='backlog-row' style='text-align: left;'>"+ticket_report[x]['triage_recommendation']+"</td>"
 				thtml+="<td class='backlog-row'>"+ticket_report[x]['last_worked_by']+"</td>"
@@ -120,6 +123,7 @@ function populate_allocation_table(employee_report, ticket_report){
 				thtml+="<td>"+ticket_report[x]['customer']+"</td>"
 				thtml+="<td>"+ticket_report[x]['severity']+"</td>"
 				thtml+="<td>"+ticket_report[x]['category']+"</td>"
+				thtml+="<td>"+ticket_report[x]['old_category']+"</td>"					
 				thtml+="<td>"+ticket_report[x]['status']+"</td>"
 				thtml+="<td style='text-align: left;'>"+ticket_report[x]['triage_recommendation']+"</td>"
 				thtml+="<td>"+ticket_report[x]['last_worked_by']+"</td>"
@@ -127,7 +131,7 @@ function populate_allocation_table(employee_report, ticket_report){
 			}
 			i+=1;
 		}
-		thtml+='<tr class="summary_row"><td colspan=8>Total - '+ticket_list.length+' Tickets</td></tr>'
+		thtml+='<tr class="summary_row"><td colspan=9>Total - '+ticket_list.length+' Tickets</td></tr>'
 
 		tbody.append(thtml);
 	}

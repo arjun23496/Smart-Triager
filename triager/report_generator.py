@@ -136,9 +136,10 @@ def generate_allocation_report(wb):
 	report_ws.column_dimensions['C'].width = 12
 	report_ws.column_dimensions['D'].width = 10
 	report_ws.column_dimensions['E'].width = 20
-	report_ws.column_dimensions['F'].width = 17
-	report_ws.column_dimensions['G'].width = 85
-	report_ws.column_dimensions['H'].width = 17
+	report_ws.column_dimensions['F'].width = 20
+	report_ws.column_dimensions['G'].width = 17
+	report_ws.column_dimensions['H'].width = 85
+	report_ws.column_dimensions['I'].width = 17
 
 	#Styles
 	style = {
@@ -165,6 +166,7 @@ def generate_allocation_report(wb):
 					'Customer',
 					'Severity',
 					'Category',
+					'Old Category',
 					'Status',
 					'Triage Recommendation',
 					'Last Worked By'
@@ -198,23 +200,24 @@ def generate_allocation_report(wb):
 					t_info['customer'],
 					t_info['severity'],
 					t_info['category'],
+					t_info['old_category'],
 					t_info['status']
 				]
 
 				style['alignment'] = Alignment(horizontal='center', vertical="center", wrap_text=True)
 				add_row(report_ws, row_index, row, style=style, start_index=1)
-				add_cell(report_ws, 'H'+str(row_index), t_info['last_worked_by'], style=style)
+				add_cell(report_ws, 'I'+str(row_index), t_info['last_worked_by'], style=style)
 
 				style['alignment'] = Alignment(horizontal='left', vertical="center", wrap_text=True)
 
 				if len(t_info['triage_recommendation']) > 100:
 					report_ws.row_dimensions[row_index].height = 40
 
-				add_cell(report_ws, 'G'+str(row_index), t_info['triage_recommendation'], style=style)
+				add_cell(report_ws, 'H'+str(row_index), t_info['triage_recommendation'], style=style)
 				row_index+=1
 
 			# row_index+=1
-			report_ws.merge_cells('A'+str(row_index)+':H'+str(row_index))
+			report_ws.merge_cells('A'+str(row_index)+':I'+str(row_index))
 
 			style = copy.deepcopy(content_style)
 			style['fill'] = PatternFill("solid", fgColor="FFFF00")
@@ -246,23 +249,24 @@ def generate_allocation_report(wb):
 				t_info['customer'],
 				t_info['severity'],
 				t_info['category'],
+				t_info['old_category'],
 				t_info['status']
 			]
 
 			style['alignment'] = Alignment(horizontal='center', vertical="center", wrap_text=True)
 			add_row(report_ws, row_index, row, style=style, start_index=1)
-			add_cell(report_ws, 'H'+str(row_index), t_info['last_worked_by'], style=style)
+			add_cell(report_ws, 'I'+str(row_index), t_info['last_worked_by'], style=style)
 
 			style['alignment'] = Alignment(horizontal='left', vertical="center", wrap_text=True)
 
 			if len(t_info['triage_recommendation']) > 100:
 				report_ws.row_dimensions[row_index].height = 40
 
-			add_cell(report_ws, 'G'+str(row_index), t_info['triage_recommendation'], style=style)
+			add_cell(report_ws, 'H'+str(row_index), t_info['triage_recommendation'], style=style)
 			row_index+=1
 
 		# row_index+=1
-		report_ws.merge_cells('A'+str(row_index)+':H'+str(row_index))
+		report_ws.merge_cells('A'+str(row_index)+':I'+str(row_index))
 
 		style = copy.deepcopy(content_style)
 		style['fill'] = PatternFill("solid", fgColor="FFFF00")

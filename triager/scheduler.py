@@ -171,6 +171,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 	ticket_report = {
 		"customer": "",
 		"severity": "",
+		"old_category": "",
 		"category": "",
 		"status": "",
 		"triage_recommendation": "",
@@ -219,6 +220,8 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 	# print pd.unique(df['ticket_number'])
 
+	df['old_category'] = pd.Series(['']*df.shape[0], index=df.index.values)
+
 	for index,row in df.iterrows():
 
 		temp = {}
@@ -241,8 +244,16 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 					coutput.cprint(row['category'], 'status_update', mode=output_mode)
 			if debug:
 				coutput.cprint("Imputing Category", 'status_update', mode=output_mode)
+
+			old_category = row['category']
 			temp['category']=transformations.category_imputer(df,index,row['ticket_number'],row['action_date'],ticket_dtime_format)
+			
+			if pd.isnull(old_category):
+				old_category = ""
+
+			df.set_value(index, 'old_category', old_category)
 			df.set_value(index, 'category', temp['category'])
+
 			triage_reco = row['triage_recommendation']
 			triage_reco += "Category determined by triager. "
 			df.set_value(index, 'triage_recommendation', triage_reco)
@@ -783,6 +794,7 @@ def execute(date_now, debug=True, thread=False, socketio=None, output_mode=2):
 
 		ticket_report['severity'] = row['severity']
 		ticket_report['category'] = row['category']
+		ticket_report['old_category'] = row['old_category']
 		ticket_report['customer'] = row['account_name']
 		ticket_report['status'] = row['status']
 		ticket_report['last_worked_by'] = last_worked_employee
