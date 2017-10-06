@@ -1,4 +1,5 @@
 import math
+import os
 
 import pandas as pd
 import numpy as np
@@ -11,52 +12,10 @@ from sklearn.feature_selection import *
 from sklearn.pipeline import FeatureUnion,Pipeline
 from sklearn import metrics
 
-#learners
-from sklearn.svm import LinearSVC
-from sklearn.naive_bayes import GaussianNB
-from sklearn.naive_bayes import BernoulliNB
-
 from utility.CouchInterface import CouchInterface
+from mappings.Ticket import csv_mapping
 
 ########################################## Transformers ##########################
-
-class ConvertCategoricalToInteger(BaseEstimator, TransformerMixin):
-    def __init__(self, categories, col=None):
-        self.col = col
-        self.categories = categories
-
-    def transform(self, X):
-        X[self.col] = pd.Categorical.from_array(X[self.col],categories=self.categories).codes
-        return X
-
-    def fit(self, X, y=None):
-        # self.categories = pd.unique(X[self.col])
-        return self
-
-
-class ColumnSelector(BaseEstimator,TransformerMixin):
-    def __init__(self, col):
-        self.col = col
-        
-    def transform(self, X):
-        return X[self.col]
-
-    def fit(self, X, y=None):
-        return self
-
-class ConvertDFToVector(BaseEstimator,TransformerMixin):
-    def transform(self,X):
-        a = np.ravel(X.values)
-        return a
-    def fit(self, X, y=None):
-        return self
-
-class ConvertSparseToDense(BaseEstimator, TransformerMixin):
-    def transform(self,X):
-        return X.toarray()
-
-    def fit(self, X, y=None):
-        return self
 
 #Classification metrics
 def multiclass_classification_metrics_report(actual_Y,pred_prob_Y, modes, cutoff):
@@ -118,124 +77,37 @@ def plot_auc_curves(actual_Y,pred_prob_Y,modes):
 
 ##########################################Main function start#####################
 
-def trainer(predict_field='category', split_factor=0.9, restricted_categories=[], restrict_prediction=False):
 
-    couchi = CouchInterface()
-    dataf = pd.DataFrame(couchi.get_all_documents('triager_tickets'))
+def batch_data_preprocessing(data):
+    ticket_list = pd.unique(data['ticket_number'])
 
-    if restrict_prediction:
-        dataf = dataf[dataf[predict_field].isin(restricted_categories)]
+    for ticket in ticket_list:
+        sub_data = data[data['ticket_number'] == ticket]
+        main_data = sub_data
+        if os.path.isfile('data/tickets/'+ticket+'.csv'):
+            main_data = pd.read_csv('data/tickets/'+ticket+'.csv')
+            main_data = main_data.append(sub_data, ignore_index=True)
+        main_data.drop_duplicates()
+        main_data.to_csv('data/tickets/'+ticket+'.csv')
 
-    dataf_train = []
-    dataf_test = []
 
-    if not restrict_prediction:
-        restricted_categories = pd.unique(dataf[predict_field])
-    
-    #Test-train-split
-    categories = pd.unique(dataf[predict_field])
+def structure_data(ticket_batch_list):
 
-    dataf = dataf.sample(frac=1)
+    for filename in ticket_batch_list:
+        print "Processing ",filename
+        df = pd.read_csv('data/'+filename+'.csv')
+        available_cols = []
+        mapped_cols = []
+        for x in df.columns:
+            try:
+                mapped_cols.append(csv_mapping[x])
+                available_cols.append(x)
+            except KeyError:
+                pass
 
-    mini = dataf.shape[0]
-
-    split = int(math.floor(split_factor*mini))
-    print "Split of train-test : ", split
-
-    # dataf_train = pd.concat(dataf_train)
-    # dataf_test = pd.concat(dataf_test)
-
-    # dataf_test = dataf_test[0:int(split*(1-split_factor))]
-
-    dataf_train = dataf.copy()[1:split]
-    dataf_test = dataf.copy()[split:]
-
-    vectorizer = TfidfVectorizer(analyzer='word',lowercase=True, max_df=0.90, min_df=1, stop_words='english', decode_error='ignore')
-    terms_tfidf = vectorizer.fit_transform(dataf_train['comments'])
-
-    #################################################Classifier Architecture
-
-    # learner = LinearSVC()
-    # learner = GaussianNB()
-    learner = BernoulliNB()
-
-    # Feature selection transformer
-    feature_selector = SelectKBest(score_func=chi2,k=50)
-
-    comments_extractor = Pipeline([
-                            ('selector', ColumnSelector('comments')),
-                            ('tf-idf', TfidfVectorizer(analyzer='word',lowercase=True, max_df=0.90, min_df=1, stop_words='english', decode_error='ignore'))
-                        ]);
-
-    detail_extractor = Pipeline([
-                            ('selector', ColumnSelector('detail')),
-                            ('tf-idf', TfidfVectorizer(analyzer='word',lowercase=True, max_df=0.90, min_df=1, stop_words='english', decode_error='ignore'))
-                        ]);
-
-    all_feature_extractor = FeatureUnion([
-                            ('extractor1', comments_extractor),
-                            ('extractor2', detail_extractor)
-                        ]);
-
-    clf_pipeline = Pipeline([
-                            ('feature_extractor_pre', all_feature_extractor),
-                            ('sparse_to_dense', ConvertSparseToDense()),#nb-change
-                            # ('feature_selector', feature_selector),
-                            # ('learner', learner)
-                        ])
-
-    target_transformer = Pipeline([
-                            ('label_converter', ConvertCategoricalToInteger(col=predict_field, categories=restricted_categories)),
-                            ('df_to_vector', ConvertDFToVector())
-                        ])
-
-    ###################################################Classifier Architecture End
-
-    actual_Y = {}
-    dataf_train_X = dataf_train[['detail','comments']]
-    dataf_test_X = dataf_test[['detail','comments']]
-    dataf_train_Y = dataf_train[[predict_field]]
-    dataf_test_Y = dataf_test[[predict_field]]
-
-    actual_Y['train'] = target_transformer.fit_transform(dataf_train_Y)
-    actual_Y['test'] = target_transformer.fit_transform(dataf_test_Y)
-
-    print 'target transformation complete'
-
-    print 'model training started'
-    print dataf_train.shape
-    print actual_Y['train'].shape
-    # learned_model = clf_pipeline.fit(dataf_train_X,actual_Y['train'])
-    learned_model = clf_pipeline.fit_transform(dataf_train_X,actual_Y['train']) #nb-change
-    learned_model = learner.fit(learned_model,actual_Y['train'])
-    # clf_pipeline = learner
-    print 'model training complete'
-
-    pred_prob_Y = {}
-    temp = clf_pipeline.transform(dataf_train)
-    pred_prob_Y['train'] = learner.predict(temp)
-    temp = clf_pipeline.transform(dataf_test)
-    pred_prob_Y['test'] = learner.predict(temp)
-
-    print "train prediction"
-    print "train size: ", len(pred_prob_Y['train'])
-    print pred_prob_Y['train']
-    print "train actual"
-    print actual_Y['train']
-    print "test prediction"
-    print "test size: ", len(pred_prob_Y['test'])
-    print pred_prob_Y['test']
-    print "test actual"
-    print actual_Y['test']
-
-    # classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
-    multiclass_classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
-    for x in range(0, len(restricted_categories)):
-        print x," : ",restricted_categories[x]
-
-    predictors = [ clf_pipeline, learner ]
-
-    return predictors
+        df = df[available_cols]
+        df.columns = mapped_cols
+        batch_data_preprocessing(df)
 
 # trainer()
 # trainer('severity')
