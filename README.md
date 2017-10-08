@@ -4,6 +4,17 @@
 
 - Python 2.7
 - Python virtual environment
+- Tensorflow
+- HDF5 Installation for local system
+
+# Neural Network Training
+
+- Create the following folders if it does not exist
+- ```triager/data/tickets```
+- ```triager/data/test_tickets```
+- ```triager/data/preprocessed```
+- ```triager/data/test_preprocessed```
+- Run the file ```python learner_driver.py``` daily after triage
 
 # Database Setup
 
@@ -42,4 +53,4 @@
 - While the script is running in new tab run ```python scheduler_server.py```
 - In the browser navigate to ```localhost:5000```
 
-~~**NOTE: The date is presently manually fed to the system. The date setting can be found in ```triager/driver.py``` line:54**~~
+<!-- ~~**NOTE: The date is presently manually fed to the system. The date setting can be found in ```triager/driver.py``` line:54**~~ -->

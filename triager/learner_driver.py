@@ -1,9 +1,12 @@
-import category_learner
+import category_learner_nn as category_learner
 import os
+import pandas as pd
+import numpy as np
+import json
 
 def neural_network_learn():
-	test_file_list = [ '06_July_2017' ]
-	train_file_list = [ '06_July_2017' ]
+	test_file_list = [ 'ticket_list' ]
+	train_file_list = [ 'ticket_list' ]
 
 	#Test and evaluate neural network
 	print "Evaluate pre train network"
@@ -18,7 +21,26 @@ def neural_network_learn():
 	category_learner.neural_network_trainer(resume_training=True)
 
 	print "Post Train Evaluation"
-	category_learner.neural_network_test()
+	evaluation = category_learner.neural_network_test()
+
+	print "Saving Debug info"
+	date = ""
+	with open(os.path.join(os.path.dirname(__file__),'data/scheduler_date.json'), 'rb') as fp:
+		date = json.load(fp)
+		date = date['date']+"/"+date['month']+"/"+date['year']
+
+	evaluation.append(date)
+	evaluation = [ evaluation ]
+	evaluation = np.array(evaluation)
+	evaluation_df = pd.DataFrame(evaluation, columns=['loss','accuracy','date'])
+	print evaluation_df
+
+	if os.path.isfile('report/neural_net.csv'):
+		df = pd.read_csv('report/neural_net.csv')
+		evaluation_df = evaluation_df.append(df, ignore_index=True)
+
+	evaluation_df = evaluation_df[ ['loss', 'accuracy', 'date'] ]
+	evaluation_df.to_csv('report/neural_net.csv')
 
 	directory_list = [ 'data/test_tickets', 'data/tickets', 'data/test_preprocessed', 'data/preprocessed' ]
 

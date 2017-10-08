@@ -1,20 +1,62 @@
 import math
-import os
-import pickle
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.externals import joblib
+from scipy.sparse import csr_matrix, find
+from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.feature_extraction.text import *
+from sklearn.feature_selection import *
+from sklearn.pipeline import FeatureUnion,Pipeline
 from sklearn import metrics
 
+#learners
+from sklearn.svm import LinearSVC
+from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import BernoulliNB
+
 from utility.CouchInterface import CouchInterface
-from mappings.Ticket import csv_mapping
-from neural_network import NeuralNetwork
 
 ########################################## Transformers ##########################
+
+class ConvertCategoricalToInteger(BaseEstimator, TransformerMixin):
+    def __init__(self, categories, col=None):
+        self.col = col
+        self.categories = categories
+
+    def transform(self, X):
+        X[self.col] = pd.Categorical.from_array(X[self.col],categories=self.categories).codes
+        return X
+
+    def fit(self, X, y=None):
+        # self.categories = pd.unique(X[self.col])
+        return self
+
+
+class ColumnSelector(BaseEstimator,TransformerMixin):
+    def __init__(self, col):
+        self.col = col
+        
+    def transform(self, X):
+        return X[self.col]
+
+    def fit(self, X, y=None):
+        return self
+
+class ConvertDFToVector(BaseEstimator,TransformerMixin):
+    def transform(self,X):
+        a = np.ravel(X.values)
+        return a
+    def fit(self, X, y=None):
+        return self
+
+class ConvertSparseToDense(BaseEstimator, TransformerMixin):
+    def transform(self,X):
+        return X.toarray()
+
+    def fit(self, X, y=None):
+        return self
 
 #Classification metrics
 def multiclass_classification_metrics_report(actual_Y,pred_prob_Y, modes, cutoff):
@@ -76,243 +118,124 @@ def plot_auc_curves(actual_Y,pred_prob_Y,modes):
 
 ##########################################Main function start#####################
 
+def trainer(predict_field='category', split_factor=0.9, restricted_categories=[], restrict_prediction=False):
 
-def batch_data_preprocessing(data, directory):
-    ticket_list = pd.unique(data['ticket_number'])
+    couchi = CouchInterface()
+    dataf = pd.DataFrame(couchi.get_all_documents('triager_tickets'))
 
-    for ticket in ticket_list:
-        sub_data = data[data['ticket_number'] == ticket]
-        main_data = sub_data
-        if os.path.isfile(directory+ticket+'.csv'):
-            main_data = pd.read_csv(directory+ticket+'.csv')
-            main_data = main_data.append(sub_data, ignore_index=True)
-        main_data.drop_duplicates()
-        main_data.to_csv(directory+ticket+'.csv')
+    if restrict_prediction:
+        dataf = dataf[dataf[predict_field].isin(restricted_categories)]
+
+    dataf_train = []
+    dataf_test = []
+
+    if not restrict_prediction:
+        restricted_categories = pd.unique(dataf[predict_field])
+    
+    #Test-train-split
+    categories = pd.unique(dataf[predict_field])
+
+    dataf = dataf.sample(frac=1)
+
+    mini = dataf.shape[0]
 
-
-def structure_data(ticket_batch_list, directory='data/tickets/'):
-
-    for filename in ticket_batch_list:
-        print "Processing ",filename
-        df = pd.read_csv('data/'+filename+'.csv')
-        available_cols = []
-        mapped_cols = []
-        for x in df.columns:
-            try:
-                mapped_cols.append(csv_mapping[x])
-                available_cols.append(x)
-            except KeyError:
-                pass
-
-        df = df[available_cols]
-        df.columns = mapped_cols
-        batch_data_preprocessing(df, directory)
-
-
-def preprocess_and_save(ticket_directory='data/tickets/', save_directory='data/preprocessed/', learn=False):
-
-    #Hyperparameters
-    max_features = 1000
-    max_df=0.8      #idf threshold
-    min_df=0.8        #min idf threshold
-    #End Hyperparameters
-
-    file_list = os.listdir(ticket_directory)
-    number_of_files = len(file_list)
-
-    useful_columns = [ 'comments', 'detail', 'category' ]
-
-    complete_df = None
-
-    #Learn TF-IDF Features
-    print "Find TF IDF Vectors"
-    for x in xrange(number_of_files):
-        filename = file_list[x]
-        # print "Processing ",filename," ",x,"/",number_of_files
-
-        df = pd.read_csv(ticket_directory+filename)
-        df = df[useful_columns]
-
-        if x==0:
-            complete_df = df
-        else:
-            complete_df = complete_df.append(df)
-
-    tf_vectorizer_comments = None
-    tf_vectorizer_detail = None
-
-    complete_df[complete_df['comments'].isnull()] = ''
-    complete_df[complete_df['detail'].isnull()] = ''
-
-    if learn:
-
-        tf_vectorizer_comments = TfidfVectorizer(analyzer='word', max_features=max_features, lowercase=True, stop_words='english', decode_error='ignore')
-        tf_vectorizer_detail = TfidfVectorizer(analyzer='word', max_features=max_features, lowercase=True, stop_words='english', decode_error='ignore')    
-
-        tf_vectorizer_comments.fit(complete_df['comments'])
-        tf_vectorizer_detail.fit(complete_df['detail'])
-
-        #Save Learned Model
-        joblib.dump(tf_vectorizer_comments,'predictors/category/commentstfidf.pkl')
-        joblib.dump(tf_vectorizer_detail,'predictors/category/detailtfidf.pkl')
-        print "TF-IDF models saved"
-    else:
-        print "Loading tfidf models"
-        tf_vectorizer_comments = joblib.load('predictors/category/commentstfidf.pkl')
-        tf_vectorizer_detail = joblib.load('predictors/category/commentstfidf.pkl')
-
-    #Save Data
-    print "Transforming and saving inputs"
-    for x in xrange(number_of_files):
-        filename = file_list[x]
-        # print "Transforming and saving ",filename," ",x,"/",number_of_files
-
-        df = pd.read_csv(ticket_directory+filename)
-        df = df[useful_columns]
-
-        df[df['category'].isnull()] = "n"
-        df[df['comments'].isnull()] = ""
-        df[df['detail'].isnull()] = ""
-
-        comment_vectorizer_results = pd.DataFrame(tf_vectorizer_comments.transform(df['comments']).toarray(), columns=tf_vectorizer_comments.get_feature_names())
-        detail_vectorizer_results = pd.DataFrame(tf_vectorizer_detail.transform(df['detail']).toarray(), columns=tf_vectorizer_detail.get_feature_names())
-
-        del df['detail']
-        del df['comments']
-
-        column_names = ['category']
-        column_names.extend(tf_vectorizer_comments.get_feature_names())
-        column_names.extend(tf_vectorizer_detail.get_feature_names())
-
-        df = pd.concat([df, comment_vectorizer_results, detail_vectorizer_results], axis=1, ignore_index=True)
-        df.columns = column_names
-        df.to_csv(save_directory+filename)
-
-
-def neural_network_test(weight_file='predictors/neural_network/weights.h5'):
-    file_list = os.listdir('data/test_preprocessed')
-    number_of_files = len(file_list)
-    model = NeuralNetwork()
-
-    complete = None
-
-    for x in xrange(number_of_files):
-        # print "Processing ",x,'/',number_of_files
-        filename = file_list[x]
-
-        df = pd.read_csv('data/test_preprocessed/'+filename)
-
-        if x == 0:
-            complete = df
-        else:
-            complete = complete.append(df, ignore_index=True)
-
-    complete = complete[complete['category'].notnull()]
-    complete = complete.values
-
-    X = complete[:,2:]
-    y = complete[:,1]
-
-    # print X.shape
-    # print y.shape
-    # print complete
-
-    categories = { 'S - Map Change': 0, 'S - Mapping Request': 1, 'S - Map Research': 2, 'S - PER - New Map': 3, 'S - PER - Map Change': 4, 'n': 3  }
-
-    def mapping_function(x):
-        try:
-            return categories[x]
-        except KeyError:
-            return 4
-
-    mapper = np.vectorize(mapping_function)
-
-    y = mapper(y)
-
-    y_normalized = np.zeros((y.shape[0], 5))
-    y_normalized[:, y] = 1
-
-    print "Loading neural network weights"
-    model.load_weights(weight_file)
-
-    print "Test Evaluate model"
-    evaluation = model.evaluate(X, y_normalized)
-    print "Accuracy : ",evaluation[1]
-
-
-def neural_network_trainer(train_frac = 0.8, number_of_folds=5, resume_training=False):
-    file_list = os.listdir('data/preprocessed')
-    number_of_files = len(file_list)
-
-    model = NeuralNetwork()
-
-    if resume_training:
-        model.load_weights('predictors/neural_network/weights.h5')
-
-    complete = None
-
-    for x in xrange(number_of_files):
-        # print "Processing ",x,'/',number_of_files
-        filename = file_list[x]
-
-        df = pd.read_csv('data/preprocessed/'+filename)
-
-        # print df.shape
-
-        if x == 0:
-            complete = df
-        else:
-            complete = complete.append(df, ignore_index=True)
-
-    print "Shuffling and imputing null values"
-    complete = complete.sample(frac=1).reset_index(drop=True)
-    # complete[complete['category'].isnull()] = 'n'
-    # print pd.unique(complete['category'])
-    complete = complete.values
-
-    random_index = np.random.choice(range(complete.shape[0]), int(train_frac*complete.shape[0]))
-    test_index = [x for x in range(complete.shape[0]) if x not in random_index]
-
-    categories = { 'S - Map Change': 0, 'S - Mapping Request': 1, 'S - Map Research': 2, 'S - PER - New Map': 3, 'S - PER - Map Change': 4, 'n': 3  }
-
-    def mapping_function(x):
-        try:
-            return categories[x]
-        except KeyError:
-            return 4
-
-    mapper = np.vectorize(mapping_function)
-
-    print "Creating Test and Train sets"
-
-    X_train = complete[random_index, 2:]
-    y_train = complete[random_index, 1]
-
-    y_train = mapper(y_train)
-    print y_train
-
-    X_test = complete[test_index, 2:]
-    y_test = complete[test_index, 1]
-
-    y_test = mapper(y_test)
-    print y_test
-
-    y_train_normalized = np.zeros((y_train.shape[0], 5))
-    y_test_normalized = np.zeros((y_test.shape[0], 5))
-
-    print "Convert Categorical y to numpy array"
-
-    y_train_normalized[:,y_train] = 1
-    y_test_normalized[:, y_test] = 1
-
-    print "Training Neural Network"
-    model.train(X_train, y_train_normalized, epochs=200, batch_size=int(y_train.shape[0]/number_of_folds))
-
-    print "Evaluating test data"
-    print model.evaluate(X_test, y_test_normalized, batch_size=int(y_test_normalized.shape[0]/number_of_folds))
-
-    print "Saving Model"
-    model.persist_model('predictors/neural_network/weights.h5')
-    print "Saved Exiting"
-
-    print "***********Remove files from the \"data/preprocessed\" directory and \"data/tickets\" directory********************"
+    split = int(math.floor(split_factor*mini))
+    print "Split of train-test : ", split
+
+    # dataf_train = pd.concat(dataf_train)
+    # dataf_test = pd.concat(dataf_test)
+
+    # dataf_test = dataf_test[0:int(split*(1-split_factor))]
+
+    dataf_train = dataf.copy()[1:split]
+    dataf_test = dataf.copy()[split:]
+
+    vectorizer = TfidfVectorizer(analyzer='word',lowercase=True, max_df=0.90, min_df=1, stop_words='english', decode_error='ignore')
+    terms_tfidf = vectorizer.fit_transform(dataf_train['comments'])
+
+    #################################################Classifier Architecture
+
+    # learner = LinearSVC()
+    # learner = GaussianNB()
+    learner = BernoulliNB()
+
+    # Feature selection transformer
+    feature_selector = SelectKBest(score_func=chi2,k=50)
+
+    comments_extractor = Pipeline([
+                            ('selector', ColumnSelector('comments')),
+                            ('tf-idf', TfidfVectorizer(analyzer='word',lowercase=True, max_df=0.90, min_df=1, stop_words='english', decode_error='ignore'))
+                        ]);
+
+    detail_extractor = Pipeline([
+                            ('selector', ColumnSelector('detail')),
+                            ('tf-idf', TfidfVectorizer(analyzer='word',lowercase=True, max_df=0.90, min_df=1, stop_words='english', decode_error='ignore'))
+                        ]);
+
+    all_feature_extractor = FeatureUnion([
+                            ('extractor1', comments_extractor),
+                            ('extractor2', detail_extractor)
+                        ]);
+
+    clf_pipeline = Pipeline([
+                            ('feature_extractor_pre', all_feature_extractor),
+                            ('sparse_to_dense', ConvertSparseToDense()),#nb-change
+                            # ('feature_selector', feature_selector),
+                            # ('learner', learner)
+                        ])
+
+    target_transformer = Pipeline([
+                            ('label_converter', ConvertCategoricalToInteger(col=predict_field, categories=restricted_categories)),
+                            ('df_to_vector', ConvertDFToVector())
+                        ])
+
+    ###################################################Classifier Architecture End
+
+    actual_Y = {}
+    dataf_train_X = dataf_train[['detail','comments']]
+    dataf_test_X = dataf_test[['detail','comments']]
+    dataf_train_Y = dataf_train[[predict_field]]
+    dataf_test_Y = dataf_test[[predict_field]]
+
+    actual_Y['train'] = target_transformer.fit_transform(dataf_train_Y)
+    actual_Y['test'] = target_transformer.fit_transform(dataf_test_Y)
+
+    print 'target transformation complete'
+
+    print 'model training started'
+    print dataf_train.shape
+    print actual_Y['train'].shape
+    # learned_model = clf_pipeline.fit(dataf_train_X,actual_Y['train'])
+    learned_model = clf_pipeline.fit_transform(dataf_train_X,actual_Y['train']) #nb-change
+    learned_model = learner.fit(learned_model,actual_Y['train'])
+    # clf_pipeline = learner
+    print 'model training complete'
+
+    pred_prob_Y = {}
+    temp = clf_pipeline.transform(dataf_train)
+    pred_prob_Y['train'] = learner.predict(temp)
+    temp = clf_pipeline.transform(dataf_test)
+    pred_prob_Y['test'] = learner.predict(temp)
+
+    print "train prediction"
+    print "train size: ", len(pred_prob_Y['train'])
+    print pred_prob_Y['train']
+    print "train actual"
+    print actual_Y['train']
+    print "test prediction"
+    print "test size: ", len(pred_prob_Y['test'])
+    print pred_prob_Y['test']
+    print "test actual"
+    print actual_Y['test']
+
+    # classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
+    multiclass_classification_metrics_report(actual_Y,pred_prob_Y,['train','test'],0.6)
+    for x in range(0, len(restricted_categories)):
+        print x," : ",restricted_categories[x]
+
+    predictors = [ clf_pipeline, learner ]
+
+    return predictors
+
+# trainer()
+# trainer('severity')
